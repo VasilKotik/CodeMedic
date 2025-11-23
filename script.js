@@ -6,19 +6,19 @@ const getApiUrl = () => `https://generativelanguage.googleapis.com/v1beta/models
 
 const TRANSLATIONS = {
     uk: {
-        langName: "Українська", modeDebug: "Виправити", modeOptimize: "Оптимізувати", modeExplain: "Пояснити", inputLabel: "Вхідний Код", outputLabel: "Рішення та Аналіз", clearBtn: "Очистити", runBtn: "Запуск", copyBtn: "Копіювати", analysisHeader: "Аналіз", changesHeader: "Що було зроблено:", emptyTitle: "Готовий до роботи", emptyDesc: "Вставте код та оберіть дію.", loading: "ШІ аналізує...", placeholder: "// Вставте сюди код...", clearHistory: "Очистити історію", historyEmpty: "Історія порожня", confirmClear: "Ви впевнені?", errorKey: "Помилка ключа API", errorEmpty: "Введіть код"
+        langName: "Українська", newChatBtn: "Новий чат", donateBtn: "Кава розробнику", modeDebug: "Виправити", modeOptimize: "Оптимізувати", modeExplain: "Пояснити", inputLabel: "Вхідний Код", outputLabel: "Рішення та Аналіз", clearBtn: "Очистити", runBtn: "Запуск", copyBtn: "Копіювати", analysisHeader: "Аналіз", changesHeader: "Що було зроблено:", emptyTitle: "Готовий до роботи", emptyDesc: "Вставте код та оберіть дію.", loading: "ШІ аналізує...", placeholder: "// Вставте сюди код...", clearHistory: "Очистити історію", historyEmpty: "Історія порожня", confirmClear: "Ви впевнені?", errorKey: "Помилка ключа API", errorEmpty: "Введіть код"
     },
     en: {
-        langName: "English", modeDebug: "Fix Code", modeOptimize: "Optimize", modeExplain: "Explain", inputLabel: "Input Code", outputLabel: "Solution & Analysis", clearBtn: "Clear", runBtn: "Run", copyBtn: "Copy", analysisHeader: "Analysis", changesHeader: "Key Changes:", emptyTitle: "Ready to help", emptyDesc: "Paste code and select an action.", loading: "AI is thinking...", placeholder: "// Paste your code here...", clearHistory: "Clear History", historyEmpty: "History empty", confirmClear: "Are you sure?", errorKey: "API Key Error", errorEmpty: "Please enter code"
+        langName: "English", newChatBtn: "New Chat", donateBtn: "Buy me a coffee", modeDebug: "Fix Code", modeOptimize: "Optimize", modeExplain: "Explain", inputLabel: "Input Code", outputLabel: "Solution & Analysis", clearBtn: "Clear", runBtn: "Run", copyBtn: "Copy", analysisHeader: "Analysis", changesHeader: "Key Changes:", emptyTitle: "Ready to help", emptyDesc: "Paste code and select an action.", loading: "AI is thinking...", placeholder: "// Paste your code here...", clearHistory: "Clear History", historyEmpty: "History empty", confirmClear: "Are you sure?", errorKey: "API Key Error", errorEmpty: "Please enter code"
     },
     pl: {
-        langName: "Polski", modeDebug: "Napraw", modeOptimize: "Optymalizuj", modeExplain: "Wyjaśnij", inputLabel: "Kod Wejściowy", outputLabel: "Rozwiązanie i Analiza", clearBtn: "Wyczyść", runBtn: "Uruchom", copyBtn: "Kopiuj", analysisHeader: "Analiza", changesHeader: "Kluczowe zmiany:", emptyTitle: "Gotowy do pracy", emptyDesc: "Wklej kod i wybierz akcję.", loading: "AI analizuje...", placeholder: "// Wklej tutaj swój kod...", clearHistory: "Wyczyść historię", historyEmpty: "Pusta historia", confirmClear: "Jesteś pewien?", errorKey: "Błąd klucza API", errorEmpty: "Wprowadź kod"
+        langName: "Polski", newChatBtn: "Nowy czat", donateBtn: "Postaw kawę", modeDebug: "Napraw", modeOptimize: "Optymalizuj", modeExplain: "Wyjaśnij", inputLabel: "Kod Wejściowy", outputLabel: "Rozwiązanie i Analiza", clearBtn: "Wyczyść", runBtn: "Uruchom", copyBtn: "Kopiuj", analysisHeader: "Analiza", changesHeader: "Kluczowe zmiany:", emptyTitle: "Gotowy do pracy", emptyDesc: "Wklej kod i wybierz akcję.", loading: "AI analizuje...", placeholder: "// Wklej tutaj swój kod...", clearHistory: "Wyczyść historię", historyEmpty: "Pusta historia", confirmClear: "Jesteś pewien?", errorKey: "Błąd klucza API", errorEmpty: "Wprowadź kod"
     },
     es: {
-        langName: "Español", modeDebug: "Corregir", modeOptimize: "Optimizar", modeExplain: "Explicar", inputLabel: "Código de Entrada", outputLabel: "Solución y Análisis", clearBtn: "Borrar", runBtn: "Ejecutar", copyBtn: "Copiar", analysisHeader: "Análisis", changesHeader: "Cambios clave:", emptyTitle: "Listo para trabajar", emptyDesc: "Pega el código y selecciona una acción.", loading: "IA pensando...", placeholder: "// Pega tu código aquí...", clearHistory: "Borrar historial", historyEmpty: "Historial vacío", confirmClear: "¿Estás seguro?", errorKey: "Error de clave API", errorEmpty: "Por favor, introduce código"
+        langName: "Español", newChatBtn: "Nuevo chat", donateBtn: "Invítame un café", modeDebug: "Corregir", modeOptimize: "Optimizar", modeExplain: "Explicar", inputLabel: "Código de Entrada", outputLabel: "Solución y Análisis", clearBtn: "Borrar", runBtn: "Ejecutar", copyBtn: "Copiar", analysisHeader: "Análisis", changesHeader: "Cambios clave:", emptyTitle: "Listo para trabajar", emptyDesc: "Pega el código y selecciona una acción.", loading: "IA pensando...", placeholder: "// Pega tu código aquí...", clearHistory: "Borrar historial", historyEmpty: "Historial vacío", confirmClear: "¿Estás seguro?", errorKey: "Error de clave API", errorEmpty: "Por favor, introduce código"
     },
     de: {
-        langName: "Deutsch", modeDebug: "Korrigieren", modeOptimize: "Optimieren", modeExplain: "Erklären", inputLabel: "Eingabecode", outputLabel: "Lösung & Analyse", clearBtn: "Löschen", runBtn: "Ausführen", copyBtn: "Kopieren", analysisHeader: "Analyse", changesHeader: "Wichtige Änderungen:", emptyTitle: "Bereit", emptyDesc: "Code einfügen und Aktion wählen.", loading: "KI denkt nach...", placeholder: "// Code hier einfügen...", clearHistory: "Verlauf löschen", historyEmpty: "Verlauf leer", confirmClear: "Sind Sie sicher?", errorKey: "API-Schlüssel Fehler", errorEmpty: "Bitte Code eingeben"
+        langName: "Deutsch", newChatBtn: "Neuer Chat", donateBtn: "Kaffee spendieren", modeDebug: "Korrigieren", modeOptimize: "Optimieren", modeExplain: "Erklären", inputLabel: "Eingabecode", outputLabel: "Lösung & Analyse", clearBtn: "Löschen", runBtn: "Ausführen", copyBtn: "Kopieren", analysisHeader: "Analyse", changesHeader: "Wichtige Änderungen:", emptyTitle: "Bereit", emptyDesc: "Code einfügen und Aktion wählen.", loading: "KI denkt nach...", placeholder: "// Code hier einfügen...", clearHistory: "Verlauf löschen", historyEmpty: "Verlauf leer", confirmClear: "Sind Sie sicher?", errorKey: "API-Schlüssel Fehler", errorEmpty: "Bitte Code eingeben"
     }
 };
 
@@ -44,7 +44,8 @@ const elements = {
     modeBtns: document.querySelectorAll('.mode-btn'),
     copyBtn: document.getElementById('copy-btn'),
     sidebar: document.getElementById('sidebar'),
-    changesBlock: document.getElementById('changes-block')
+    changesBlock: document.getElementById('changes-block'),
+    newChatBtn: document.getElementById('new-chat-btn')
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -65,6 +66,9 @@ function setupEventListeners() {
     document.getElementById('clear-history-btn').addEventListener('click', clearHistory);
     document.getElementById('toggle-sidebar').addEventListener('click', () => elements.sidebar.classList.toggle('hidden'));
     elements.interfaceLangSelect.addEventListener('change', (e) => updateInterfaceLanguage(e.target.value));
+    
+    // New Chat Listener
+    elements.newChatBtn.addEventListener('click', startNewChat);
 }
 
 function updateInterfaceLanguage(lang) {
@@ -91,6 +95,24 @@ function setMode(mode) {
             : 'mode-btn px-3 py-1.5 rounded text-xs font-bold transition-all flex items-center text-slate-400 hover:text-white hover:bg-slate-700';
     });
     elements.runBtnText.innerText = t[modeKeys[mode]] || t.runBtn;
+}
+
+function startNewChat() {
+    // Clear Inputs
+    elements.input.value = '';
+    elements.input.focus();
+    
+    // Reset UI State
+    showError(null);
+    elements.loadingOverlay.classList.add('hidden');
+    
+    // Hide Results, Show Empty State
+    elements.outputContainer.classList.add('hidden');
+    elements.emptyState.classList.remove('hidden');
+    elements.copyBtn.classList.add('hidden');
+    
+    // Reset Mode to Debug (optional)
+    setMode('debug');
 }
 
 function stripMarkdown(text) {
