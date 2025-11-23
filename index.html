@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMedic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-900 text-slate-200 h-screen flex overflow-hidden font-inter">
+
+    <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col hidden md:flex transition-all duration-300" id="sidebar">
+        <div class="p-4 border-b border-slate-800 flex items-center space-x-3">
+            <div class="bg-blue-600 w-8 h-8 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <i class="fa-solid fa-code text-white text-sm"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-white">CodeMedic</span>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-3 space-y-2" id="history-list"></div>
+
+        <div class="p-4 border-t border-slate-800">
+            <button id="clear-history-btn" class="w-full text-xs text-slate-500 hover:text-red-400 transition flex items-center justify-center py-2">
+                <i class="fa-solid fa-trash mr-2"></i> <span data-i18n="clearHistory">Очистити історію</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full relative">
+        <header class="h-16 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 sm:px-6">
+            <div class="flex items-center space-x-4">
+                <button class="md:hidden text-slate-400 hover:text-white" id="toggle-sidebar">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                        <i class="fa-solid fa-earth-americas text-slate-500 text-xs"></i>
+                    </div>
+                    <select id="interface-lang" class="bg-slate-800 text-slate-200 text-xs font-bold py-1.5 pl-7 pr-2 rounded border border-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer hover:bg-slate-750 transition uppercase w-20">
+                        <option value="uk">UA</option>
+                        <option value="en">EN</option>
+                        <option value="pl">PL</option>
+                        <option value="es">ES</option>
+                        <option value="de">DE</option>
+                    </select>
+                </div>
+
+                <div class="h-6 w-px bg-slate-700 mx-2"></div>
+
+                <div class="relative group">
+                    <select id="language-select" class="bg-slate-800 text-slate-200 text-sm font-medium py-1.5 pl-3 pr-8 rounded border border-slate-700 focus:outline-none focus:border-blue-500 appearance-none cursor-pointer hover:bg-slate-750 transition">
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="HTML/CSS">HTML/CSS</option>
+                        <option value="Java">Java</option>
+                        <option value="C++">C++</option>
+                        <option value="SQL">SQL</option>
+                        <option value="PHP">PHP</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 p-1 rounded-lg flex space-x-1">
+                <button data-mode="debug" class="mode-btn px-3 py-1.5 rounded text-xs font-bold transition-all flex items-center bg-blue-600 text-white shadow-md">
+                    <i class="fa-solid fa-wrench mr-2"></i> <span data-i18n="modeDebug">Виправити</span>
+                </button>
+                <button data-mode="optimize" class="mode-btn px-3 py-1.5 rounded text-xs font-bold transition-all flex items-center text-slate-400 hover:text-white hover:bg-slate-700">
+                    <i class="fa-solid fa-gauge-high mr-2"></i> <span data-i18n="modeOptimize">Оптимізувати</span>
+                </button>
+                <button data-mode="explain" class="mode-btn px-3 py-1.5 rounded text-xs font-bold transition-all flex items-center text-slate-400 hover:text-white hover:bg-slate-700">
+                    <i class="fa-solid fa-list-check mr-2"></i> <span data-i18n="modeExplain">Пояснити</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+            <div class="flex-1 flex flex-col border-r border-slate-800 min-h-[50%] md:min-h-0 bg-slate-900">
+                <div class="px-4 py-2 bg-slate-900 border-b border-slate-800 flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" data-i18n="inputLabel">Вхідний Код</span>
+                    <button id="clear-input-btn" class="text-xs text-slate-500 hover:text-white transition">
+                        <i class="fa-solid fa-eraser mr-1"></i> <span data-i18n="clearBtn">Очистити</span>
+                    </button>
+                </div>
+                <textarea id="input-code" class="flex-1 w-full bg-[#0f172a] text-slate-300 p-4 code-font text-sm resize-none focus:outline-none focus:ring-1 focus:ring-blue-500/50 placeholder-slate-600" spellcheck="false"></textarea>
+                
+                <div class="p-4 border-t border-slate-800 bg-slate-900">
+                    <button id="run-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all transform active:scale-[0.98] flex items-center justify-center">
+                        <i class="fa-solid fa-play mr-2"></i> 
+                        <span id="run-btn-text" data-i18n="runBtn">Запуск</span>
+                    </button>
+                    <p id="error-msg" class="text-red-400 text-xs mt-2 hidden text-center"></p>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col bg-[#1e1e1e] min-h-[50%] md:min-h-0 relative">
+                <div class="px-4 py-2 bg-[#252526] border-b border-[#333] flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider" data-i18n="outputLabel">Рішення та Аналіз</span>
+                    <button id="copy-btn" class="text-xs text-blue-400 hover:text-blue-300 transition font-medium hidden">
+                        <i class="fa-regular fa-copy mr-1"></i> <span data-i18n="copyBtn">Копіювати</span>
+                    </button>
+                </div>
+
+                <div id="loading-overlay" class="absolute inset-0 bg-[#1e1e1e]/90 z-20 flex flex-col items-center justify-center hidden">
+                    <div class="loader mb-4 border-t-blue-500"></div>
+                    <p class="text-slate-300 text-sm animate-pulse" id="loading-text">ШІ думає...</p>
+                </div>
+
+                <div id="output-container" class="flex-1 overflow-y-auto p-4 space-y-6 hidden">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+                        <div class="bg-slate-800 px-4 py-2 border-b border-slate-700 flex items-center">
+                            <i class="fa-solid fa-magnifying-glass text-blue-400 mr-2 text-sm"></i>
+                            <h3 class="text-xs font-bold text-slate-300 uppercase" data-i18n="analysisHeader">Аналіз</h3>
+                        </div>
+                        <div class="p-4 text-slate-300 text-sm leading-relaxed" id="output-explanation"></div>
+                        <div class="px-4 py-3 bg-slate-900/50 border-t border-slate-800" id="changes-block">
+                            <h4 class="text-[10px] font-bold text-slate-500 uppercase mb-2" data-i18n="changesHeader">Зміни:</h4>
+                            <ul class="space-y-1" id="output-changes"></ul>
+                        </div>
+                    </div>
+
+                    <div class="relative group rounded-lg overflow-hidden border border-slate-700 shadow-2xl">
+                        <div class="absolute top-2 right-2 px-2 py-1 bg-black/50 text-[10px] text-slate-400 rounded backdrop-blur-sm">Fixed Code</div>
+                        <pre class="m-0 !bg-[#1e1e1e] !p-4 !margin-0"><code id="output-code" class="language-javascript code-font text-sm"></code></pre>
+                    </div>
+                </div>
+
+                <div id="empty-state" class="flex-1 flex flex-col items-center justify-center text-slate-600 p-8 text-center opacity-60 hover:opacity-100 transition duration-500">
+                    <i class="fa-solid fa-terminal text-6xl mb-4 text-slate-700"></i>
+                    <h3 class="text-lg font-medium text-slate-500" data-i18n="emptyTitle">Готовий до роботи</h3>
+                    <p class="text-sm mt-2 max-w-xs" data-i18n="emptyDesc">Вставте код та оберіть дію.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
