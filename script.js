@@ -723,9 +723,27 @@ function renderOutput(data, lang) {
     const codeBlock = els.outputCode;
     codeBlock.className = 'code-font text-sm';
     codeBlock.textContent = data.fixedCode;
-    codeBlock.classList.add(`language-${{'JavaScript':'javascript','Python':'python','HTML/CSS':'html'}[lang]||'clike'}`);
     
-    if (window.Prism) Prism.highlightElement(codeBlock);
+    // Safe language class assignment
+    const languageMap = {
+        'JavaScript': 'javascript',
+        'Python': 'python',
+        'HTML/CSS': 'html',
+        'Java': 'java',
+        'C++': 'cpp',
+        'PHP': 'php',
+        'SQL': 'sql'
+    };
+    const prismClass = languageMap[lang] || 'plaintext';
+    codeBlock.classList.add(`language-${prismClass}`);
+    
+    if (window.Prism) {
+        try {
+            Prism.highlightElement(codeBlock);
+        } catch (e) {
+            console.warn("Prism highlight error:", e);
+        }
+    }
 
     if (['HTML/CSS', 'JavaScript'].includes(lang)) {
         els.tabPreview.classList.remove('hidden');
