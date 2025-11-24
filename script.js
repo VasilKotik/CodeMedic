@@ -1,71 +1,164 @@
 const apiKey = "AIzaSyA5oYnLJnxuXThSkqk5kfbaQ3mw0XspcxQ"; 
 const getApiUrl = (model) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-// --- DATA: EXTENDED TIPS & FACTS ---
-const BASE_TIPS = [
-    { title: "DRY: Don't Repeat Yourself", desc: "Принцип програмування, який спрямований на зменшення повторення інформації. Кожна частина знань повинна мати єдине, однозначне представлення в системі. Якщо ви пишете один і той же код двічі — створіть функцію." },
-    { title: "KISS: Keep It Simple, Stupid", desc: "Більшість систем працюють найкраще, якщо вони залишаються простими. Уникайте непотрібної складності. Код повинен бути зрозумілим для людини, яка читатиме його через пів року (це можете бути ви!)." },
-    { title: "YAGNI: You Aren't Gonna Need It", desc: "Не додавайте функціональність, доки вона дійсно не знадобиться. Спроба передбачити майбутнє часто призводить до написання 'мертвого' коду, який лише ускладнює підтримку." },
-    { title: "Коментуйте 'Чому', а не 'Як'", desc: "Код сам по собі показує, 'як' він працює. Коментарі потрібні для пояснення неочевидних рішень, бізнес-логіки або дивних хаків. Не пишіть 'i++ // збільшити i на 1'." },
-    { title: "Fail Fast (Швидка відмова)", desc: "Перевіряйте умови помилок на початку функції та одразу повертайте результат/викидайте помилку. Це зменшує вкладеність if/else і робить код лінійним та чистішим." },
-    { title: "Async/Await замість Callbacks", desc: "У сучасному JavaScript для асинхронних операцій завжди віддавайте перевагу async/await. Це робить асинхронний код схожим на синхронний, що значно полегшує його розуміння та відлагодження." },
-    { title: "Іменування змінних", desc: "Ім'я змінної має чітко відповідати на питання: що тут зберігається? Використовуйте `isUserLoggedIn` замість `flag` або `userActive`. Код читається частіше, ніж пишеться." },
-    { title: "Single Responsibility Principle", desc: "Функція або клас повинні робити лише одну річ і робити її добре. Якщо ваша функція називається `processUserDataAndSaveToDbAndSendEmail`, її варто розділити на три." }
-];
+// --- DATA: LOCARLIZED CONTENT POOLS ---
 
-const FUN_FACTS = [
-    "Перший комп'ютерний 'баг' був справжнім метеликом, який застряг у реле комп'ютера Mark II у 1947 році. Грейс Гоппер вклеїла його в журнал.",
-    "Python назвали на честь британського комедійного шоу 'Летючий цирк Монті Пайтона', а не на честь змії. Гвідо ван Россум був фанатом шоу.",
-    "Назва 'Java' виникла випадково під час кава-брейку. Розробники пили каву сорту Peet's Java. Спочатку мову хотіли назвати Oak (Дуб).",
-    "Перший веб-сайт (info.cern.ch) був запущений Тімом Бернерсом-Лі у 1991 році і досі працює. Він описує, що таке World Wide Web.",
-    "Javascript був написаний Бренданом Айком всього за 10 днів у травні 1995 року. Спочатку він називався Mocha, потім LiveScript."
-];
+const CONTENT_POOLS = {
+    uk: {
+        tips: [
+            { title: "DRY (Не повторюй себе)", desc: "Уникайте дублювання коду. Якщо ви пишете те саме двічі — створіть функцію." },
+            { title: "KISS (Будь простішим)", desc: "Найпростіше рішення часто є найкращим. Уникайте зайвої складності." },
+            { title: "YAGNI (Тобі це не треба)", desc: "Не пишіть код 'на майбутнє'. Реалізуйте лише те, що потрібно зараз." },
+            { title: "Коментуйте 'Чому'", desc: "Код показує 'як' це працює. Коментарі мають пояснювати 'чому' ви це зробили." },
+            { title: "Fail Fast", desc: "Обробляйте помилки на початку функції, щоб уникнути глибокої вкладеності." },
+            { title: "Зрозумілі імена", desc: "Називайте змінні так, щоб їх призначення було зрозумілим без контексту." }
+        ],
+        facts: [
+            "Перший комп'ютерний 'баг' був справжнім метеликом у реле комп'ютера Mark II (1947).",
+            "Python назвали на честь шоу 'Летючий цирк Монті Пайтона', а не змії.",
+            "Перший веб-сайт (info.cern.ch) був запущений у 1991 році і досі працює.",
+            "JavaScript був створений Бренданом Айком всього за 10 днів."
+        ]
+    },
+    en: {
+        tips: [
+            { title: "DRY (Don't Repeat Yourself)", desc: "Avoid code duplication. If you write it twice, make it a function." },
+            { title: "KISS (Keep It Simple)", desc: "The simplest solution is often the best. Avoid unnecessary complexity." },
+            { title: "YAGNI (You Aren't Gonna Need It)", desc: "Don't write code for the future. Implement only what is needed now." },
+            { title: "Comment 'Why'", desc: "Code explains 'how'. Comments should explain 'why' you did it." },
+            { title: "Fail Fast", desc: "Handle errors early in the function to avoid deep nesting." },
+            { title: "Clear Naming", desc: "Name variables so their purpose is clear without context." }
+        ],
+        facts: [
+            "The first computer 'bug' was a real moth in the Mark II computer relay (1947).",
+            "Python was named after 'Monty Python’s Flying Circus', not the snake.",
+            "The first website (info.cern.ch) launched in 1991 and is still online.",
+            "JavaScript was created by Brendan Eich in just 10 days."
+        ]
+    },
+    pl: {
+        tips: [
+            { title: "DRY (Nie powtarzaj się)", desc: "Unikaj duplikowania kodu. Jeśli piszesz to samo dwa razy, stwórz funkcję." },
+            { title: "KISS (Trzymaj to prosto)", desc: "Najprostsze rozwiązanie jest często najlepsze. Unikaj zbytecznej złożoności." },
+            { title: "YAGNI (Nie będziesz tego potrzebować)", desc: "Nie pisz kodu 'na przyszłość'. Implementuj tylko to, co potrzebne teraz." },
+            { title: "Komentuj 'Dlaczego'", desc: "Kod pokazuje 'jak' to działa. Komentarze powinny wyjaśniać 'dlaczego'." },
+            { title: "Fail Fast", desc: "Obsługuj błędy na początku funkcji, aby uniknąć głębokiego zagnieżdżania." },
+            { title: "Jasne nazewnictwo", desc: "Nazywaj zmienne tak, aby ich cel był jasny bez kontekstu." }
+        ],
+        facts: [
+            "Pierwszy 'bug' komputerowy był prawdziwą ćmą w przekaźniku Mark II (1947).",
+            "Python został nazwany na cześć 'Latającego Cyrku Monty Pythona', a nie węża.",
+            "Pierwsza strona internetowa (info.cern.ch) ruszyła w 1991 roku i nadal działa.",
+            "JavaScript został stworzony przez Brendana Eicha w zaledwie 10 dni."
+        ]
+    },
+    de: {
+        tips: [
+            { title: "DRY (Wiederhole dich nicht)", desc: "Vermeide Code-Duplizierung. Nutze Funktionen statt Copy-Paste." },
+            { title: "KISS (Mach es einfach)", desc: "Die einfachste Lösung ist oft die beste. Vermeide unnötige Komplexität." },
+            { title: "YAGNI (Du brauchst es nicht)", desc: "Schreibe keinen Code für die Zukunft. Implementiere nur das Nötige." },
+            { title: "Kommentiere das 'Warum'", desc: "Der Code zeigt das 'Wie'. Kommentare sollten das 'Warum' erklären." },
+            { title: "Fail Fast", desc: "Behandle Fehler frühzeitig, um tiefe Verschachtelungen zu vermeiden." },
+            { title: "Klare Benennung", desc: "Benenne Variablen so, dass ihr Zweck sofort klar ist." }
+        ],
+        facts: [
+            "Der erste Computer-'Bug' war eine echte Motte im Mark II Computer (1947).",
+            "Python wurde nach 'Monty Python’s Flying Circus' benannt, nicht nach der Schlange.",
+            "Die erste Website (info.cern.ch) ging 1991 online und funktioniert noch immer.",
+            "JavaScript wurde von Brendan Eich in nur 10 Tagen erstellt."
+        ]
+    },
+    es: {
+        tips: [
+            { title: "DRY (No te repitas)", desc: "Evita duplicar código. Si lo escribes dos veces, crea una función." },
+            { title: "KISS (Hazlo simple)", desc: "La solución más simple suele ser la mejor. Evita la complejidad." },
+            { title: "YAGNI (No lo necesitarás)", desc: "No escribas código 'por si acaso'. Implementa solo lo necesario hoy." },
+            { title: "Comenta el 'Por qué'", desc: "El código explica 'cómo'. Los comentarios deben explicar 'por qué'." },
+            { title: "Fail Fast", desc: "Maneja errores al principio para evitar anidamientos profundos." },
+            { title: "Nombres Claros", desc: "Nombra las variables para que su propósito sea obvio." }
+        ],
+        facts: [
+            "El primer 'bug' fue una polilla real en el ordenador Mark II (1947).",
+            "Python se llama así por los 'Monty Python', no por la serpiente.",
+            "El primer sitio web (info.cern.ch) se lanzó en 1991 y sigue activo.",
+            "JavaScript fue creado por Brendan Eich en solo 10 días."
+        ]
+    },
+    ru: {
+        tips: [
+            { title: "DRY (Не повторяйся)", desc: "Избегайте дублирования. Если пишете одно и то же дважды — создайте функцию." },
+            { title: "KISS (Будь проще)", desc: "Самое простое решение часто является лучшим. Избегайте сложности." },
+            { title: "YAGNI (Тебе это не нужно)", desc: "Не пишите код 'про запас'. Реализуйте только то, что нужно сейчас." },
+            { title: "Комментируйте 'Почему'", desc: "Код показывает 'как'. Комментарии должны объяснять 'почему'." },
+            { title: "Fail Fast", desc: "Обрабатывайте ошибки в начале функции, чтобы код был чище." },
+            { title: "Понятные имена", desc: "Называйте переменные так, чтобы их смысл был понятен сразу." }
+        ],
+        facts: [
+            "Первый компьютерный 'баг' был настоящим мотыльком в реле Mark II (1947).",
+            "Python назван в честь 'Летающего цирка Монти Пайтона', а не змеи.",
+            "Первый веб-сайт (info.cern.ch) запущен в 1991 году и работает до сих пор.",
+            "JavaScript был создан Бренданом Айком всего за 10 дней."
+        ]
+    }
+};
 
 // --- TRANSLATIONS ---
 const TRANSLATIONS = {
     uk: {
-        newChatBtn: "Новий чат", donateBtn: "На каву розробнику", runBtn: "Запуск", analysisHeader: "Діагностика", emptyTitle: "FixlyCode", loading: "Аналіз...", errorEmpty: "Введіть код!", clearHistory: "Очистити історію", placeholder: "// Вставте код тут...", tipHeader: "Порада:", langName: "Українська", wishesPlaceholder: "Побажання...", exportBtn: "Експорт в Markdown", scoreTitle: "Рейтинг",
-        tipDebug: "Виправити помилки", tipOptimize: "Покращити код", tipExplain: "Пояснити логіку", tipConvert: "Конвертувати мову", tipTest: "Створити тести", tipComplexity: "Аналіз складності",
+        newChatBtn: "Новий чат", donateBtn: "На каву розробнику", runBtn: "Запуск", analysisHeader: "Діагностика", emptyTitle: "FixlyCode", loading: "Аналіз...", errorEmpty: "Введіть код!", clearHistory: "Очистити історію", placeholder: "// Вставте код тут...", tipHeader: "Порада:", langName: "Українська", wishesPlaceholder: "Додаткові побажання...", exportBtn: "Експорт в Markdown", scoreTitle: "Рейтинг",
+        tipDebug: "Виправити помилки", tipOptimize: "Покращити код", tipExplain: "Пояснити логіку", tipConvert: "Конвертувати", tipTest: "Створити тести", 
         welcomeDesc: "Ваш персональний AI-асистент. Виправляйте баги, оптимізуйте код та тестуйте.", startBtn: "Почати роботу", emptyStatePrompt: "Оберіть режим та натисніть Запуск",
-        tabHistory: "Історія", tabTips: "Поради AI", tipsHeader: "Поради для Clean Code", historyEmptyTitle: "Історія порожня", historyEmptyDesc: "Тут з'являться ваші останні запити після першого запуску.",
-        funFactHeader: "Цікавий факт", funFacts: FUN_FACTS, aiTips: BASE_TIPS,
-        // Features
-        featDebugTitle: "Розумний Дебаг", featDebugDesc: "Автоматичний пошук та виправлення помилок з поясненням.",
-        featOptimizeTitle: "Оптимізація", featOptimizeDesc: "Покращення продуктивності та читабельності коду.",
-        featConvertTitle: "Конвертація", featConvertDesc: "Миттєвий переклад коду між мовами (напр. Python → JS).",
-        featTestTitle: "AI Тестування", featTestDesc: "Генерація юніт-тестів та перевірка граничних випадків.",
-        // Tour
-        tourStep1Title: "1. Введіть Код", tourStep1Desc: "Вставте ваш код сюди або почніть писати.",
-        tourStep2Title: "2. Оберіть Режим", tourStep2Desc: "Виберіть, що саме ви хочете зробити з кодом: виправити, пояснити, конвертувати...",
-        tourStep3Title: "3. Запустіть AI", tourStep3Desc: "Натисніть цю кнопку, і AI проаналізує ваш код за секунди!"
+        tabHistory: "Історія", tabTips: "Поради AI", tipsHeader: "Поради для Clean Code", historyEmptyTitle: "Історія порожня", historyEmptyDesc: "Тут з'являться ваші останні запити.",
+        funFactHeader: "Цікавий факт",
+        featDebugTitle: "Розумний Дебаг", featDebugDesc: "Пошук та виправлення помилок.", featOptimizeTitle: "Оптимізація", featOptimizeDesc: "Покращення продуктивності коду.", featConvertTitle: "Конвертація", featConvertDesc: "Переклад коду між мовами.", featTestTitle: "AI Тестування", featTestDesc: "Генерація юніт-тестів.",
+        tourStep1Title: "1. Введіть Код", tourStep1Desc: "Вставте код сюди або почніть писати.", tourStep2Title: "2. Оберіть Режим", tourStep2Desc: "Що зробити: виправити, пояснити, конвертувати?", tourStep3Title: "3. Запустіть AI", tourStep3Desc: "Натисніть кнопку для аналізу!"
     },
     en: {
-        newChatBtn: "New Chat", donateBtn: "Buy me a coffee", runBtn: "Run FixlyCode", analysisHeader: "Diagnostics", emptyTitle: "FixlyCode", loading: "Thinking...", errorEmpty: "Enter code!", clearHistory: "Clear History", placeholder: "// Paste code here...", tipHeader: "Pro Tip:", langName: "English", wishesPlaceholder: "Wishes...", exportBtn: "Export to Markdown", scoreTitle: "Score",
-        tipDebug: "Fix Bugs", tipOptimize: "Optimize Code", tipExplain: "Explain Logic", tipConvert: "Convert Language", tipTest: "Generate Tests", tipComplexity: "Analyze Complexity",
+        newChatBtn: "New Chat", donateBtn: "Buy me a coffee", runBtn: "Run FixlyCode", analysisHeader: "Diagnostics", emptyTitle: "FixlyCode", loading: "Thinking...", errorEmpty: "Enter code!", clearHistory: "Clear History", placeholder: "// Paste code here...", tipHeader: "Pro Tip:", langName: "English", wishesPlaceholder: "Any wishes...", exportBtn: "Export to Markdown", scoreTitle: "Score",
+        tipDebug: "Fix Bugs", tipOptimize: "Optimize Code", tipExplain: "Explain Logic", tipConvert: "Convert", tipTest: "Generate Tests",
         welcomeDesc: "Your AI coding assistant. Fix bugs, optimize code, and test instantly.", startBtn: "Get Started", emptyStatePrompt: "Select mode and click Run",
-        tabHistory: "History", tabTips: "AI Tips", tipsHeader: "Tips for Clean Code", historyEmptyTitle: "History Empty", historyEmptyDesc: "Your recent queries will appear here after the first run.",
-        funFactHeader: "Fun Fact", funFacts: [
-            "The first computer bug was a real moth found in the Mark II computer in 1947.",
-            "Python was named after 'Monty Python’s Flying Circus', not the snake.",
-            "Programmers use 'Foo' and 'Bar' from the military term FUBAR.",
-            "The first website (info.cern.ch) is still online. It launched in 1991.",
-            "Javascript was written by Brendan Eich in just 10 days."
-        ], aiTips: BASE_TIPS, // Note: Should be translated in full app
-        featDebugTitle: "Smart Debug", featDebugDesc: "Auto-detect and fix bugs with explanations.",
-        featOptimizeTitle: "Optimization", featOptimizeDesc: "Improve performance and code readability.",
-        featConvertTitle: "Conversion", featConvertDesc: "Translate code between languages instantly.",
-        featTestTitle: "AI Testing", featTestDesc: "Generate unit tests and check edge cases.",
-        tourStep1Title: "1. Input Code", tourStep1Desc: "Paste your code here or start typing.",
-        tourStep2Title: "2. Select Mode", tourStep2Desc: "Choose what you want to do: fix, explain, convert...",
-        tourStep3Title: "3. Run AI", tourStep3Desc: "Click this button and AI will analyze your code in seconds!"
+        tabHistory: "History", tabTips: "AI Tips", tipsHeader: "Tips for Clean Code", historyEmptyTitle: "History Empty", historyEmptyDesc: "Your recent queries will appear here.",
+        funFactHeader: "Fun Fact",
+        featDebugTitle: "Smart Debug", featDebugDesc: "Auto-detect and fix bugs.", featOptimizeTitle: "Optimization", featOptimizeDesc: "Improve performance & readability.", featConvertTitle: "Conversion", featConvertDesc: "Translate code between languages.", featTestTitle: "AI Testing", featTestDesc: "Generate unit tests instantly.",
+        tourStep1Title: "1. Input Code", tourStep1Desc: "Paste your code here or start typing.", tourStep2Title: "2. Select Mode", tourStep2Desc: "Choose action: fix, explain, convert...", tourStep3Title: "3. Run AI", tourStep3Desc: "Click to analyze!"
     },
-    pl: { ...BASE_TIPS, langName: "Polski", tabTips: "Wskazówki AI", funFactHeader: "Ciekawostka", runBtn: "Uruchom", welcomeDesc: "Twój asystent AI.", startBtn: "Rozpocznij", donateBtn: "Postaw kawę" },
-    de: { ...BASE_TIPS, langName: "Deutsch", tabTips: "KI Tipps", funFactHeader: "Fun Fact", runBtn: "Starten", welcomeDesc: "Dein KI-Assistent.", startBtn: "Loslegen", donateBtn: "Kaffee spendieren" },
-    es: { ...BASE_TIPS, langName: "Español", tabTips: "Consejos AI", funFactHeader: "Dato Curioso", runBtn: "Ejecutar", welcomeDesc: "Tu asistente AI.", startBtn: "Empezar", donateBtn: "Invítame un café" },
-    ru: { ...BASE_TIPS, langName: "Русский", tabTips: "Советы ИИ", funFactHeader: "Интересный факт", runBtn: "Запуск", welcomeDesc: "Ваш ИИ-помощник.", startBtn: "Начать", donateBtn: "На кофе" }
+    pl: {
+        newChatBtn: "Nowy Czat", donateBtn: "Postaw kawę", runBtn: "Uruchom", analysisHeader: "Diagnostyka", emptyTitle: "FixlyCode", loading: "Analizuję...", errorEmpty: "Wpisz kod!", clearHistory: "Wyczyść historię", placeholder: "// Wklej kod tutaj...", tipHeader: "Porada:", langName: "Polski", wishesPlaceholder: "Dodatkowe życzenia...", exportBtn: "Eksportuj Markdown", scoreTitle: "Wynik",
+        tipDebug: "Napraw błędy", tipOptimize: "Optymalizuj", tipExplain: "Wyjaśnij", tipConvert: "Konwertuj", tipTest: "Testy",
+        welcomeDesc: "Twój asystent AI. Naprawiaj błędy, optymalizuj kod i testuj.", startBtn: "Rozpocznij", emptyStatePrompt: "Wybierz tryb i kliknij Uruchom",
+        tabHistory: "Historia", tabTips: "Wskazówki", tipsHeader: "Czysty Kod", historyEmptyTitle: "Pusta historia", historyEmptyDesc: "Twoje zapytania pojawią się tutaj.",
+        funFactHeader: "Ciekawostka",
+        featDebugTitle: "Debugowanie", featDebugDesc: "Znajdź i napraw błędy.", featOptimizeTitle: "Optymalizacja", featOptimizeDesc: "Popraw wydajność kodu.", featConvertTitle: "Konwersja", featConvertDesc: "Tłumacz kod między językami.", featTestTitle: "Testy AI", featTestDesc: "Generuj testy jednostkowe.",
+        tourStep1Title: "1. Wpisz Kod", tourStep1Desc: "Wklej swój kod tutaj.", tourStep2Title: "2. Wybierz Tryb", tourStep2Desc: "Co chcesz zrobić: naprawić, wyjaśnić?", tourStep3Title: "3. Uruchom", tourStep3Desc: "Kliknij, aby przeanalizować!"
+    },
+    de: {
+        newChatBtn: "Neuer Chat", donateBtn: "Kaffee spendieren", runBtn: "Starten", analysisHeader: "Diagnose", emptyTitle: "FixlyCode", loading: "Analysieren...", errorEmpty: "Code eingeben!", clearHistory: "Verlauf löschen", placeholder: "// Code hier einfügen...", tipHeader: "Tipp:", langName: "Deutsch", wishesPlaceholder: "Wünsche...", exportBtn: "Markdown Export", scoreTitle: "Bewertung",
+        tipDebug: "Fehler beheben", tipOptimize: "Optimieren", tipExplain: "Erklären", tipConvert: "Konvertieren", tipTest: "Tests",
+        welcomeDesc: "Dein KI-Assistent. Fehler beheben, Code optimieren und testen.", startBtn: "Loslegen", emptyStatePrompt: "Modus wählen und Starten",
+        tabHistory: "Verlauf", tabTips: "KI Tipps", tipsHeader: "Clean Code Tipps", historyEmptyTitle: "Verlauf leer", historyEmptyDesc: "Deine Anfragen erscheinen hier.",
+        funFactHeader: "Fun Fact",
+        featDebugTitle: "Smart Debug", featDebugDesc: "Fehler finden und beheben.", featOptimizeTitle: "Optimierung", featOptimizeDesc: "Leistung und Lesbarkeit verbessern.", featConvertTitle: "Konvertierung", featConvertDesc: "Code übersetzen.", featTestTitle: "KI Tests", featTestDesc: "Unit-Tests erstellen.",
+        tourStep1Title: "1. Code Eingeben", tourStep1Desc: "Fügen Sie Ihren Code hier ein.", tourStep2Title: "2. Modus Wählen", tourStep2Desc: "Wählen Sie eine Aktion.", tourStep3Title: "3. Starten", tourStep3Desc: "Klicken Sie zum Analysieren!"
+    },
+    es: {
+        newChatBtn: "Nuevo Chat", donateBtn: "Invítame un café", runBtn: "Ejecutar", analysisHeader: "Diagnóstico", emptyTitle: "FixlyCode", loading: "Analizando...", errorEmpty: "¡Ingresa código!", clearHistory: "Borrar historial", placeholder: "// Pega tu código aquí...", tipHeader: "Consejo:", langName: "Español", wishesPlaceholder: "Deseos...", exportBtn: "Exportar Markdown", scoreTitle: "Puntaje",
+        tipDebug: "Corregir", tipOptimize: "Optimizar", tipExplain: "Explicar", tipConvert: "Convertir", tipTest: "Pruebas",
+        welcomeDesc: "Tu asistente AI. Corrige errores, optimiza código y prueba.", startBtn: "Empezar", emptyStatePrompt: "Selecciona modo y Ejecuta",
+        tabHistory: "Historial", tabTips: "Consejos", tipsHeader: "Código Limpio", historyEmptyTitle: "Historial vacío", historyEmptyDesc: "Tus consultas aparecerán aquí.",
+        funFactHeader: "Dato Curioso",
+        featDebugTitle: "Depuración", featDebugDesc: "Detecta y corrige errores.", featOptimizeTitle: "Optimización", featOptimizeDesc: "Mejora el rendimiento.", featConvertTitle: "Conversión", featConvertDesc: "Traduce código entre lenguajes.", featTestTitle: "Pruebas AI", featTestDesc: "Genera pruebas unitarias.",
+        tourStep1Title: "1. Código", tourStep1Desc: "Pega tu código aquí.", tourStep2Title: "2. Modo", tourStep2Desc: "Elige qué hacer con el código.", tourStep3Title: "3. Ejecutar", tourStep3Desc: "¡Haz clic para analizar!"
+    },
+    ru: {
+        newChatBtn: "Новый чат", donateBtn: "На кофе", runBtn: "Запуск", analysisHeader: "Диагностика", emptyTitle: "FixlyCode", loading: "Анализ...", errorEmpty: "Введите код!", clearHistory: "Очистить историю", placeholder: "// Вставьте код здесь...", tipHeader: "Совет:", langName: "Русский", wishesPlaceholder: "Пожелания...", exportBtn: "Экспорт в Markdown", scoreTitle: "Рейтинг",
+        tipDebug: "Исправить", tipOptimize: "Улучшить", tipExplain: "Объяснить", tipConvert: "Конвертировать", tipTest: "Тесты",
+        welcomeDesc: "Ваш ИИ-помощник. Исправляйте баги, оптимизируйте код и тестируйте.", startBtn: "Начать", emptyStatePrompt: "Выберите режим и нажмите Запуск",
+        tabHistory: "История", tabTips: "Советы", tipsHeader: "Чистый код", historyEmptyTitle: "История пуста", historyEmptyDesc: "Здесь появятся ваши запросы.",
+        funFactHeader: "Интересный факт",
+        featDebugTitle: "Дебаг", featDebugDesc: "Поиск и исправление ошибок.", featOptimizeTitle: "Оптимизация", featOptimizeDesc: "Улучшение производительности.", featConvertTitle: "Конвертация", featConvertDesc: "Перевод кода между языками.", featTestTitle: "Тесты", featTestDesc: "Генерация юнит-тестов.",
+        tourStep1Title: "1. Код", tourStep1Desc: "Вставьте код сюда.", tourStep2Title: "2. Режим", tourStep2Desc: "Выберите действие.", tourStep3Title: "3. Запуск", tourStep3Desc: "Нажмите для анализа!"
+    }
 };
-
-['pl', 'de', 'es', 'ru'].forEach(lang => { TRANSLATIONS[lang] = { ...TRANSLATIONS.uk, ...TRANSLATIONS[lang] }; });
 
 // --- STATE ---
 let currentMode = 'debug';
@@ -131,7 +224,7 @@ const els = {
     tipsContent: document.getElementById('tips-content'),
     aiTipsList: document.getElementById('ai-tips-list'),
     funFactText: document.getElementById('fun-fact-text'),
-    clearHistoryBtn: document.getElementById('clear-history-btn'), // NEW
+    clearHistoryBtn: document.getElementById('clear-history-btn'),
     
     // Header
     activeModeDisplay: document.getElementById('active-mode-display'),
@@ -171,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.copyBtn.addEventListener('click', copyCode);
     els.exportBtn.addEventListener('click', exportMarkdown);
     document.getElementById('clear-input-btn').addEventListener('click', () => { els.input.value = ''; els.input.focus(); localStorage.removeItem('fixly_draft'); });
-    els.clearHistoryBtn.addEventListener('click', clearHistory); // Updated
+    els.clearHistoryBtn.addEventListener('click', clearHistory);
     
     els.startBtn.addEventListener('click', () => {
         closeWelcomeScreen();
@@ -424,10 +517,8 @@ function switchSidebarTab(tab) {
 }
 
 function populateTips() {
-    const availableTips = TRANSLATIONS[currentLang].aiTips || BASE_TIPS;
-    // Show all tips in expanded view, or just shuffle and show a few
-    const shuffled = [...availableTips].sort(() => 0.5 - Math.random());
-    const selectedTips = shuffled.slice(0, 6); // Show more tips (6)
+    const tips = CONTENT_POOLS[currentLang].tips; // Use correct language pool
+    const selectedTips = tips.slice(0, 6); 
 
     els.aiTipsList.innerHTML = selectedTips.map(tip => `
         <li class="flex flex-col space-y-2 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md hover:border-brand-500/50">
@@ -441,7 +532,7 @@ function populateTips() {
 }
 
 function loadFunFact() {
-    const facts = TRANSLATIONS[currentLang].funFacts || FUN_FACTS;
+    const facts = CONTENT_POOLS[currentLang].facts; // Use correct language pool
     const randomIndex = Math.floor(Math.random() * facts.length);
     els.funFactText.textContent = facts[randomIndex];
 }
