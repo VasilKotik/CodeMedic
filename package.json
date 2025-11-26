@@ -1,27 +1,18 @@
 {
-  "name": "fixlycode",
+  "name": "fixlycode-backend",
   "version": "1.0.0",
-  "description": "AI-powered code assistant with secure backend",
+  "description": "Secure AI Proxy for FixlyCode",
   "main": "api/ai-request.js",
   "scripts": {
-    "dev": "node server/server.js",
-    "start": "node server/server.js"
+    "start": "node api/ai-request.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.9",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
   },
   "engines": {
     "node": "20.x"
   }
-  "dependencies": {
-    "express": "^4.18.2",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5"
-  },
-  "keywords": [
-    "ai",
-    "code-assistant",
-    "vercel"
-  ],
-  "author": "",
-  "license": "MIT"
 }
-
-
