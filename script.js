@@ -1,4 +1,4 @@
-const INTERNAL_TOKEN_CLIENT = "Якийсь_Дуже_Секретний_Рядок_Тільки_Для_Сервера";
+const INTERNAL_TOKEN_CLIENT = "My_Secret_Key_12345";
 
 const API_CONFIG = {
     useServer: true,
