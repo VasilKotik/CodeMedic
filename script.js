@@ -680,6 +680,7 @@ async function runAI() {
 
     if (API_CONFIG.useServer) {
         try {
+            // Видаляємо всі змінні serverUrl, пишемо шлях прямо:
             const serverResponse = await fetch('/api/ai-request', {
                 method: 'POST',
                 headers: { 
