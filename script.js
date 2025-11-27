@@ -1,8 +1,5 @@
-const INTERNAL_TOKEN_CLIENT = "My_Secret_Key_12345";
-
 const API_CONFIG = {
-    useServer: true,
-    serverUrl: "" // Empty string for Vercel - uses relative path
+    useServer: true
 };
 const MODEL_CONFIG = {
     'gemini-2.5-flash': { provider: 'google', supportsJson: true, verified: true },
@@ -680,29 +677,46 @@ async function runAI() {
 
     if (API_CONFIG.useServer) {
         try {
+            // Validate request data before sending
+            if (!code || !code.trim()) {
+                throw new Error("Code cannot be empty");
+            }
+            if (!selectedModel || !selectedModel.trim()) {
+                throw new Error("Model must be selected");
+            }
+
+            const requestBody = {
+                code: code.trim(),
+                mode: currentMode || 'debug',
+                lang: lang || 'en',
+                model: selectedModel,
+                wishes: wishes ? wishes.trim() : ''
+            };
+
             const serverResponse = await fetch('/api/ai-request', {
                 method: 'POST',
                 headers: { 
-                    'Content-Type': 'application/json',
-                    'X-Internal-Token': INTERNAL_TOKEN_CLIENT
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    code: code,
-                    mode: currentMode,
-                    lang: lang,
-                    model: selectedModel,
-                    wishes: wishes
-                }),
+                body: JSON.stringify(requestBody),
                 signal: controller.signal
             });
             
             clearTimeout(timeoutId);
             
             if (!serverResponse.ok) {
-                const errorData = await serverResponse.json().catch(() => ({}));
+                let errorData;
+                try {
+                    errorData = await serverResponse.json();
+                } catch (e) {
+                    errorData = { error: serverResponse.statusText, message: serverResponse.statusText };
+                }
+                
                 let errMsg = errorData.error || errorData.message || serverResponse.statusText;
                 
-                if (serverResponse.status === 401) {
+                if (serverResponse.status === 400) {
+                    errMsg = errorData.message || "Invalid request. Please check your input.";
+                } else if (serverResponse.status === 401) {
                     errMsg = "Authentication failed. Please check server configuration.";
                 } else if (serverResponse.status === 429) {
                     errMsg = "Rate limit exceeded. Please try again later.";
@@ -710,6 +724,8 @@ async function runAI() {
                     errMsg = errorData.message || "Server error. Please try again later.";
                 } else if (serverResponse.status === 404) {
                     errMsg = "API endpoint not found. Please check deployment.";
+                } else if (serverResponse.status === 504) {
+                    errMsg = "Request timeout. The server took too long to respond.";
                 }
                 
                 const error = new Error(errMsg);
@@ -718,7 +734,17 @@ async function runAI() {
                 throw error;
             }
             
-            const serverData = await serverResponse.json();
+            let serverData;
+            try {
+                serverData = await serverResponse.json();
+            } catch (e) {
+                throw new Error("Invalid JSON response from server");
+            }
+            
+            if (!serverData || typeof serverData !== 'object') {
+                throw new Error("Invalid response format from server");
+            }
+            
             rawText = serverData.rawText || "";
             
             if (!rawText || rawText.trim().length === 0) {
@@ -728,10 +754,10 @@ async function runAI() {
             if (fetchError.name === 'AbortError') {
                 throw new Error("Request timeout");
             }
-            // Handle network errors more specifically
+            // Handle network errors
             if (fetchError.name === 'TypeError') {
                 if (fetchError.message.includes('Failed to fetch') || fetchError.message.includes('NetworkError')) {
-                    throw new Error("Network error: Cannot reach server. Please check your connection and deployment.");
+                    throw new Error("Network error: Cannot reach server. Please check your connection.");
                 }
                 throw new Error(`Connection error: ${fetchError.message}`);
             }
@@ -2425,8 +2451,7 @@ async function testAIModel(modelId) {
         const response = await fetch('/api/ai-request', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-Internal-Token': INTERNAL_TOKEN_CLIENT
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 code: testCode,
