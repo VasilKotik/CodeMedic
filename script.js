@@ -680,7 +680,6 @@ async function runAI() {
 
     if (API_CONFIG.useServer) {
         try {
-            // Видаляємо всі змінні serverUrl, пишемо шлях прямо:
             const serverResponse = await fetch('/api/ai-request', {
                 method: 'POST',
                 headers: { 
@@ -704,11 +703,13 @@ async function runAI() {
                 let errMsg = errorData.error || errorData.message || serverResponse.statusText;
                 
                 if (serverResponse.status === 401) {
-                    errMsg = "Authentication failed. Please check server API keys.";
+                    errMsg = "Authentication failed. Please check server configuration.";
                 } else if (serverResponse.status === 429) {
                     errMsg = "Rate limit exceeded. Please try again later.";
                 } else if (serverResponse.status === 500) {
                     errMsg = errorData.message || "Server error. Please try again later.";
+                } else if (serverResponse.status === 404) {
+                    errMsg = "API endpoint not found. Please check deployment.";
                 }
                 
                 const error = new Error(errMsg);
@@ -727,11 +728,15 @@ async function runAI() {
             if (fetchError.name === 'AbortError') {
                 throw new Error("Request timeout");
             }
-            if (fetchError.name === 'TypeError' && fetchError.message.includes('fetch')) {
-                throw new Error("Cannot connect to server. Please ensure the server is running.");
-            } else {
-                throw fetchError;
+            // Handle network errors more specifically
+            if (fetchError.name === 'TypeError') {
+                if (fetchError.message.includes('Failed to fetch') || fetchError.message.includes('NetworkError')) {
+                    throw new Error("Network error: Cannot reach server. Please check your connection and deployment.");
+                }
+                throw new Error(`Connection error: ${fetchError.message}`);
             }
+            // Re-throw if it's already a proper Error object
+            throw fetchError;
         }
     }
 
