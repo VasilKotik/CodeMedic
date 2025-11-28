@@ -78,7 +78,10 @@ const TRANSLATIONS = {
         clearHistoryConfirmMessage: "Ви впевнені, що хочете очистити всю історію? Всі збережені чати будуть безповоротно видалені. Цю дію неможливо скасувати.",
         newFileTitle: "Створити новий файл", fileName: "Назва файлу", fileType: "Тип файлу", cancel: "Скасувати", create: "Створити",
         versionHistory: "Історія версій", close: "Закрити", restoreVersion: "Відновити версію", noVersions: "Немає збережених версій",
-        changeLanguageConfirm: "Ви впевнені, що хочете змінити мову? Розширення файлу буде оновлено автоматично.", 
+        changeLanguageConfirm: "Ви впевнені, що хочете змінити мову? Розширення файлу буде оновлено автоматично.",
+        changeLanguageConfirmTitle: "Змінити мову програмування?",
+        changeLanguageConfirmMessage: "Ви впевнені, що хочете змінити мову програмування? Розширення файлу буде оновлено автоматично.",
+        changeLanguage: "Змінити мову", 
         welcomeDesc: "Ваш персональний AI-асистент. Виправляйте баги, оптимізуйте код та тестуйте.", startBtn: "Почати роботу", startTutorialBtn: "Почати навчання", skipBtn: "Пропустити", nextTour: "Далі", finishTour: "Завершити", emptyStatePrompt: "Оберіть режим та натисніть Запуск",
         tabHistory: "Історія", tabTips: "Поради AI", historyEmptyDesc: "Тут з'являться ваші запити.", funFactHeader: "Цікавий факт",
         tourStep1Title: "1. Введіть Код", tourStep1Desc: "Вставте ваш код сюди в текстове поле.", tourStep2Title: "2. Оберіть Мову", tourStep2Desc: "Виберіть мову програмування вашого коду.", tourStep3Title: "3. Оберіть Режим", tourStep3Desc: "Виберіть, що має зробити AI з вашим кодом (виправити, оптимізувати, пояснити тощо).", tourStep4Title: "4. Запустіть AI", tourStep4Desc: "Натисніть кнопку Запуск, щоб почати аналіз!"
@@ -96,6 +99,9 @@ const TRANSLATIONS = {
         newFileTitle: "Create New File", fileName: "File Name", fileType: "File Type", cancel: "Cancel", create: "Create",
         versionHistory: "Version History", close: "Close", restoreVersion: "Restore Version", noVersions: "No saved versions",
         changeLanguageConfirm: "Are you sure you want to change the language? File extension will be updated automatically.",
+        changeLanguageConfirmTitle: "Change Programming Language?",
+        changeLanguageConfirmMessage: "Are you sure you want to change the programming language? The file extension will be updated automatically.",
+        changeLanguage: "Change Language",
         welcomeDesc: "Your AI coding assistant.", startBtn: "Get Started", startTutorialBtn: "Start Tutorial", skipBtn: "Skip", nextTour: "Next", finishTour: "Finish", emptyStatePrompt: "Ready to code.",
         tabHistory: "History", tabTips: "AI Tips", historyEmptyDesc: "No history yet.", funFactHeader: "Fun Fact",
         tourStep1Title: "1. Input Code", tourStep1Desc: "Paste your code here in the text area.", tourStep2Title: "2. Select Language", tourStep2Desc: "Choose the programming language of your code.", tourStep3Title: "3. Choose Mode", tourStep3Desc: "Select what AI should do with your code (debug, optimize, explain, etc.).", tourStep4Title: "4. Run AI", tourStep4Desc: "Click the Run button to start the analysis!"
@@ -111,6 +117,9 @@ const TRANSLATIONS = {
         newFileTitle: "Utwórz nowy plik", fileName: "Nazwa pliku", fileType: "Typ pliku", cancel: "Anuluj", create: "Utwórz",
         versionHistory: "Historia wersji", close: "Zamknij", restoreVersion: "Przywróć wersję", noVersions: "Brak zapisanych wersji",
         changeLanguageConfirm: "Czy na pewno chcesz zmienić język? Rozszerzenie pliku zostanie zaktualizowane automatycznie.",
+        changeLanguageConfirmTitle: "Zmienić język programowania?",
+        changeLanguageConfirmMessage: "Czy na pewno chcesz zmienić język programowania? Rozszerzenie pliku zostanie zaktualizowane automatycznie.",
+        changeLanguage: "Zmienić język",
         tipDebug: "Napraw błędy", tipOptimize: "Optymalizuj", tipExplain: "Wyjaśnij", tipReview: "Code Review", tipSecurity: "Bezpieczeństwo", tipRefactor: "Refaktoryzuj", tipDocument: "Dokumentacja", tipConvert: "Konwertuj", tipFormat: "Formatuj", tipTest: "Testy",
         tipFormatCode: "Formatuj kod zgodnie ze standardami języka programowania", tipUploadFile: "Prześlij plik z komputera do edytora", tipDownloadFile: "Zapisz bieżący kod do pliku", tipVersionHistory: "Zobacz i przywróć poprzednie wersje pliku", tipCopyCode: "Skopiuj kod z edytora do schowka", tipClearEditor: "Wyczyść cały kod z edytora",
         welcomeDesc: "Twój asystent AI do kodowania.", startBtn: "Rozpocznij", startTutorialBtn: "Rozpocznij samouczek", skipBtn: "Pomiń", nextTour: "Dalej", finishTour: "Zakończ", emptyStatePrompt: "Gotowy do kodowania.",
@@ -128,6 +137,9 @@ const TRANSLATIONS = {
         newFileTitle: "Neue Datei erstellen", fileName: "Dateiname", fileType: "Dateityp", cancel: "Abbrechen", create: "Erstellen",
         versionHistory: "Versionsverlauf", close: "Schließen", restoreVersion: "Version wiederherstellen", noVersions: "Keine gespeicherten Versionen",
         changeLanguageConfirm: "Sind Sie sicher, dass Sie die Sprache ändern möchten? Die Dateierweiterung wird automatisch aktualisiert.",
+        changeLanguageConfirmTitle: "Programmiersprache ändern?",
+        changeLanguageConfirmMessage: "Sind Sie sicher, dass Sie die Programmiersprache ändern möchten? Die Dateierweiterung wird automatisch aktualisiert.",
+        changeLanguage: "Sprache ändern",
         tipDebug: "Fehler beheben", tipOptimize: "Optimieren", tipExplain: "Erklären", tipReview: "Code Review", tipSecurity: "Sicherheit", tipRefactor: "Refaktorieren", tipDocument: "Dokumentieren", tipConvert: "Konvertieren", tipFormat: "Formatieren", tipTest: "Tests",
         tipFormatCode: "Code nach Programmierstandards formatieren", tipUploadFile: "Datei vom Computer in den Editor hochladen", tipDownloadFile: "Aktuellen Code in Datei speichern", tipVersionHistory: "Vorherige Dateiversionen anzeigen und wiederherstellen", tipCopyCode: "Code aus Editor in Zwischenablage kopieren", tipClearEditor: "Gesamten Code aus Editor löschen",
         welcomeDesc: "Ihr KI-Code-Assistent.", startBtn: "Loslegen", startTutorialBtn: "Tutorial starten", skipBtn: "Überspringen", nextTour: "Weiter", finishTour: "Beenden", emptyStatePrompt: "Bereit zum Codieren.",
@@ -145,6 +157,9 @@ const TRANSLATIONS = {
         newFileTitle: "Crear nuevo archivo", fileName: "Nombre del archivo", fileType: "Tipo de archivo", cancel: "Cancelar", create: "Crear",
         versionHistory: "Historial de versiones", close: "Cerrar", restoreVersion: "Restaurar versión", noVersions: "No hay versiones guardadas",
         changeLanguageConfirm: "¿Estás seguro de que quieres cambiar el idioma? La extensión del archivo se actualizará automáticamente.",
+        changeLanguageConfirmTitle: "¿Cambiar lenguaje de programación?",
+        changeLanguageConfirmMessage: "¿Estás seguro de que quieres cambiar el lenguaje de programación? La extensión del archivo se actualizará automáticamente.",
+        changeLanguage: "Cambiar lenguaje",
         tipDebug: "Corregir errores", tipOptimize: "Optimizar", tipExplain: "Explicar", tipReview: "Code Review", tipSecurity: "Seguridad", tipRefactor: "Refactorizar", tipDocument: "Documentar", tipConvert: "Convertir", tipFormat: "Formatear", tipTest: "Pruebas",
         tipFormatCode: "Formatear código según estándares del lenguaje de programación", tipUploadFile: "Subir un archivo desde tu computadora al editor", tipDownloadFile: "Guardar código actual en un archivo", tipVersionHistory: "Ver y restaurar versiones anteriores del archivo", tipCopyCode: "Copiar código del editor al portapapeles", tipClearEditor: "Limpiar todo el código del editor",
         welcomeDesc: "Tu asistente de código con IA.", startBtn: "Comenzar", startTutorialBtn: "Iniciar tutorial", skipBtn: "Omitir", nextTour: "Siguiente", finishTour: "Finalizar", emptyStatePrompt: "Listo para codificar.",
@@ -162,6 +177,9 @@ const TRANSLATIONS = {
         newFileTitle: "Создать новый файл", fileName: "Имя файла", fileType: "Тип файла", cancel: "Отмена", create: "Создать",
         versionHistory: "История версий", close: "Закрыть", restoreVersion: "Восстановить версию", noVersions: "Нет сохраненных версий",
         changeLanguageConfirm: "Вы уверены, что хотите изменить язык? Расширение файла будет обновлено автоматически.",
+        changeLanguageConfirmTitle: "Изменить язык программирования?",
+        changeLanguageConfirmMessage: "Вы уверены, что хотите изменить язык программирования? Расширение файла будет обновлено автоматически.",
+        changeLanguage: "Изменить язык",
         tipDebug: "Исправить ошибки", tipOptimize: "Оптимизировать", tipExplain: "Объяснить", tipReview: "Code Review", tipSecurity: "Безопасность", tipRefactor: "Рефакторинг", tipDocument: "Документация", tipConvert: "Конвертировать", tipFormat: "Форматирование", tipTest: "Тесты",
         tipFormatCode: "Форматировать код согласно стандартам языка программирования", tipUploadFile: "Загрузить файл с компьютера в редактор", tipDownloadFile: "Сохранить текущий код в файл", tipVersionHistory: "Просмотреть и восстановить предыдущие версии файла", tipCopyCode: "Копировать код из редактора в буфер обмена", tipClearEditor: "Очистить весь код из редактора",
         welcomeDesc: "Ваш персональный AI-ассистент. Исправляйте баги, оптимизируйте код и тестируйте.", startBtn: "Начать работу", startTutorialBtn: "Начать обучение", skipBtn: "Пропустить", nextTour: "Далее", finishTour: "Завершить", emptyStatePrompt: "Выберите режим и нажмите Запуск",
@@ -308,6 +326,11 @@ const els = {
     clearConfirmDialogContent: document.getElementById('clear-confirm-dialog-content'),
     clearConfirmCancel: document.getElementById('clear-confirm-cancel'),
     clearConfirmOk: document.getElementById('clear-confirm-ok'),
+    changeLanguageDialog: document.getElementById('change-language-confirm-dialog'),
+    changeLanguageDialogContent: document.getElementById('change-language-confirm-dialog-content'),
+    changeLanguageMessage: document.getElementById('change-language-confirm-message'),
+    changeLanguageCancel: document.getElementById('change-language-confirm-cancel'),
+    changeLanguageOk: document.getElementById('change-language-confirm-ok'),
     clearHistoryConfirmDialog: document.getElementById('clear-history-confirm-dialog'),
     clearHistoryConfirmDialogContent: document.getElementById('clear-history-confirm-dialog-content'),
     clearHistoryConfirmCancel: document.getElementById('clear-history-confirm-cancel'),
@@ -382,6 +405,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // Change language dialog handlers
+    if (els.changeLanguageCancel) {
+        els.changeLanguageCancel.addEventListener('click', closeChangeLanguageDialog);
+    }
+    if (els.changeLanguageOk) {
+        els.changeLanguageOk.addEventListener('click', () => {
+            if (pendingLanguageChange && activeFile) {
+                renameFileWithExtension(activeFile, pendingLanguageChange);
+                els.langSelect.value = pendingLanguageChange;
+            }
+            closeChangeLanguageDialog();
+        });
+    }
+    if (els.changeLanguageDialog) {
+        els.changeLanguageDialog.addEventListener('click', (e) => {
+            if (e.target === els.changeLanguageDialog) {
+                closeChangeLanguageDialog();
+            }
+        });
+    }
+    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (els.clearConfirmDialog && !els.clearConfirmDialog.classList.contains('hidden')) {
@@ -389,6 +433,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (els.clearHistoryConfirmDialog && !els.clearHistoryConfirmDialog.classList.contains('hidden')) {
                 closeClearHistoryConfirmDialog();
+            }
+            if (els.changeLanguageDialog && !els.changeLanguageDialog.classList.contains('hidden')) {
+                closeChangeLanguageDialog();
             }
         }
     });
@@ -1131,6 +1178,12 @@ function updateTexts(lang) {
         if (titleEl && t.clearHistoryConfirmTitle) titleEl.textContent = t.clearHistoryConfirmTitle;
         if (messageEl && t.clearHistoryConfirmMessage) messageEl.textContent = t.clearHistoryConfirmMessage;
     }
+    if (els.changeLanguageDialogContent) {
+        const titleEl = els.changeLanguageDialogContent.querySelector('h3[data-i18n="changeLanguageConfirmTitle"]');
+        if (titleEl && t.changeLanguageConfirmTitle) titleEl.textContent = t.changeLanguageConfirmTitle;
+        if (els.changeLanguageCancel && t.cancel) els.changeLanguageCancel.textContent = t.cancel;
+        if (els.changeLanguageOk && t.changeLanguage) els.changeLanguageOk.textContent = t.changeLanguage;
+    }
     
     if (els.formatCodeBtn) els.formatCodeBtn.title = t.formatCode || 'Format Code';
     if (els.uploadFileBtn) els.uploadFileBtn.title = t.uploadFile || 'Upload File';
@@ -1705,6 +1758,9 @@ function saveFiles() {
     }
 }
 
+// Variable to store pending language change
+let pendingLanguageChange = null;
+
 // Handle language change - update file extension and ask for confirmation if code exists
 function handleLanguageChange() {
     if (!activeFile || !files[activeFile]) {
@@ -1724,19 +1780,131 @@ function handleLanguageChange() {
     const hasCode = els.input.value.trim().length > 0;
     
     if (hasCode) {
-        const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-        const confirmMsg = t.changeLanguageConfirm || 
-            `Ви впевнені, що хочете змінити мову з "${currentLang}" на "${newLang}"?\n\nРозширення файлу буде оновлено автоматично.`;
+        // Store the new language for later use
+        pendingLanguageChange = newLang;
         
-        if (!confirm(confirmMsg)) {
-            // User cancelled, revert language select
-            els.langSelect.value = currentLang;
-            return;
+        // Show confirmation dialog
+        showChangeLanguageDialog(currentLang, newLang);
+        
+        // Revert language select temporarily
+        els.langSelect.value = currentLang;
+    } else {
+        // No code, just update directly
+        renameFileWithExtension(activeFile, newLang);
+    }
+}
+
+// Show change language confirmation dialog
+function showChangeLanguageDialog(currentLang, newLang) {
+    if (!els.changeLanguageDialog || !els.changeLanguageDialogContent) return;
+    
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    const langNames = {
+        'JavaScript': 'JavaScript',
+        'TypeScript': 'TypeScript',
+        'Python': 'Python',
+        'Java': 'Java',
+        'C++': 'C++',
+        'C#': 'C#',
+        'Go': 'Go',
+        'Rust': 'Rust',
+        'Swift': 'Swift',
+        'Kotlin': 'Kotlin',
+        'PHP': 'PHP',
+        'Ruby': 'Ruby',
+        'HTML/CSS': 'HTML/CSS',
+        'Vue': 'Vue',
+        'React': 'React',
+        'Svelte': 'Svelte',
+        'SQL': 'SQL',
+        'R': 'R',
+        'MATLAB': 'MATLAB',
+        'Shell/Bash': 'Shell/Bash',
+        'PowerShell': 'PowerShell',
+        'Lua': 'Lua',
+        'Perl': 'Perl',
+        'Scala': 'Scala',
+        'Haskell': 'Haskell',
+        'Elixir': 'Elixir',
+        'Clojure': 'Clojure',
+        'Erlang': 'Erlang',
+        'JSON': 'JSON',
+        'YAML': 'YAML',
+        'XML': 'XML',
+        'Markdown': 'Markdown',
+        'TOML': 'TOML',
+        'INI': 'INI',
+        'C': 'C',
+        'Dart': 'Dart',
+        'Objective-C': 'Objective-C',
+        'Assembly': 'Assembly'
+    };
+    
+    const currentLangName = langNames[currentLang] || currentLang;
+    const newLangName = langNames[newLang] || newLang;
+    
+    // Update message with language names
+    if (els.changeLanguageMessage) {
+        let message = t.changeLanguageConfirmMessage || 
+            `Are you sure you want to change the programming language? The file extension will be updated automatically.`;
+        
+        // Replace placeholders if they exist, or add language names
+        if (message.includes('${currentLang}') || message.includes('${newLang}')) {
+            message = message.replace('${currentLang}', currentLangName).replace('${newLang}', newLangName);
+        } else {
+            // Add language names to the message
+            message = message.replace(
+                'change the programming language',
+                `change the programming language from "${currentLangName}" to "${newLangName}"`
+            );
         }
+        
+        els.changeLanguageMessage.textContent = message;
     }
     
-    // Update file extension based on new language
-    renameFileWithExtension(activeFile, newLang);
+    // Update translations
+    updateChangeLanguageDialogTranslations();
+    
+    // Show dialog
+    els.changeLanguageDialog.classList.remove('hidden');
+    els.changeLanguageDialog.classList.add('flex');
+    
+    requestAnimationFrame(() => {
+        els.changeLanguageDialogContent.classList.remove('opacity-0', 'scale-95');
+        els.changeLanguageDialogContent.classList.add('dialog-open');
+    });
+}
+
+// Close change language dialog
+function closeChangeLanguageDialog() {
+    if (!els.changeLanguageDialog || !els.changeLanguageDialogContent) return;
+    
+    els.changeLanguageDialogContent.classList.remove('dialog-open');
+    
+    setTimeout(() => {
+        els.changeLanguageDialog.classList.add('hidden');
+        els.changeLanguageDialog.classList.remove('flex');
+        els.changeLanguageDialogContent.classList.add('opacity-0', 'scale-95');
+        pendingLanguageChange = null;
+    }, 200);
+}
+
+// Update translations for change language dialog
+function updateChangeLanguageDialogTranslations() {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    const titleEl = els.changeLanguageDialogContent?.querySelector('h3[data-i18n="changeLanguageConfirmTitle"]');
+    const cancelBtn = els.changeLanguageCancel;
+    const okBtn = els.changeLanguageOk;
+    
+    if (titleEl && t.changeLanguageConfirmTitle) {
+        titleEl.textContent = t.changeLanguageConfirmTitle;
+    }
+    if (cancelBtn && t.cancel) {
+        cancelBtn.textContent = t.cancel;
+    }
+    if (okBtn && t.changeLanguage) {
+        okBtn.textContent = t.changeLanguage;
+    }
 }
 
 // Rename file with correct extension based on language
