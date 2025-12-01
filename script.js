@@ -69,6 +69,7 @@ const TRANSLATIONS = {
     uk: {
         newChatBtn: "Новий чат", donateBtn: "На каву", runBtn: "Запуск", analysisHeader: "Аналіз", emptyTitle: "FixlyCode", loading: "Аналіз...", errorEmpty: "Введіть код!", clearHistory: "Очистити", clearHistoryConfirm: "Очистити всю історію?", placeholder: "// Вставте код тут...", tipHeader: "Порада:", langName: "Українська", wishesPlaceholder: "Додаткові побажання...", exportBtn: "Експорт MD", scoreTitle: "Оцінка",
         tipDebug: "Виправити", tipOptimize: "Оптимізувати", tipExplain: "Пояснити", tipReview: "Огляд", tipSecurity: "Безпека", tipRefactor: "Рефакторинг", tipDocument: "Документація", tipConvert: "Конвертувати", tipFormat: "Форматувати", tipTest: "Тести",
+        convertFrom: "З:", convertTo: "В:",
         tipFormatCode: "Форматувати код", tipUploadFile: "Завантажити файл", tipDownloadFile: "Зберегти файл", tipVersionHistory: "Історія версій", tipCopyCode: "Копіювати код", tipClearEditor: "Очистити редактор",
         formatCode: "Форматувати", uploadFile: "Завантажити", downloadFile: "Зберегти", copyCode: "Копіювати", clearEditor: "Очистити",
         clearConfirm: "Очистити редактор?",
@@ -92,6 +93,7 @@ const TRANSLATIONS = {
     en: {
         newChatBtn: "New Chat", donateBtn: "Buy coffee", runBtn: "Run", analysisHeader: "Analysis", emptyTitle: "FixlyCode", loading: "Thinking...", errorEmpty: "Enter code!", clearHistory: "Clear", clearHistoryConfirm: "Clear all history?", placeholder: "// Paste code here...", langName: "English", wishesPlaceholder: "Additional wishes...", exportBtn: "Export MD", scoreTitle: "Score",
         tipDebug: "Fix", tipOptimize: "Optimize", tipExplain: "Explain", tipReview: "Review", tipSecurity: "Security", tipRefactor: "Refactor", tipDocument: "Document", tipConvert: "Convert", tipFormat: "Format", tipTest: "Tests",
+        convertFrom: "From:", convertTo: "To:",
         tipFormatCode: "Format code", tipUploadFile: "Upload file", tipDownloadFile: "Save file", tipVersionHistory: "Version history", tipCopyCode: "Copy code", tipClearEditor: "Clear editor",
         formatCode: "Format", uploadFile: "Upload", downloadFile: "Download", copyCode: "Copy", clearEditor: "Clear",
         clearConfirm: "Clear editor?",
@@ -130,6 +132,7 @@ const TRANSLATIONS = {
         deleteChatConfirmMessage: "Tej akcji nie można cofnąć.",
         deleteChat: "Usunąć",
         tipDebug: "Napraw", tipOptimize: "Optymalizuj", tipExplain: "Wyjaśnij", tipReview: "Przegląd", tipSecurity: "Bezpieczeństwo", tipRefactor: "Refaktoryzuj", tipDocument: "Dokumentacja", tipConvert: "Konwertuj", tipFormat: "Formatuj", tipTest: "Testy",
+        convertFrom: "Z:", convertTo: "Do:",
         tipFormatCode: "Formatuj kod", tipUploadFile: "Wgraj plik", tipDownloadFile: "Zapisz plik", tipVersionHistory: "Historia wersji", tipCopyCode: "Kopiuj kod", tipClearEditor: "Wyczyść edytor",
         welcomeDesc: "Asystent AI do kodowania. Naprawiaj błędy, optymalizuj i testuj kod.", startBtn: "Start", startTutorialBtn: "Samouczek", skipBtn: "Pomiń", nextTour: "Dalej", finishTour: "Gotowe", emptyStatePrompt: "Gotowy do kodowania.",
         tabHistory: "Historia", tabTips: "Wskazówki", historyEmptyDesc: "Brak historii.", funFactHeader: "Ciekawostka",
@@ -153,6 +156,7 @@ const TRANSLATIONS = {
         deleteChatConfirmMessage: "Diese Aktion kann nicht rückgängig gemacht werden.",
         deleteChat: "Löschen",
         tipDebug: "Beheben", tipOptimize: "Optimieren", tipExplain: "Erklären", tipReview: "Prüfen", tipSecurity: "Sicherheit", tipRefactor: "Refaktorieren", tipDocument: "Dokumentieren", tipConvert: "Konvertieren", tipFormat: "Formatieren", tipTest: "Tests",
+        convertFrom: "Von:", convertTo: "Nach:",
         tipFormatCode: "Code formatieren", tipUploadFile: "Datei hochladen", tipDownloadFile: "Datei speichern", tipVersionHistory: "Versionsverlauf", tipCopyCode: "Code kopieren", tipClearEditor: "Editor löschen",
         welcomeDesc: "KI-Code-Assistent. Fehler beheben, optimieren und testen.", startBtn: "Start", startTutorialBtn: "Tutorial", skipBtn: "Überspringen", nextTour: "Weiter", finishTour: "Fertig", emptyStatePrompt: "Bereit zum Codieren.",
         tabHistory: "Verlauf", tabTips: "Tipps", historyEmptyDesc: "Kein Verlauf.", funFactHeader: "Fun Fact",
@@ -176,6 +180,7 @@ const TRANSLATIONS = {
         deleteChatConfirmMessage: "Esta acción no se puede deshacer.",
         deleteChat: "Eliminar",
         tipDebug: "Corregir", tipOptimize: "Optimizar", tipExplain: "Explicar", tipReview: "Revisar", tipSecurity: "Seguridad", tipRefactor: "Refactorizar", tipDocument: "Documentar", tipConvert: "Convertir", tipFormat: "Formatear", tipTest: "Pruebas",
+        convertFrom: "De:", convertTo: "A:",
         tipFormatCode: "Formatear código", tipUploadFile: "Subir archivo", tipDownloadFile: "Guardar archivo", tipVersionHistory: "Historial de versiones", tipCopyCode: "Copiar código", tipClearEditor: "Limpiar editor",
         welcomeDesc: "Asistente de código con IA. Corrige errores, optimiza y prueba código.", startBtn: "Iniciar", startTutorialBtn: "Tutorial", skipBtn: "Omitir", nextTour: "Siguiente", finishTour: "Listo", emptyStatePrompt: "Listo para codificar.",
         tabHistory: "Historial", tabTips: "Consejos", historyEmptyDesc: "Sin historial.", funFactHeader: "Dato curioso",
@@ -199,6 +204,7 @@ const TRANSLATIONS = {
         deleteChatConfirmMessage: "Это действие нельзя отменить.",
         deleteChat: "Удалить",
         tipDebug: "Исправить", tipOptimize: "Оптимизировать", tipExplain: "Объяснить", tipReview: "Обзор", tipSecurity: "Безопасность", tipRefactor: "Рефакторинг", tipDocument: "Документация", tipConvert: "Конвертировать", tipFormat: "Форматировать", tipTest: "Тесты",
+        convertFrom: "Из:", convertTo: "В:",
         tipFormatCode: "Форматировать код", tipUploadFile: "Загрузить файл", tipDownloadFile: "Сохранить файл", tipVersionHistory: "История версий", tipCopyCode: "Копировать код", tipClearEditor: "Очистить редактор",
         welcomeDesc: "AI-ассистент для работы с кодом. Исправляйте ошибки, оптимизируйте и тестируйте.", startBtn: "Начать", startTutorialBtn: "Обучение", skipBtn: "Пропустить", nextTour: "Далее", finishTour: "Готово", emptyStatePrompt: "Выберите режим и нажмите Запуск",
         tabHistory: "История", tabTips: "Советы", historyEmptyDesc: "Здесь появятся ваши запросы.", funFactHeader: "Интересный факт",
@@ -207,7 +213,7 @@ const TRANSLATIONS = {
 };
 
 let currentMode = 'debug';
-let currentLang = localStorage.getItem('fixly_lang') || 'uk';
+let currentLang = localStorage.getItem('fixly_lang') || 'en';
 let isDark = localStorage.getItem('fixly_theme') !== 'light';
 let history = [];
 let currentTourStep = 0; 
@@ -356,7 +362,10 @@ const els = {
     clearHistoryConfirmDialog: document.getElementById('clear-history-confirm-dialog'),
     clearHistoryConfirmDialogContent: document.getElementById('clear-history-confirm-dialog-content'),
     clearHistoryConfirmCancel: document.getElementById('clear-history-confirm-cancel'),
-    clearHistoryConfirmOk: document.getElementById('clear-history-confirm-ok')
+    clearHistoryConfirmOk: document.getElementById('clear-history-confirm-ok'),
+    convertPanel: document.getElementById('convert-panel'),
+    convertFromLang: document.getElementById('convert-from-lang'),
+    convertToLang: document.getElementById('convert-to-lang')
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -784,7 +793,12 @@ async function runAI() {
                 mode: currentMode || 'debug',
                 lang: responseLang || 'en', // Interface language for AI response
                 model: selectedModel,
-                wishes: wishes ? wishes.trim() : ''
+                wishes: wishes ? wishes.trim() : '',
+                // Add convert language info if in convert mode
+                ...(currentMode === 'convert' && els.convertFromLang && els.convertToLang ? {
+                    convertFrom: els.convertFromLang.value,
+                    convertTo: els.convertToLang.value
+                } : {})
             };
 
             const serverResponse = await fetch('/api/ai-request', {
@@ -1197,6 +1211,8 @@ function toggleTheme() { isDark = !isDark; els.html.classList.toggle('dark'); lo
 function updateTexts(lang) {
     currentLang = lang;
     localStorage.setItem('fixly_lang', lang);
+    // Update HTML lang attribute
+    if (els.html) els.html.setAttribute('lang', lang);
     const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1246,6 +1262,14 @@ function updateTexts(lang) {
     if (els.input) els.input.placeholder = t.placeholder || "// Paste code here...";
     if (els.wishes) els.wishes.placeholder = t.wishesPlaceholder || "Additional wishes...";
     
+    // Update convert panel labels
+    if (els.convertPanel) {
+        const fromLabel = els.convertPanel.querySelector('[data-i18n="convertFrom"]');
+        const toLabel = els.convertPanel.querySelector('[data-i18n="convertTo"]');
+        if (fromLabel && t.convertFrom) fromLabel.textContent = t.convertFrom;
+        if (toLabel && t.convertTo) toLabel.textContent = t.convertTo;
+    }
+    
     setMode(currentMode);
 }
 function setMode(mode) {
@@ -1287,6 +1311,32 @@ function setMode(mode) {
     });
     
     els.runBtnText.textContent = t.runBtn;
+    
+    // Show/hide convert panel based on mode
+    if (els.convertPanel) {
+        if (mode === 'convert') {
+            els.convertPanel.classList.remove('hidden', 'convert-panel-hide');
+            els.convertPanel.classList.add('convert-panel-show');
+            // Sync convert-from with current language select
+            if (els.convertFromLang && els.langSelect) {
+                els.convertFromLang.value = els.langSelect.value;
+            }
+            // Set default convert-to to JavaScript if same as from
+            if (els.convertToLang && els.convertFromLang) {
+                if (els.convertToLang.value === els.convertFromLang.value) {
+                    els.convertToLang.value = 'JavaScript';
+                }
+            }
+        } else {
+            els.convertPanel.classList.remove('convert-panel-show');
+            els.convertPanel.classList.add('convert-panel-hide');
+            setTimeout(() => {
+                if (els.convertPanel && !els.convertPanel.classList.contains('convert-panel-show')) {
+                    els.convertPanel.classList.add('hidden');
+                }
+            }, 300);
+        }
+    }
     
     // Announce mode change for screen readers
     if (els.activeModeDisplay) {
