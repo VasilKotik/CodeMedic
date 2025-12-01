@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (els.deleteChatOk) {
         els.deleteChatOk.addEventListener('click', () => {
             if (pendingDeleteChatIndex !== null) {
-                deleteHistoryItem(pendingDeleteChatIndex);
+                deleteChat(pendingDeleteChatIndex);
                 pendingDeleteChatIndex = null;
             }
             closeDeleteChatDialog();
@@ -849,15 +849,21 @@ async function runAI() {
             time: new Date().toLocaleTimeString(),
             timestamp: Date.now()
         };
-        chats[currentChatId].messages.push(message);
-        currentMessageIndex = chats[currentChatId].messages.length - 1;
+        if (chats[currentChatId]) {
+            chats[currentChatId].messages.push(message);
+            currentMessageIndex = chats[currentChatId].messages.length - 1;
+        }
         try {
             localStorage.setItem('fixly_chats', JSON.stringify(chats));
             localStorage.setItem('fixly_current_chat_id', currentChatId);
         } catch (e) {}
         
-        renderChatMessages(chats[currentChatId], currentMessageIndex);
-        addToHistory({ mode: currentMode, lang, input: code, output: cached, time: new Date().toLocaleTimeString() });
+        if (chats[currentChatId]) {
+            renderChatMessages(chats[currentChatId], currentMessageIndex);
+        }
+        
+        // Update history to show updated chat
+        renderHistory();
         
         // Update button tooltip
         updateVersionHistoryButtonTooltip();
@@ -1059,15 +1065,21 @@ async function runAI() {
         time: new Date().toLocaleTimeString(),
         timestamp: Date.now()
     };
-    chats[currentChatId].messages.push(message);
-    currentMessageIndex = chats[currentChatId].messages.length - 1;
+    if (chats[currentChatId]) {
+        chats[currentChatId].messages.push(message);
+        currentMessageIndex = chats[currentChatId].messages.length - 1;
+    }
     try {
         localStorage.setItem('fixly_chats', JSON.stringify(chats));
         localStorage.setItem('fixly_current_chat_id', currentChatId);
     } catch (e) {}
     
-    renderChatMessages(chats[currentChatId], currentMessageIndex);
-    addToHistory({ mode: currentMode, lang, input: code, output: result, time: new Date().toLocaleTimeString() });
+    if (chats[currentChatId]) {
+        renderChatMessages(chats[currentChatId], currentMessageIndex);
+    }
+    
+    // Update history to show updated chat
+    renderHistory();
     
     // Update button tooltip
     updateVersionHistoryButtonTooltip();
@@ -1704,6 +1716,9 @@ function newChat() {
     switchTab('code'); 
     updateLineNumbers();
     
+    // Update history to show new chat
+    renderHistory();
+    
     // Update button tooltip
     updateVersionHistoryButtonTooltip();
 }
@@ -1737,52 +1752,74 @@ async function copyCode() {
 }
 function exportMarkdown() { const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en; const md = `# FixlyCode Report\n\n${els.outputExpl.textContent}\n\n\`\`\`\n${els.outputCode.textContent}\n\`\`\``; navigator.clipboard.writeText(md); els.exportBtn.textContent = "Copied!"; setTimeout(() => els.exportBtn.innerHTML = `<i class="fa-brands fa-markdown mr-2"></i> ${t.exportBtn}`, 2000); }
 function addToHistory(item) {
-    history.unshift(item);
-    if (history.length > 20) history.pop();
-    
-    // Save to localStorage with error handling
-    try {
-        localStorage.setItem('fixly_history', JSON.stringify(history));
-    } catch (e) {
-        if (e.name === 'QuotaExceededError') {
-            history = history.slice(0, 10);
-            try {
-                localStorage.setItem('fixly_history', JSON.stringify(history));
-            } catch (e2) {
-            }
-        }
-    }
-    
+    // History now shows chats, not individual items
+    // Individual items are stored in chats, so we just update history display
     renderHistory();
 }
 function renderHistory() {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     els.historyList.innerHTML = '';
     
-    if (!history.length) {
+    // Get all chats sorted by creation time (newest first)
+    const chatIds = Object.keys(chats);
+    if (chatIds.length === 0) {
         els.historyList.innerHTML = `<div class="text-center p-4 opacity-70 text-slate-400 text-xs" role="status" aria-live="polite">${t.historyEmptyDesc}</div>`;
         return;
     }
     
+    // Sort chats by creation time (newest first)
+    const sortedChats = chatIds
+        .map(id => ({ id, ...chats[id] }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+    
     // Use DocumentFragment for better performance
     const fragment = document.createDocumentFragment();
     
-    history.forEach((item, index) => {
+    const escapeHtml = (text) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.textContent = text;
+        return tempDiv.innerHTML;
+    };
+    
+    sortedChats.forEach((chat, index) => {
         const div = document.createElement('div');
-        div.className = "p-3 rounded-lg bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-brand-500 mb-2 transition-colors relative group";
+        const isActive = chat.id === currentChatId;
+        div.className = `p-3 rounded-lg ${isActive ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-500' : 'bg-gray-50 dark:bg-slate-900 border-gray-200 dark:border-slate-800'} border hover:border-brand-500 mb-2 transition-colors relative group`;
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
-        div.setAttribute('aria-label', `History item ${index + 1}: ${item.mode} mode`);
+        div.setAttribute('aria-label', `Chat ${index + 1} with ${chat.messages.length} messages`);
         
         const contentDiv = document.createElement('div');
         contentDiv.className = "cursor-pointer";
         contentDiv.onclick = () => {
-            els.input.value = item.input;
-            els.langSelect.value = item.lang;
-            setMode(item.mode);
-            renderOutput(item.output, item.lang);
+            // Switch to this chat
+            currentChatId = chat.id;
+            currentMessageIndex = chat.messages.length > 0 ? chat.messages.length - 1 : -1;
+            
+            try {
+                localStorage.setItem('fixly_current_chat_id', currentChatId);
+            } catch (e) {}
+            
+            // Clear input and show last message
+            els.input.value = '';
+            els.wishes.value = '';
+            
+            if (chat.messages.length > 0) {
+                // Show last message with navigation
+                renderChatMessages(chat, currentMessageIndex);
+            } else {
+                // Empty chat - clear output
+                els.outputContainer.classList.add('hidden');
+                els.emptyState.classList.remove('hidden');
+                removeChatNavigation();
+            }
+            
+            // Re-render history to update active state
+            renderHistory();
             updateLineNumbers();
-            els.input.focus();
+            
+            // Update button tooltip
+            updateVersionHistoryButtonTooltip();
         };
         
         contentDiv.addEventListener('keydown', (e) => {
@@ -1792,27 +1829,42 @@ function renderHistory() {
             }
         });
         
-        const escapeHtml = (text) => {
-            const tempDiv = document.createElement('div');
-            tempDiv.textContent = text;
-            return tempDiv.innerHTML;
+        const lastMessage = chat.messages.length > 0 ? chat.messages[chat.messages.length - 1] : null;
+        const chatDate = new Date(chat.createdAt);
+        const modeNames = {
+            'debug': '🐛 Debug',
+            'optimize': '⚡ Optimize',
+            'explain': '📖 Explain',
+            'review': '🔍 Review',
+            'security': '🔒 Security',
+            'refactor': '♻️ Refactor',
+            'document': '📝 Document',
+            'convert': '🔄 Convert',
+            'format': '✨ Format',
+            'test': '🧪 Test'
         };
+        const lastMode = lastMessage ? (modeNames[lastMessage.mode] || lastMessage.mode) : 'Empty';
         
         const deleteBtn = document.createElement('button');
         deleteBtn.className = "absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 hover:text-red-600 dark:hover:text-red-400";
-        deleteBtn.setAttribute('aria-label', 'Delete this history item');
+        deleteBtn.setAttribute('aria-label', 'Delete this chat');
         deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can text-xs"></i>';
         deleteBtn.onclick = (e) => {
             e.stopPropagation();
-            showDeleteChatDialog(index);
+            showDeleteChatDialog(chat.id);
         };
         
         contentDiv.innerHTML = `
             <div class="flex justify-between mb-1">
-                <span class="font-mono text-[10px] text-slate-400">${escapeHtml(item.time)}</span>
-                <span class="text-[10px] font-bold text-brand-600 dark:text-brand-400">${escapeHtml(item.mode)}</span>
+                <span class="font-mono text-[10px] text-slate-400">${chatDate.toLocaleString()}</span>
+                <span class="text-[10px] font-bold text-brand-600 dark:text-brand-400">${lastMode}</span>
             </div>
-            <div class="text-xs truncate text-slate-500 dark:text-slate-400">${escapeHtml(item.input.substring(0, 30))}...</div>
+            <div class="text-xs truncate text-slate-500 dark:text-slate-400 mb-1">
+                ${lastMessage ? escapeHtml(lastMessage.input.substring(0, 50)) + (lastMessage.input.length > 50 ? '...' : '') : 'Empty chat'}
+            </div>
+            <div class="text-[10px] text-slate-400">
+                ${chat.messages.length} ${chat.messages.length === 1 ? 'message' : 'messages'}
+            </div>
         `;
         
         div.appendChild(contentDiv);
@@ -1842,17 +1894,61 @@ function closeClearHistoryConfirmDialog() {
 }
 
 function clearHistory() { 
-    history = []; 
-    localStorage.removeItem('fixly_history'); 
-    renderHistory(); 
+    // Clear all chats
+    chats = {};
+    currentChatId = null;
+    currentMessageIndex = -1;
+    
+    // Clear localStorage
+    try {
+        localStorage.removeItem('fixly_chats');
+        localStorage.removeItem('fixly_current_chat_id');
+        localStorage.removeItem('fixly_history'); // Also clear old history format
+    } catch (e) {}
+    
+    // Clear UI
+    removeChatNavigation();
+    els.outputContainer.classList.add('hidden');
+    els.emptyState.classList.remove('hidden');
+    els.input.value = '';
+    els.wishes.value = '';
+    
+    // Re-render history (will show empty state)
+    renderHistory();
+    
+    // Update button tooltip
+    updateVersionHistoryButtonTooltip();
 }
 
 // Show delete chat confirmation dialog
-function showDeleteChatDialog(index) {
-    if (!els.deleteChatDialog || !els.deleteChatDialogContent) return;
+function deleteChat(chatId) {
+    if (!chatId || !chats[chatId]) return;
     
-    // Store the index for later deletion
-    pendingDeleteChatIndex = index;
+    // If deleting current chat, create new one
+    if (currentChatId === chatId) {
+        newChat();
+    }
+    
+    // Delete chat
+    delete chats[chatId];
+    
+    try {
+        localStorage.setItem('fixly_chats', JSON.stringify(chats));
+        if (currentChatId === chatId) {
+            localStorage.removeItem('fixly_current_chat_id');
+            currentChatId = null;
+        }
+    } catch (e) {}
+    
+    // Re-render history
+    renderHistory();
+}
+
+function showDeleteChatDialog(chatId) {
+    if (!els.deleteChatDialog || !els.deleteChatDialogContent || !chatId) return;
+    
+    // Store the chat ID for later deletion
+    pendingDeleteChatIndex = chatId;
     
     // Update translations
     updateDeleteChatDialogTranslations();
