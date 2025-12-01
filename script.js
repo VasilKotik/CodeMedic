@@ -718,13 +718,14 @@ async function runAI() {
     }
     
     const selectedModel = els.modelSelect.value;
-    const lang = els.langSelect.value;
-    const cacheKey = generateCacheKey(code, currentMode, lang, selectedModel, wishes);
+    const lang = els.langSelect.value; // Programming language (JavaScript, Python, etc.)
+    const responseLang = currentLang; // Interface language for AI response (uk, en, ru, etc.)
+    const cacheKey = generateCacheKey(code, currentMode, responseLang, selectedModel, wishes);
     const cached = getCachedResponse(cacheKey);
     
     if (cached) {
         renderOutput(cached, lang);
-        addToHistory({ mode: currentMode, lang, input: code, output: cached, time: new Date().toLocaleTimeString() });
+        addToHistory({ mode: currentMode, lang: responseLang, input: code, output: cached, time: new Date().toLocaleTimeString() });
         return;
     }
     
@@ -781,7 +782,7 @@ async function runAI() {
             const requestBody = {
                 code: code.trim(),
                 mode: currentMode || 'debug',
-                lang: lang || 'en',
+                lang: responseLang || 'en', // Interface language for AI response
                 model: selectedModel,
                 wishes: wishes ? wishes.trim() : ''
             };
@@ -915,7 +916,7 @@ async function runAI() {
     setCachedResponse(cacheKey, result);
     
     renderOutput(result, lang);
-    addToHistory({ mode: currentMode, lang, input: code, output: result, time: new Date().toLocaleTimeString() });
+    addToHistory({ mode: currentMode, lang: responseLang, input: code, output: result, time: new Date().toLocaleTimeString() });
 
     } catch (error) {
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
