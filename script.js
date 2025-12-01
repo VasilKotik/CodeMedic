@@ -4,11 +4,11 @@ const API_CONFIG = {
 const MODEL_CONFIG = {
     'gemini-2.5-flash': { provider: 'google', supportsJson: true, verified: true },
     'qwen/qwen3-coder:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openrouter/openai/gpt-oss-20b:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openrouter/opengvlab/internvl3-2b:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openrouter/inception/mercury-coder-small-beta': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openrouter/openrouter/sonoma-sky-alpha': { provider: 'openrouter', supportsJson: true, verified: false },
-    'qwen/qwen3-8b:free': { provider: 'openrouter', supportsJson: true, verified: false }
+    'openai/gpt-oss-20b:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'x-ai/grok-4.1-fast:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'tngtech/deepseek-r1t2-chimera:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'google/gemma-3-27b:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'openrouter/bert-nebulon-alpha:free': { provider: 'openrouter', supportsJson: true, verified: false }
 };
 
 const FALLBACK_MODELS = {
