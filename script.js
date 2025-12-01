@@ -77,7 +77,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Очистити історію?",
         clearHistoryConfirmMessage: "Ви впевнені, що хочете очистити всю історію? Всі збережені чати будуть безповоротно видалені. Цю дію неможливо скасувати.",
         newFileTitle: "Створити новий файл", fileName: "Назва файлу", fileType: "Тип файлу", cancel: "Скасувати", create: "Створити",
-        versionHistory: "Історія версій", close: "Закрити", restoreVersion: "Відновити версію", noVersions: "Немає збережених версій", chatPrevious: "Попереднє", chatNext: "Наступне",
+        versionHistory: "Історія версій", close: "Закрити", restoreVersion: "Відновити версію", noVersions: "Немає збережених версій", chatPrevious: "Попереднє", chatNext: "Наступне", chatMessagesHistory: "Повідомлення чату",
         changeLanguageConfirm: "Ви впевнені, що хочете змінити мову? Розширення файлу буде оновлено автоматично.",
         changeLanguageConfirmTitle: "Змінити мову програмування?",
         changeLanguageConfirmMessage: "Ви впевнені, що хочете змінити мову програмування? Розширення файлу буде оновлено автоматично.",
@@ -100,7 +100,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Clear History?",
         clearHistoryConfirmMessage: "Are you sure you want to clear all history? All saved chats will be permanently deleted. This action cannot be undone.",
         newFileTitle: "Create New File", fileName: "File Name", fileType: "File Type", cancel: "Cancel", create: "Create",
-        versionHistory: "Version History", close: "Close", restoreVersion: "Restore Version", noVersions: "No saved versions",
+        versionHistory: "Version History", close: "Close", restoreVersion: "Restore Version", noVersions: "No saved versions", chatPrevious: "Previous", chatNext: "Next", chatMessagesHistory: "Chat Messages",
         changeLanguageConfirm: "Are you sure you want to change the language? File extension will be updated automatically.",
         changeLanguageConfirmTitle: "Change Programming Language?",
         changeLanguageConfirmMessage: "Are you sure you want to change the programming language? The file extension will be updated automatically.",
@@ -121,7 +121,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Wyczyścić historię?",
         clearHistoryConfirmMessage: "Czy na pewno chcesz wyczyścić całą historię? Wszystkie zapisane czaty zostaną trwale usunięte. Tej akcji nie można cofnąć.",
         newFileTitle: "Utwórz nowy plik", fileName: "Nazwa pliku", fileType: "Typ pliku", cancel: "Anuluj", create: "Utwórz",
-        versionHistory: "Historia wersji", close: "Zamknij", restoreVersion: "Przywróć wersję", noVersions: "Brak zapisanych wersji",
+        versionHistory: "Historia wersji", close: "Zamknij", restoreVersion: "Przywróć wersję", noVersions: "Brak zapisanych wersji", chatPrevious: "Poprzednie", chatNext: "Następne", chatMessagesHistory: "Wiadomości czatu",
         changeLanguageConfirm: "Czy na pewno chcesz zmienić język? Rozszerzenie pliku zostanie zaktualizowane automatycznie.",
         changeLanguageConfirmTitle: "Zmienić język programowania?",
         changeLanguageConfirmMessage: "Czy na pewno chcesz zmienić język programowania? Rozszerzenie pliku zostanie zaktualizowane automatycznie.",
@@ -144,7 +144,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Verlauf löschen?",
         clearHistoryConfirmMessage: "Sind Sie sicher, dass Sie den gesamten Verlauf löschen möchten? Alle gespeicherten Chats werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
         newFileTitle: "Neue Datei erstellen", fileName: "Dateiname", fileType: "Dateityp", cancel: "Abbrechen", create: "Erstellen",
-        versionHistory: "Versionsverlauf", close: "Schließen", restoreVersion: "Version wiederherstellen", noVersions: "Keine gespeicherten Versionen",
+        versionHistory: "Versionsverlauf", close: "Schließen", restoreVersion: "Version wiederherstellen", noVersions: "Keine gespeicherten Versionen", chatPrevious: "Vorherige", chatNext: "Nächste", chatMessagesHistory: "Chat-Nachrichten",
         changeLanguageConfirm: "Sind Sie sicher, dass Sie die Sprache ändern möchten? Die Dateierweiterung wird automatisch aktualisiert.",
         changeLanguageConfirmTitle: "Programmiersprache ändern?",
         changeLanguageConfirmMessage: "Sind Sie sicher, dass Sie die Programmiersprache ändern möchten? Die Dateierweiterung wird automatisch aktualisiert.",
@@ -167,7 +167,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "¿Limpiar historial?",
         clearHistoryConfirmMessage: "¿Estás seguro de que quieres limpiar todo el historial? Todos los chats guardados serán eliminados permanentemente. Esta acción no se puede deshacer.",
         newFileTitle: "Crear nuevo archivo", fileName: "Nombre del archivo", fileType: "Tipo de archivo", cancel: "Cancelar", create: "Crear",
-        versionHistory: "Historial de versiones", close: "Cerrar", restoreVersion: "Restaurar versión", noVersions: "No hay versiones guardadas",
+        versionHistory: "Historial de versiones", close: "Cerrar", restoreVersion: "Restaurar versión", noVersions: "No hay versiones guardadas", chatPrevious: "Anterior", chatNext: "Siguiente", chatMessagesHistory: "Mensajes del chat",
         changeLanguageConfirm: "¿Estás seguro de que quieres cambiar el idioma? La extensión del archivo se actualizará automáticamente.",
         changeLanguageConfirmTitle: "¿Cambiar lenguaje de programación?",
         changeLanguageConfirmMessage: "¿Estás seguro de que quieres cambiar el lenguaje de programación? La extensión del archivo se actualizará automáticamente.",
@@ -190,7 +190,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Очистить историю?",
         clearHistoryConfirmMessage: "Вы уверены, что хотите очистить всю историю? Все сохраненные чаты будут безвозвратно удалены. Это действие нельзя отменить.",
         newFileTitle: "Создать новый файл", fileName: "Имя файла", fileType: "Тип файла", cancel: "Отмена", create: "Создать",
-        versionHistory: "История версий", close: "Закрыть", restoreVersion: "Восстановить версию", noVersions: "Нет сохраненных версий",
+        versionHistory: "История версий", close: "Закрыть", restoreVersion: "Восстановить версию", noVersions: "Нет сохраненных версий", chatPrevious: "Предыдущее", chatNext: "Следующее", chatMessagesHistory: "Сообщения чата",
         changeLanguageConfirm: "Вы уверены, что хотите изменить язык? Расширение файла будет обновлено автоматически.",
         changeLanguageConfirmTitle: "Изменить язык программирования?",
         changeLanguageConfirmMessage: "Вы уверены, что хотите изменить язык программирования? Расширение файла будет обновлено автоматически.",
@@ -257,6 +257,11 @@ try { history = JSON.parse(localStorage.getItem('fixly_history')) || []; } catch
 try { 
     chats = JSON.parse(localStorage.getItem('fixly_chats')) || {}; 
     currentChatId = localStorage.getItem('fixly_current_chat_id');
+    // Validate that currentChatId exists in chats
+    if (currentChatId && !chats[currentChatId]) {
+        currentChatId = null;
+        localStorage.removeItem('fixly_current_chat_id');
+    }
 } catch (e) { 
     chats = {}; 
     currentChatId = null;
@@ -391,6 +396,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMessageIndex = chats[currentChatId].messages.length - 1;
         renderChatMessages(chats[currentChatId], currentMessageIndex);
     }
+    
+    // Update button tooltip
+    updateVersionHistoryButtonTooltip();
     
     if(localStorage.getItem('fixly_draft')) {
         els.input.value = localStorage.getItem('fixly_draft');
@@ -738,16 +746,42 @@ async function runAI() {
     const selectedModel = els.modelSelect.value;
     const lang = els.langSelect.value;
     
-    // Create or get current chat
+    // Get or create current chat - reuse existing chat if available
     if (!currentChatId || !chats[currentChatId]) {
-        const newChatId = 'chat_' + Date.now();
-        chats[newChatId] = {
-            id: newChatId,
-            messages: [],
-            createdAt: Date.now()
-        };
-        currentChatId = newChatId;
-        currentMessageIndex = -1;
+        // Check if there's a recent chat we can reuse
+        const chatIds = Object.keys(chats);
+        if (chatIds.length > 0) {
+            // Get the most recent chat
+            const sortedChats = chatIds
+                .map(id => ({ id, ...chats[id] }))
+                .sort((a, b) => b.createdAt - a.createdAt);
+            
+            if (sortedChats.length > 0) {
+                currentChatId = sortedChats[0].id;
+                currentMessageIndex = sortedChats[0].messages.length > 0 ? sortedChats[0].messages.length - 1 : -1;
+            } else {
+                // Create new chat
+                const newChatId = 'chat_' + Date.now();
+                chats[newChatId] = {
+                    id: newChatId,
+                    messages: [],
+                    createdAt: Date.now()
+                };
+                currentChatId = newChatId;
+                currentMessageIndex = -1;
+            }
+        } else {
+            // Create new chat
+            const newChatId = 'chat_' + Date.now();
+            chats[newChatId] = {
+                id: newChatId,
+                messages: [],
+                createdAt: Date.now()
+            };
+            currentChatId = newChatId;
+            currentMessageIndex = -1;
+        }
+        
         try {
             localStorage.setItem('fixly_chats', JSON.stringify(chats));
             localStorage.setItem('fixly_current_chat_id', currentChatId);
@@ -776,6 +810,9 @@ async function runAI() {
         
         renderChatMessages(chats[currentChatId], currentMessageIndex);
         addToHistory({ mode: currentMode, lang, input: code, output: cached, time: new Date().toLocaleTimeString() });
+        
+        // Update button tooltip
+        updateVersionHistoryButtonTooltip();
         return;
     }
     
@@ -982,6 +1019,9 @@ async function runAI() {
     
     renderChatMessages(chats[currentChatId], currentMessageIndex);
     addToHistory({ mode: currentMode, lang, input: code, output: result, time: new Date().toLocaleTimeString() });
+    
+    // Update button tooltip
+    updateVersionHistoryButtonTooltip();
 
     } catch (error) {
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
@@ -1385,7 +1425,14 @@ function updateTexts(lang) {
     if (els.formatCodeBtn) els.formatCodeBtn.title = t.formatCode || 'Format Code';
     if (els.uploadFileBtn) els.uploadFileBtn.title = t.uploadFile || 'Upload File';
     if (els.downloadFileBtn) els.downloadFileBtn.title = t.downloadFile || 'Download File';
-    if (els.versionHistoryBtn) els.versionHistoryBtn.title = t.versionHistory || 'Version History';
+    if (els.versionHistoryBtn) {
+        // Update tooltip based on context
+        if (currentChatId && chats[currentChatId] && chats[currentChatId].messages.length > 0) {
+            els.versionHistoryBtn.title = t.tipVersionHistory || t.versionHistory || 'View Chat Messages';
+        } else {
+            els.versionHistoryBtn.title = t.tipVersionHistory || t.versionHistory || 'Version History';
+        }
+    }
     if (els.copyInputBtn) els.copyInputBtn.title = t.copyCode || 'Copy Code';
     const clearBtn = document.getElementById('clear-input-btn');
     if (clearBtn) clearBtn.title = t.clearEditor || 'Clear Editor';
@@ -1586,6 +1633,9 @@ function newChat() {
     localStorage.removeItem('fixly_draft'); 
     switchTab('code'); 
     updateLineNumbers();
+    
+    // Update button tooltip
+    updateVersionHistoryButtonTooltip();
 }
 async function copyCode() {
     try {
@@ -2824,6 +2874,12 @@ function renderChatVersionHistory() {
     const chat = chats[currentChatId];
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     
+    // Update dialog title
+    const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
+    if (titleEl) {
+        titleEl.textContent = t.chatMessagesHistory || 'Chat Messages';
+    }
+    
     els.versionHistoryList.innerHTML = '';
     
     if (chat.messages.length === 0) {
@@ -2880,8 +2936,26 @@ function loadChatMessage(index) {
     closeVersionHistory();
 }
 
+function updateVersionHistoryButtonTooltip() {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    if (els.versionHistoryBtn) {
+        if (currentChatId && chats[currentChatId] && chats[currentChatId].messages.length > 0) {
+            els.versionHistoryBtn.title = t.tipVersionHistory || t.versionHistory || 'View Chat Messages';
+        } else {
+            els.versionHistoryBtn.title = t.tipVersionHistory || t.versionHistory || 'Version History';
+        }
+    }
+}
+
 function renderVersionHistory() {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    
+    // Update dialog title for file versions
+    const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
+    if (titleEl) {
+        titleEl.textContent = t.versionHistory || 'Version History';
+    }
+    
     els.versionHistoryList.innerHTML = '';
     
     if (!activeFile || !fileVersions[activeFile]) {
