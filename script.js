@@ -3,23 +3,17 @@ const API_CONFIG = {
 };
 const MODEL_CONFIG = {
     'gemini-2.5-flash': { provider: 'google', supportsJson: true, verified: true },
-    'deepseek/deepseek-chat-v3.1:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openai/gpt-oss-20b:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'z-ai/glm-4.5-air:free': { provider: 'openrouter', supportsJson: true, verified: false },
     'qwen/qwen3-coder:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'amazon/nova-lite-v1:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'amazon/nova-micro-v1:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'mistralai/mixtral-8x7b-instruct:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'nousresearch/nous-capybara-7b:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'openchat/openchat-3.5-0106:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'toppy/toppy-m-7b:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'mythomax/zephyr-7b-beta:free': { provider: 'openrouter', supportsJson: true, verified: false },
-    'meta-llama/llama-3-8b-instruct:free': { provider: 'openrouter', supportsJson: true, verified: false }
+    'openrouter/openai/gpt-oss-20b:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'openrouter/opengvlab/internvl3-2b:free': { provider: 'openrouter', supportsJson: true, verified: false },
+    'openrouter/inception/mercury-coder-small-beta': { provider: 'openrouter', supportsJson: true, verified: false },
+    'openrouter/openrouter/sonoma-sky-alpha': { provider: 'openrouter', supportsJson: true, verified: false },
+    'qwen/qwen3-8b:free': { provider: 'openrouter', supportsJson: true, verified: false }
 };
 
 const FALLBACK_MODELS = {
     'google': 'gemini-2.5-flash',
-    'openrouter': 'deepseek/deepseek-chat-v3.1:free'
+    'openrouter': 'qwen/qwen3-coder:free'
 };
 const CONTENT_POOLS = {
     uk: {
