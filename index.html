@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk" class="dark">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -29,7 +29,7 @@
     <meta name="twitter:description" content="Безкоштовний AI-асистент для виправлення багів, оптимізації коду, пояснення логіки, конвертації мов програмування та генерації тестів.">
     
     <title>FixlyCode — AI-асистент для виправлення та оптимізації коду</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -515,11 +515,11 @@
             <div id="output-section" class="flex-1 flex flex-col bg-gray-50 dark:bg-[#1e1e1e] min-h-[60%] md:min-h-0 relative mobile-section hidden md:flex" style="flex: 1 1 50%;">
                 <div class="px-4 py-2 bg-white dark:bg-[#252526] border-b border-gray-200 dark:border-[#333] flex justify-between items-center h-[45px]">
                     <div class="flex space-x-1 bg-gray-100 dark:bg-black/20 p-0.5 rounded-lg">
-                        <button id="tab-code" class="text-[10px] font-bold px-3 py-1 rounded-md bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm transition-all" onclick="switchTab('code')">
-                            <i class="fa-solid fa-code mr-1"></i> CODE
+                        <button id="tab-code" class="text-[10px] font-bold px-3 py-1 rounded-md bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm transition-all" aria-label="View code" aria-pressed="true">
+                            <i class="fa-solid fa-code mr-1" aria-hidden="true"></i> CODE
                         </button>
-                        <button id="tab-preview" class="text-[10px] font-bold px-3 py-1 rounded-md text-slate-500 hover:bg-white dark:hover:bg-slate-700 transition-all hidden" onclick="switchTab('preview')">
-                            <i class="fa-solid fa-play mr-1"></i> PREVIEW
+                        <button id="tab-preview" class="text-[10px] font-bold px-3 py-1 rounded-md text-slate-500 hover:bg-white dark:hover:bg-slate-700 transition-all hidden" aria-label="View preview" aria-pressed="false">
+                            <i class="fa-solid fa-play mr-1" aria-hidden="true"></i> PREVIEW
                         </button>
                     </div>
                     <div class="flex space-x-1">

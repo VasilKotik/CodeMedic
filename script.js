@@ -13,6 +13,94 @@ const FALLBACK_MODELS = {
     'google': 'gemini-2.5-flash',
     'openrouter': 'qwen/qwen3-coder:free'
 };
+
+// Shared language to extension mapping
+const LANGUAGE_EXTENSION_MAP = {
+    'JavaScript': '.js',
+    'TypeScript': '.ts',
+    'React': '.jsx',
+    'Python': '.py',
+    'Java': '.java',
+    'C++': '.cpp',
+    'C': '.c',
+    'C#': '.cs',
+    'HTML/CSS': '.html',
+    'PHP': '.php',
+    'Ruby': '.rb',
+    'Vue': '.vue',
+    'Svelte': '.svelte',
+    'Go': '.go',
+    'Rust': '.rs',
+    'Swift': '.swift',
+    'Kotlin': '.kt',
+    'Dart': '.dart',
+    'Objective-C': '.m',
+    'SQL': '.sql',
+    'R': '.r',
+    'Shell/Bash': '.sh',
+    'PowerShell': '.ps1',
+    'Lua': '.lua',
+    'Perl': '.pl',
+    'Scala': '.scala',
+    'Haskell': '.hs',
+    'Elixir': '.ex',
+    'Clojure': '.clj',
+    'Erlang': '.erl',
+    'JSON': '.json',
+    'YAML': '.yaml',
+    'XML': '.xml',
+    'Markdown': '.md',
+    'TOML': '.toml',
+    'INI': '.ini',
+    'Assembly': '.asm'
+};
+
+// Shared extension to language mapping
+const EXTENSION_LANGUAGE_MAP = {
+    '.js': 'JavaScript',
+    '.ts': 'TypeScript',
+    '.jsx': 'React',
+    '.tsx': 'React',
+    '.py': 'Python',
+    '.java': 'Java',
+    '.cpp': 'C++',
+    '.c': 'C',
+    '.cs': 'C#',
+    '.html': 'HTML/CSS',
+    '.css': 'HTML/CSS',
+    '.php': 'PHP',
+    '.rb': 'Ruby',
+    '.vue': 'Vue',
+    '.svelte': 'Svelte',
+    '.go': 'Go',
+    '.rs': 'Rust',
+    '.asm': 'Assembly',
+    '.swift': 'Swift',
+    '.kt': 'Kotlin',
+    '.dart': 'Dart',
+    '.m': 'Objective-C',
+    '.sql': 'SQL',
+    '.r': 'R',
+    '.sh': 'Shell/Bash',
+    '.ps1': 'PowerShell',
+    '.lua': 'Lua',
+    '.pl': 'Perl',
+    '.scala': 'Scala',
+    '.hs': 'Haskell',
+    '.ex': 'Elixir',
+    '.clj': 'Clojure',
+    '.erl': 'Erlang',
+    '.json': 'JSON',
+    '.yaml': 'YAML',
+    '.yml': 'YAML',
+    '.xml': 'XML',
+    '.md': 'Markdown',
+    '.toml': 'TOML',
+    '.ini': 'INI',
+    '.conf': 'INI',
+    '.txt': 'JavaScript',
+    '.log': 'JavaScript'
+};
 const CONTENT_POOLS = {
     uk: {
         tips: [
@@ -225,7 +313,30 @@ const TRANSLATIONS = {
 
 let currentMode = 'debug';
 let currentLang = localStorage.getItem('fixly_lang') || 'en';
-let isDark = localStorage.getItem('fixly_theme') !== 'light';
+function getInitialTheme() {
+    const savedTheme = localStorage.getItem('fixly_theme');
+    if (savedTheme === 'dark') return true;
+    if (savedTheme === 'light') return false;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return true;
+    }
+    return false;
+}
+
+let isDark = getInitialTheme();
+
+// Apply theme immediately to prevent FOUC (Flash of Unstyled Content)
+(function() {
+    const theme = getInitialTheme();
+    const html = document.documentElement;
+    if (theme) {
+        html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+    }
+    // Sync isDark variable
+    isDark = theme;
+})();
 let history = [];
 let currentChatId = null; // Track current active chat
 let currentTourStep = 0; 
@@ -454,7 +565,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (els.welcomeScreen) els.welcomeScreen.classList.remove('hidden');
         els.html.classList.add('overflow-hidden');
     }
-    if (isDark) els.html.classList.add('dark'); else els.html.classList.remove('dark');
+    
+    applyTheme();
+    
     if (!TRANSLATIONS[currentLang]) currentLang = 'en';
     if (els.uiLang) els.uiLang.value = currentLang;
     updateTexts(currentLang);
@@ -723,6 +836,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (els.versionHistoryClose) els.versionHistoryClose.addEventListener('click', closeVersionHistory);
     if (els.versionHistoryBtn) els.versionHistoryBtn.addEventListener('click', showVersionHistory);
+    
+    // Tab buttons event listeners
+    if (els.tabCode) els.tabCode.addEventListener('click', () => switchTab('code'));
+    if (els.tabPreview) els.tabPreview.addEventListener('click', () => switchTab('preview'));
+    
+    // Event delegation for dynamically created buttons
+    if (els.versionHistoryList) {
+        els.versionHistoryList.addEventListener('click', (e) => {
+            const restoreBtn = e.target.closest('.restore-version-btn');
+            if (restoreBtn) {
+                const index = parseInt(restoreBtn.dataset.index);
+                restoreFileVersion(index);
+                return;
+            }
+            
+            const restoreChatBtn = e.target.closest('.restore-chat-version-btn');
+            if (restoreChatBtn) {
+                const chatId = restoreChatBtn.dataset.chatId;
+                const index = parseInt(restoreChatBtn.dataset.index);
+                restoreChatVersion(chatId, index);
+                return;
+            }
+            
+            const loadMessageBtn = e.target.closest('.load-chat-message-btn');
+            if (loadMessageBtn) {
+                const chatId = loadMessageBtn.dataset.chatId;
+                const messageIndex = parseInt(loadMessageBtn.dataset.messageIndex);
+                loadChatMessage(chatId, messageIndex);
+                return;
+            }
+        });
+    }
     
     // Initialize resize functionality
     initResize();
@@ -1528,7 +1673,40 @@ function animateScoreCount(targetEl, finalScore) {
     window.requestAnimationFrame(step);
 }
 
-function toggleTheme() { isDark = !isDark; els.html.classList.toggle('dark'); localStorage.setItem('fixly_theme', isDark ? 'dark' : 'light'); }
+function toggleTheme() {
+    isDark = !isDark;
+    applyTheme();
+    if (els.themeToggle) {
+        els.themeToggle.classList.add('animate-pulse');
+        setTimeout(() => {
+            els.themeToggle.classList.remove('animate-pulse');
+        }, 200);
+    }
+}
+
+function applyTheme() {
+    const html = document.documentElement;
+    if (!html) return;
+    
+    if (isDark) {
+        html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+    }
+    localStorage.setItem('fixly_theme', isDark ? 'dark' : 'light');
+}
+
+// System theme change listener
+if (window.matchMedia) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+        const savedTheme = localStorage.getItem('fixly_theme');
+        if (!savedTheme) {
+            isDark = e.matches;
+            applyTheme();
+        }
+    });
+}
 function updateTexts(lang) {
     currentLang = lang;
     localStorage.setItem('fixly_lang', lang);
@@ -1730,15 +1908,19 @@ function switchTab(tab) {
         els.viewPreview.classList.add('hidden');
         els.tabCode.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
         els.tabCode.classList.remove('text-slate-500');
+        els.tabCode.setAttribute('aria-pressed', 'true');
         els.tabPreview.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
         els.tabPreview.classList.add('text-slate-500');
+        els.tabPreview.setAttribute('aria-pressed', 'false');
     } else {
         els.viewCode.classList.add('hidden');
         els.viewPreview.classList.remove('hidden');
         els.tabPreview.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
         els.tabPreview.classList.remove('text-slate-500');
+        els.tabPreview.setAttribute('aria-pressed', 'true');
         els.tabCode.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
         els.tabCode.classList.add('text-slate-500');
+        els.tabCode.setAttribute('aria-pressed', 'false');
         runPreview();
     }
 }
@@ -2263,46 +2445,7 @@ function createFile(filename, content = '', language = 'JavaScript') {
     // If filename is "New File" without extension, add extension based on language
     let finalFilename = filename;
     if (filename === 'New File' || filename.toLowerCase() === 'new file') {
-        const extMap = {
-            'JavaScript': '.js',
-            'TypeScript': '.ts',
-            'React': '.jsx',
-            'Python': '.py',
-            'Java': '.java',
-            'C++': '.cpp',
-            'C': '.c',
-            'C#': '.cs',
-            'HTML/CSS': '.html',
-            'PHP': '.php',
-            'Ruby': '.rb',
-            'Vue': '.vue',
-            'Svelte': '.svelte',
-            'Go': '.go',
-            'Rust': '.rs',
-            'Swift': '.swift',
-            'Kotlin': '.kt',
-            'Dart': '.dart',
-            'Objective-C': '.m',
-            'SQL': '.sql',
-            'R': '.r',
-            'Shell/Bash': '.sh',
-            'PowerShell': '.ps1',
-            'Lua': '.lua',
-            'Perl': '.pl',
-            'Scala': '.scala',
-            'Haskell': '.hs',
-            'Elixir': '.ex',
-            'Clojure': '.clj',
-            'Erlang': '.erl',
-            'JSON': '.json',
-            'YAML': '.yaml',
-            'XML': '.xml',
-            'Markdown': '.md',
-            'TOML': '.toml',
-            'INI': '.ini',
-            'Assembly': '.asm'
-        };
-        const ext = extMap[language] || '.js';
+        const ext = LANGUAGE_EXTENSION_MAP[language] || '.js';
         finalFilename = 'New File' + ext;
         
         // If file already exists, add number
@@ -2677,48 +2820,7 @@ function renameFileWithExtension(oldFilename, newLanguage) {
         baseName = 'New File';
     }
     
-    // Map language to extension
-    const extMap = {
-        'JavaScript': '.js',
-        'TypeScript': '.ts',
-        'React': '.jsx',
-        'Python': '.py',
-        'Java': '.java',
-        'C++': '.cpp',
-        'C': '.c',
-        'C#': '.cs',
-        'HTML/CSS': '.html',
-        'PHP': '.php',
-        'Ruby': '.rb',
-        'Vue': '.vue',
-        'Svelte': '.svelte',
-        'Go': '.go',
-        'Rust': '.rs',
-        'Swift': '.swift',
-        'Kotlin': '.kt',
-        'Dart': '.dart',
-        'Objective-C': '.m',
-        'SQL': '.sql',
-        'R': '.r',
-        'Shell/Bash': '.sh',
-        'PowerShell': '.ps1',
-        'Lua': '.lua',
-        'Perl': '.pl',
-        'Scala': '.scala',
-        'Haskell': '.hs',
-        'Elixir': '.ex',
-        'Clojure': '.clj',
-        'Erlang': '.erl',
-        'JSON': '.json',
-        'YAML': '.yaml',
-        'XML': '.xml',
-        'Markdown': '.md',
-        'TOML': '.toml',
-        'INI': '.ini',
-        'Assembly': '.asm'
-    };
-    
-    const newExt = extMap[newLanguage] || '';
+    const newExt = LANGUAGE_EXTENSION_MAP[newLanguage] || '';
     const newFilename = baseName + newExt;
     
     // If filename already exists and it's different, add number
@@ -2842,60 +2944,7 @@ function createNewFile() {
         }
     }
     
-    const langMap = {
-        // Popular
-        '.js': 'JavaScript',
-        '.ts': 'TypeScript',
-        '.jsx': 'React',
-        '.tsx': 'React',
-        '.py': 'Python',
-        '.java': 'Java',
-        '.cpp': 'C++',
-        '.c': 'C',
-        '.cs': 'C#',
-        // Web
-        '.html': 'HTML/CSS',
-        '.css': 'HTML/CSS',
-        '.php': 'PHP',
-        '.rb': 'Ruby',
-        '.vue': 'Vue',
-        '.svelte': 'Svelte',
-        // Systems
-        '.go': 'Go',
-        '.rs': 'Rust',
-        '.asm': 'Assembly',
-        // Mobile
-        '.swift': 'Swift',
-        '.kt': 'Kotlin',
-        '.dart': 'Dart',
-        '.m': 'Objective-C',
-        // Data & Scripts
-        '.sql': 'SQL',
-        '.r': 'R',
-        '.sh': 'Shell/Bash',
-        '.ps1': 'PowerShell',
-        '.lua': 'Lua',
-        '.pl': 'Perl',
-        '.scala': 'Scala',
-        '.hs': 'Haskell',
-        '.ex': 'Elixir',
-        '.clj': 'Clojure',
-        '.erl': 'Erlang',
-        // Config & Markup
-        '.json': 'JSON',
-        '.yaml': 'YAML',
-        '.yml': 'YAML',
-        '.xml': 'XML',
-        '.md': 'Markdown',
-        '.toml': 'TOML',
-        '.ini': 'INI',
-        '.conf': 'INI',
-        // Other
-        '.txt': 'JavaScript',
-        '.log': 'JavaScript'
-    };
-    
-    createFile(filename, '', langMap[type] || 'JavaScript');
+        createFile(filename, '', EXTENSION_LANGUAGE_MAP[type] || 'JavaScript');
     closeNewFileDialog();
 }
 
@@ -3022,60 +3071,7 @@ function handleFileUpload(event) {
         const filename = file.name;
         const ext = filename.substring(filename.lastIndexOf('.'));
         
-        const langMap = {
-            // Popular
-            '.js': 'JavaScript',
-            '.ts': 'TypeScript',
-            '.jsx': 'React',
-            '.tsx': 'React',
-            '.py': 'Python',
-            '.java': 'Java',
-            '.cpp': 'C++',
-            '.c': 'C',
-            '.cs': 'C#',
-            // Web
-            '.html': 'HTML/CSS',
-            '.css': 'HTML/CSS',
-            '.php': 'PHP',
-            '.rb': 'Ruby',
-            '.vue': 'Vue',
-            '.svelte': 'Svelte',
-            // Systems
-            '.go': 'Go',
-            '.rs': 'Rust',
-            '.asm': 'Assembly',
-            // Mobile
-            '.swift': 'Swift',
-            '.kt': 'Kotlin',
-            '.dart': 'Dart',
-            '.m': 'Objective-C',
-            // Data & Scripts
-            '.sql': 'SQL',
-            '.r': 'R',
-            '.sh': 'Shell/Bash',
-            '.ps1': 'PowerShell',
-            '.lua': 'Lua',
-            '.pl': 'Perl',
-            '.scala': 'Scala',
-            '.hs': 'Haskell',
-            '.ex': 'Elixir',
-            '.clj': 'Clojure',
-            '.erl': 'Erlang',
-            // Config & Markup
-            '.json': 'JSON',
-            '.yaml': 'YAML',
-            '.yml': 'YAML',
-            '.xml': 'XML',
-            '.md': 'Markdown',
-            '.toml': 'TOML',
-            '.ini': 'INI',
-            '.conf': 'INI',
-            // Other
-            '.txt': 'JavaScript',
-            '.log': 'JavaScript'
-        };
-        
-        createFile(filename, content, langMap[ext] || 'JavaScript');
+        createFile(filename, content, EXTENSION_LANGUAGE_MAP[ext] || 'JavaScript');
         
         // Add success animation
         els.uploadFileBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark" aria-hidden="true"></i>';
@@ -3103,47 +3099,7 @@ function downloadCurrentFile() {
         const content = els.input.value;
         const lang = els.langSelect.value;
         
-        const extMap = {
-            'JavaScript': '.js',
-            'TypeScript': '.ts',
-            'React': '.jsx',
-            'Python': '.py',
-            'Java': '.java',
-            'C++': '.cpp',
-            'C': '.c',
-            'C#': '.cs',
-            'HTML/CSS': '.html',
-            'PHP': '.php',
-            'Ruby': '.rb',
-            'Vue': '.vue',
-            'Svelte': '.svelte',
-            'Go': '.go',
-            'Rust': '.rs',
-            'Swift': '.swift',
-            'Kotlin': '.kt',
-            'Dart': '.dart',
-            'Objective-C': '.m',
-            'SQL': '.sql',
-            'R': '.r',
-            'Shell/Bash': '.sh',
-            'PowerShell': '.ps1',
-            'Lua': '.lua',
-            'Perl': '.pl',
-            'Scala': '.scala',
-            'Haskell': '.hs',
-            'Elixir': '.ex',
-            'Clojure': '.clj',
-            'Erlang': '.erl',
-            'JSON': '.json',
-            'YAML': '.yaml',
-            'XML': '.xml',
-            'Markdown': '.md',
-            'TOML': '.toml',
-            'INI': '.ini',
-            'Assembly': '.asm'
-        };
-        
-        const ext = extMap[lang] || '.txt';
+        const ext = LANGUAGE_EXTENSION_MAP[lang] || '.txt';
         const filename = `code${ext}`;
         
         downloadFile(filename, content);
@@ -3369,7 +3325,7 @@ function renderVersionHistory() {
                     <div class="text-sm font-semibold text-slate-800 dark:text-white">Version ${versions.length - index}</div>
                     <div class="text-xs text-slate-500 dark:text-slate-400">${date.toLocaleString()}</div>
                 </div>
-                <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition" onclick="restoreFileVersion(${versions.length - 1 - index})">
+                <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition restore-version-btn" data-index="${versions.length - 1 - index}" aria-label="Restore version ${versions.length - index}">
                     ${t.restoreVersion || 'Restore'}
                 </button>
             </div>
@@ -3434,7 +3390,7 @@ function renderChatMessages(chat) {
                 </div>
             </div>
             <div class="text-sm text-slate-700 dark:text-slate-300 mb-2 line-clamp-2">${escapeHtml(message.input.substring(0, 100))}${message.input.length > 100 ? '...' : ''}</div>
-            <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition w-full" onclick="loadChatMessage('${chat.id}', ${reversedMessages.length - 1 - index})">
+            <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition w-full load-chat-message-btn" data-chat-id="${chat.id}" data-message-index="${reversedMessages.length - 1 - index}" aria-label="Load message">
                 ${t.restoreVersion || 'Load'}
             </button>
         `;
@@ -3471,7 +3427,7 @@ function renderChatVersionHistory(chat) {
                     <div class="text-sm font-semibold text-slate-800 dark:text-white">Version ${versions.length - index}</div>
                     <div class="text-xs text-slate-500 dark:text-slate-400">${date.toLocaleString()}</div>
                 </div>
-                <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition" onclick="restoreChatVersion('${chat.id}', ${versions.length - 1 - index})">
+                <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition restore-chat-version-btn" data-chat-id="${chat.id}" data-index="${versions.length - 1 - index}" aria-label="Restore version ${versions.length - index}">
                     ${t.restoreVersion || 'Restore'}
                 </button>
             </div>
@@ -3488,6 +3444,7 @@ function restoreFileVersion(index) {
     updateLineNumbers();
     closeVersionHistory();
 }
+window.restoreFileVersion = restoreFileVersion;
 
 function restoreChatVersion(chatId, index) {
     const chat = history.find(c => c.id === chatId);
@@ -3498,6 +3455,7 @@ function restoreChatVersion(chatId, index) {
     updateLineNumbers();
     closeVersionHistory();
 }
+window.restoreChatVersion = restoreChatVersion;
 
 function loadChatMessage(chatId, messageIndex) {
     const chat = history.find(c => c.id === chatId);
@@ -3513,6 +3471,7 @@ function loadChatMessage(chatId, messageIndex) {
     closeVersionHistory();
     renderHistory(); // Re-render to show active state
 }
+window.loadChatMessage = loadChatMessage;
 
 // Initialize resize handle functionality
 function initResize() {
