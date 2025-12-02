@@ -69,7 +69,7 @@ const TRANSLATIONS = {
         newChatBtn: "Новий чат", donateBtn: "На каву", runBtn: "Запуск", analysisHeader: "Аналіз", emptyTitle: "FixlyCode", loading: "Аналіз...", errorEmpty: "Введіть код!", clearHistory: "Очистити", clearHistoryConfirm: "Очистити всю історію?", placeholder: "// Вставте код тут...", tipHeader: "Порада:", langName: "Українська", wishesPlaceholder: "Додаткові побажання...", exportBtn: "Експорт MD", scoreTitle: "Оцінка", analysisTimeLabel: "Час аналізу:", aiDisclaimer: "Штучний інтелект може помилятися. Будь ласка, перевіряйте інформацію та код перед використанням.",
         tipDebug: "Виправити", tipOptimize: "Оптимізувати", tipExplain: "Пояснити", tipReview: "Огляд", tipSecurity: "Безпека", tipRefactor: "Рефакторинг", tipDocument: "Документація", tipConvert: "Конвертувати", tipFormat: "Форматувати", tipTest: "Міркування",
         convertFrom: "З:", convertTo: "В:",
-        languageMismatchTitle: "Невідповідність мови", languageMismatchMessage: "Код виглядає як інша мова. Змінити мову програмування?",
+        languageMismatchTitle: "Невідповідність мови", languageMismatchMessage: "Код виглядає як інша мова. Змінити мову програмування?", continueAnyway: "Продовжити все одно",
         tipFormatCode: "Форматувати код", tipUploadFile: "Завантажити файл", tipDownloadFile: "Зберегти файл", tipVersionHistory: "Історія версій", tipCopyCode: "Копіювати код", tipClearEditor: "Очистити редактор",
         formatCode: "Форматувати", uploadFile: "Завантажити", downloadFile: "Зберегти", copyCode: "Копіювати", clearEditor: "Очистити",
         clearConfirm: "Очистити редактор?",
@@ -95,7 +95,7 @@ const TRANSLATIONS = {
         newChatBtn: "New Chat", donateBtn: "Buy coffee", runBtn: "Run", analysisHeader: "Analysis", emptyTitle: "FixlyCode", loading: "Thinking...", errorEmpty: "Enter code!", clearHistory: "Clear", clearHistoryConfirm: "Clear all history?", placeholder: "// Paste code here...", langName: "English", wishesPlaceholder: "Additional wishes...", exportBtn: "Export MD", scoreTitle: "Score", analysisTimeLabel: "Analysis time:", aiDisclaimer: "Artificial intelligence may make mistakes. Please verify information and code before use.",
         tipDebug: "Fix", tipOptimize: "Optimize", tipExplain: "Explain", tipReview: "Review", tipSecurity: "Security", tipRefactor: "Refactor", tipDocument: "Document", tipConvert: "Convert", tipFormat: "Format", tipTest: "Reasoning",
         convertFrom: "From:", convertTo: "To:",
-        languageMismatchTitle: "Language Mismatch", languageMismatchMessage: "Code appears to be a different language. Change programming language?",
+        languageMismatchTitle: "Language Mismatch", languageMismatchMessage: "Code appears to be a different language. Change programming language?", continueAnyway: "Continue Anyway",
         tipFormatCode: "Format code", tipUploadFile: "Upload file", tipDownloadFile: "Save file", tipVersionHistory: "Version history", tipCopyCode: "Copy code", tipClearEditor: "Clear editor",
         formatCode: "Format", uploadFile: "Upload", downloadFile: "Download", copyCode: "Copy", clearEditor: "Clear",
         clearConfirm: "Clear editor?",
@@ -136,7 +136,7 @@ const TRANSLATIONS = {
         deleteChat: "Usunąć",
         tipDebug: "Napraw", tipOptimize: "Optymalizuj", tipExplain: "Wyjaśnij", tipReview: "Przegląd", tipSecurity: "Bezpieczeństwo", tipRefactor: "Refaktoryzuj", tipDocument: "Dokumentacja", tipConvert: "Konwertuj", tipFormat: "Formatuj", tipTest: "Rozumowanie",
         convertFrom: "Z:", convertTo: "Do:",
-        languageMismatchTitle: "Niezgodność języka", languageMismatchMessage: "Kod wygląda na inny język. Zmienić język programowania?",
+        languageMismatchTitle: "Niezgodność języka", languageMismatchMessage: "Kod wygląda na inny język. Zmienić język programowania?", continueAnyway: "Kontynuuj mimo to",
         tipFormatCode: "Formatuj kod", tipUploadFile: "Wgraj plik", tipDownloadFile: "Zapisz plik", tipVersionHistory: "Historia wersji", tipCopyCode: "Kopiuj kod", tipClearEditor: "Wyczyść edytor",
         welcomeDesc: "Twój osobisty asystent AI do kodowania. Naprawiaj błędy, optymalizuj, konwertuj języki i testuj kod za pomocą sztucznej inteligencji.", startBtn: "Start", startTutorialBtn: "Samouczek", skipBtn: "Pomiń", nextTour: "Dalej", finishTour: "Gotowe", emptyStatePrompt: "Gotowy do kodowania.",
         featureDebug: "Debugowanie", featureDebugDesc: "Znajdź i napraw błędy automatycznie", featureOptimize: "Optymalizacja", featureOptimizeDesc: "Popraw wydajność i jakość kodu", featureExplain: "Wyjaśnienie", featureExplainDesc: "Zrozum logikę kodu szczegółowo", featureConvert: "Konwersja", featureConvertDesc: "Konwertuj między językami programowania", featureTest: "Rozumowanie", featureTestDesc: "Zobacz proces myślenia AI krok po kroku", featureSecurity: "Bezpieczeństwo", featureSecurityDesc: "Znajdź luki i problemy bezpieczeństwa", featureMultiLang: "6 Języków", featureMultiCodeLang: "30+ Języków Programowania", featureFast: "Szybko i Za Darmo",
@@ -162,7 +162,7 @@ const TRANSLATIONS = {
         deleteChat: "Löschen",
         tipDebug: "Beheben", tipOptimize: "Optimieren", tipExplain: "Erklären", tipReview: "Prüfen", tipSecurity: "Sicherheit", tipRefactor: "Refaktorieren", tipDocument: "Dokumentieren", tipConvert: "Konvertieren", tipFormat: "Formatieren", tipTest: "Argumentation",
         convertFrom: "Von:", convertTo: "Nach:",
-        languageMismatchTitle: "Sprachkonflikt", languageMismatchMessage: "Der Code scheint eine andere Sprache zu sein. Programmiersprache ändern?",
+        languageMismatchTitle: "Sprachkonflikt", languageMismatchMessage: "Der Code scheint eine andere Sprache zu sein. Programmiersprache ändern?", continueAnyway: "Trotzdem fortfahren",
         tipFormatCode: "Code formatieren", tipUploadFile: "Datei hochladen", tipDownloadFile: "Datei speichern", tipVersionHistory: "Versionsverlauf", tipCopyCode: "Code kopieren", tipClearEditor: "Editor löschen",
         welcomeDesc: "Ihr persönlicher KI-Code-Assistent. Beheben Sie Fehler, optimieren Sie, konvertieren Sie Sprachen und testen Sie Code mit künstlicher Intelligenz.", startBtn: "Start", startTutorialBtn: "Tutorial", skipBtn: "Überspringen", nextTour: "Weiter", finishTour: "Fertig", emptyStatePrompt: "Bereit zum Codieren.",
         featureDebug: "Debuggen", featureDebugDesc: "Fehler automatisch finden und beheben", featureOptimize: "Optimieren", featureOptimizeDesc: "Leistung und Codequalität verbessern", featureExplain: "Erklären", featureExplainDesc: "Code-Logik im Detail verstehen", featureConvert: "Konvertieren", featureConvertDesc: "Zwischen Programmiersprachen konvertieren", featureTest: "Argumentation", featureTestDesc: "Sehen Sie den Denkprozess der KI Schritt für Schritt", featureSecurity: "Sicherheit", featureSecurityDesc: "Schwachstellen und Sicherheitsprobleme finden", featureMultiLang: "6 Sprachen", featureMultiCodeLang: "30+ Programmiersprachen", featureFast: "Schnell & Kostenlos",
@@ -188,7 +188,7 @@ const TRANSLATIONS = {
         deleteChat: "Eliminar",
         tipDebug: "Corregir", tipOptimize: "Optimizar", tipExplain: "Explicar", tipReview: "Revisar", tipSecurity: "Seguridad", tipRefactor: "Refactorizar", tipDocument: "Documentar", tipConvert: "Convertir", tipFormat: "Formatear", tipTest: "Razonamiento",
         convertFrom: "De:", convertTo: "A:",
-        languageMismatchTitle: "Conflicto de idioma", languageMismatchMessage: "El código parece ser otro lenguaje. ¿Cambiar el lenguaje de programación?",
+        languageMismatchTitle: "Conflicto de idioma", languageMismatchMessage: "El código parece ser otro lenguaje. ¿Cambiar el lenguaje de programación?", continueAnyway: "Continuar de todos modos",
         tipFormatCode: "Formatear código", tipUploadFile: "Subir archivo", tipDownloadFile: "Guardar archivo", tipVersionHistory: "Historial de versiones", tipCopyCode: "Copiar código", tipClearEditor: "Limpiar editor",
         welcomeDesc: "Tu asistente personal de código con IA. Corrige errores, optimiza, convierte lenguajes y prueba código con inteligencia artificial.", startBtn: "Iniciar", startTutorialBtn: "Tutorial", skipBtn: "Omitir", nextTour: "Siguiente", finishTour: "Listo", emptyStatePrompt: "Listo para codificar.",
         featureDebug: "Depurar", featureDebugDesc: "Encuentra y corrige errores automáticamente", featureOptimize: "Optimizar", featureOptimizeDesc: "Mejora el rendimiento y calidad del código", featureExplain: "Explicar", featureExplainDesc: "Entiende la lógica del código en detalle", featureConvert: "Convertir", featureConvertDesc: "Convierte entre lenguajes de programación", featureTest: "Razonamiento", featureTestDesc: "Ve el proceso de pensamiento de la IA paso a paso", featureSecurity: "Seguridad", featureSecurityDesc: "Encuentra vulnerabilidades y problemas de seguridad", featureMultiLang: "6 Idiomas", featureMultiCodeLang: "30+ Lenguajes de Programación", featureFast: "Rápido y Gratis",
@@ -214,7 +214,7 @@ const TRANSLATIONS = {
         deleteChat: "Удалить",
         tipDebug: "Исправить", tipOptimize: "Оптимизировать", tipExplain: "Объяснить", tipReview: "Обзор", tipSecurity: "Безопасность", tipRefactor: "Рефакторинг", tipDocument: "Документация", tipConvert: "Конвертировать", tipFormat: "Форматировать", tipTest: "Рассуждение",
         convertFrom: "Из:", convertTo: "В:",
-        languageMismatchTitle: "Несоответствие языка", languageMismatchMessage: "Код выглядит как другой язык. Изменить язык программирования?",
+        languageMismatchTitle: "Несоответствие языка", languageMismatchMessage: "Код выглядит как другой язык. Изменить язык программирования?", continueAnyway: "Продолжить всё равно",
         tipFormatCode: "Форматировать код", tipUploadFile: "Загрузить файл", tipDownloadFile: "Сохранить файл", tipVersionHistory: "История версий", tipCopyCode: "Копировать код", tipClearEditor: "Очистить редактор",
         welcomeDesc: "Ваш персональный AI-ассистент для работы с кодом. Исправляйте ошибки, оптимизируйте, конвертируйте языки и тестируйте код с помощью искусственного интеллекта.", startBtn: "Начать", startTutorialBtn: "Обучение", skipBtn: "Пропустить", nextTour: "Далее", finishTour: "Готово", emptyStatePrompt: "Выберите режим и нажмите Запуск",
         featureDebug: "Исправление", featureDebugDesc: "Найдите и исправьте ошибки автоматически", featureOptimize: "Оптимизация", featureOptimizeDesc: "Улучшите производительность и качество кода", featureExplain: "Объяснение", featureExplainDesc: "Детально поймите логику кода", featureConvert: "Конвертация", featureConvertDesc: "Конвертируйте между языками программирования", featureTest: "Рассуждение", featureTestDesc: "Посмотрите на процесс мышления AI пошагово", featureSecurity: "Безопасность", featureSecurityDesc: "Найдите уязвимости и проблемы безопасности", featureMultiLang: "6 Языков", featureMultiCodeLang: "30+ Языков Программирования", featureFast: "Быстро и Бесплатно",
@@ -384,6 +384,7 @@ const els = {
     languageMismatchDialogContent: document.getElementById('language-mismatch-dialog-content'),
     languageMismatchMessage: document.getElementById('language-mismatch-message'),
     languageMismatchCancel: document.getElementById('language-mismatch-cancel'),
+    languageMismatchContinue: document.getElementById('language-mismatch-continue'),
     languageMismatchChange: document.getElementById('language-mismatch-change')
 };
 
@@ -500,6 +501,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Language mismatch dialog handlers
     if (els.languageMismatchCancel) {
         els.languageMismatchCancel.addEventListener('click', closeLanguageMismatchDialog);
+    }
+    if (els.languageMismatchContinue) {
+        els.languageMismatchContinue.addEventListener('click', () => {
+            closeLanguageMismatchDialog();
+            // Continue with AI execution anyway
+            setTimeout(() => {
+                runAI();
+            }, 300);
+        });
     }
     if (els.languageMismatchChange) {
         els.languageMismatchChange.addEventListener('click', () => {
@@ -2008,6 +2018,9 @@ function showLanguageMismatchDialog(detectedLang, selectedLang) {
     // Update button texts
     if (els.languageMismatchCancel && t.cancel) {
         els.languageMismatchCancel.textContent = t.cancel;
+    }
+    if (els.languageMismatchContinue && t.continueAnyway) {
+        els.languageMismatchContinue.textContent = t.continueAnyway;
     }
     if (els.languageMismatchChange && t.changeLanguage) {
         els.languageMismatchChange.textContent = t.changeLanguage;
