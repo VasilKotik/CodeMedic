@@ -70,7 +70,7 @@ const TRANSLATIONS = {
         tipDebug: "Виправити", tipOptimize: "Оптимізувати", tipExplain: "Пояснити", tipReview: "Огляд", tipSecurity: "Безпека", tipRefactor: "Рефакторинг", tipDocument: "Документація", tipConvert: "Конвертувати", tipFormat: "Форматувати", tipTest: "Міркування",
         convertFrom: "З:", convertTo: "В:",
         languageMismatchTitle: "Невідповідність мови", languageMismatchMessage: "Код виглядає як інша мова. Змінити мову програмування?", continueAnyway: "Продовжити все одно",
-        tipFormatCode: "Форматувати код", tipUploadFile: "Завантажити файл", tipDownloadFile: "Зберегти файл", tipVersionHistory: "Історія версій", tipCopyCode: "Копіювати код", tipClearEditor: "Очистити редактор",
+        tipFormatCode: "Форматувати код", tipUploadFile: "Завантажити файл", tipDownloadFile: "Зберегти файл", tipVersionHistory: "Історія запитів", tipCopyCode: "Копіювати код", tipClearEditor: "Очистити редактор",
         formatCode: "Форматувати", uploadFile: "Завантажити", downloadFile: "Зберегти", copyCode: "Копіювати", clearEditor: "Очистити",
         clearConfirm: "Очистити редактор?",
         clearConfirmTitle: "Очистити редактор?",
@@ -78,7 +78,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Очистити історію?",
         clearHistoryConfirmMessage: "Всі збережені чати будуть видалені. Цю дію неможливо скасувати.",
         newFileTitle: "Новий файл", fileName: "Назва", fileType: "Тип", cancel: "Скасувати", create: "Створити",
-        versionHistory: "Історія версій", close: "Закрити", restoreVersion: "Відновити", noVersions: "Немає версій",
+        versionHistory: "Історія запитів", close: "Закрити", restoreVersion: "Відновити", noVersions: "Немає версій", requestHistory: "Історія запитів", noRequests: "Немає запитів",
         changeLanguageConfirm: "Змінити мову?",
         changeLanguageConfirmTitle: "Змінити мову?",
         changeLanguageConfirmMessage: "Розширення файлу буде оновлено автоматично.",
@@ -96,7 +96,7 @@ const TRANSLATIONS = {
         tipDebug: "Fix", tipOptimize: "Optimize", tipExplain: "Explain", tipReview: "Review", tipSecurity: "Security", tipRefactor: "Refactor", tipDocument: "Document", tipConvert: "Convert", tipFormat: "Format", tipTest: "Reasoning",
         convertFrom: "From:", convertTo: "To:",
         languageMismatchTitle: "Language Mismatch", languageMismatchMessage: "Code appears to be a different language. Change programming language?", continueAnyway: "Continue Anyway",
-        tipFormatCode: "Format code", tipUploadFile: "Upload file", tipDownloadFile: "Save file", tipVersionHistory: "Version history", tipCopyCode: "Copy code", tipClearEditor: "Clear editor",
+        tipFormatCode: "Format code", tipUploadFile: "Upload file", tipDownloadFile: "Save file", tipVersionHistory: "Request history", tipCopyCode: "Copy code", tipClearEditor: "Clear editor",
         formatCode: "Format", uploadFile: "Upload", downloadFile: "Download", copyCode: "Copy", clearEditor: "Clear",
         clearConfirm: "Clear editor?",
         clearConfirmTitle: "Clear Editor?",
@@ -104,7 +104,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Clear History?",
         clearHistoryConfirmMessage: "All saved chats will be deleted. This action cannot be undone.",
         newFileTitle: "New File", fileName: "Name", fileType: "Type", cancel: "Cancel", create: "Create",
-        versionHistory: "Version History", close: "Close", restoreVersion: "Restore", noVersions: "No versions",
+        versionHistory: "Request History", close: "Close", restoreVersion: "Restore", noVersions: "No versions", requestHistory: "Request History", noRequests: "No requests",
         changeLanguageConfirm: "Change language?",
         changeLanguageConfirmTitle: "Change Language?",
         changeLanguageConfirmMessage: "File extension will be updated automatically.",
@@ -126,7 +126,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Wyczyścić historię?",
         clearHistoryConfirmMessage: "Wszystkie czaty zostaną usunięte. Tej akcji nie można cofnąć.",
         newFileTitle: "Nowy plik", fileName: "Nazwa", fileType: "Typ", cancel: "Anuluj", create: "Utwórz",
-        versionHistory: "Historia wersji", close: "Zamknij", restoreVersion: "Przywróć", noVersions: "Brak wersji",
+        versionHistory: "Historia zapytań", close: "Zamknij", restoreVersion: "Przywróć", noVersions: "Brak wersji", requestHistory: "Historia zapytań", noRequests: "Brak zapytań",
         changeLanguageConfirm: "Zmienić język?",
         changeLanguageConfirmTitle: "Zmienić język?",
         changeLanguageConfirmMessage: "Rozszerzenie pliku zostanie zaktualizowane automatycznie.",
@@ -137,7 +137,7 @@ const TRANSLATIONS = {
         tipDebug: "Napraw", tipOptimize: "Optymalizuj", tipExplain: "Wyjaśnij", tipReview: "Przegląd", tipSecurity: "Bezpieczeństwo", tipRefactor: "Refaktoryzuj", tipDocument: "Dokumentacja", tipConvert: "Konwertuj", tipFormat: "Formatuj", tipTest: "Rozumowanie",
         convertFrom: "Z:", convertTo: "Do:",
         languageMismatchTitle: "Niezgodność języka", languageMismatchMessage: "Kod wygląda na inny język. Zmienić język programowania?", continueAnyway: "Kontynuuj mimo to",
-        tipFormatCode: "Formatuj kod", tipUploadFile: "Wgraj plik", tipDownloadFile: "Zapisz plik", tipVersionHistory: "Historia wersji", tipCopyCode: "Kopiuj kod", tipClearEditor: "Wyczyść edytor",
+        tipFormatCode: "Formatuj kod", tipUploadFile: "Wgraj plik", tipDownloadFile: "Zapisz plik", tipVersionHistory: "Historia zapytań", tipCopyCode: "Kopiuj kod", tipClearEditor: "Wyczyść edytor",
         welcomeDesc: "Twój osobisty asystent AI do kodowania. Naprawiaj błędy, optymalizuj, konwertuj języki i testuj kod za pomocą sztucznej inteligencji.", startBtn: "Start", startTutorialBtn: "Samouczek", skipBtn: "Pomiń", nextTour: "Dalej", finishTour: "Gotowe", emptyStatePrompt: "Gotowy do kodowania.",
         featureDebug: "Debugowanie", featureDebugDesc: "Znajdź i napraw błędy automatycznie", featureOptimize: "Optymalizacja", featureOptimizeDesc: "Popraw wydajność i jakość kodu", featureExplain: "Wyjaśnienie", featureExplainDesc: "Zrozum logikę kodu szczegółowo", featureConvert: "Konwersja", featureConvertDesc: "Konwertuj między językami programowania", featureTest: "Rozumowanie", featureTestDesc: "Zobacz proces myślenia AI krok po kroku", featureSecurity: "Bezpieczeństwo", featureSecurityDesc: "Znajdź luki i problemy bezpieczeństwa", featureMultiLang: "6 Języków", featureMultiCodeLang: "30+ Języków Programowania", featureFast: "Szybko i Za Darmo",
         tabHistory: "Historia", tabTips: "Wskazówki", historyEmptyDesc: "Brak historii.", funFactHeader: "Ciekawostka",
@@ -152,7 +152,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Verlauf löschen?",
         clearHistoryConfirmMessage: "Alle Chats werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
         newFileTitle: "Neue Datei", fileName: "Name", fileType: "Typ", cancel: "Abbrechen", create: "Erstellen",
-        versionHistory: "Versionsverlauf", close: "Schließen", restoreVersion: "Wiederherstellen", noVersions: "Keine Versionen",
+        versionHistory: "Anfrageverlauf", close: "Schließen", restoreVersion: "Wiederherstellen", noVersions: "Keine Versionen", requestHistory: "Anfrageverlauf", noRequests: "Keine Anfragen",
         changeLanguageConfirm: "Sprache ändern?",
         changeLanguageConfirmTitle: "Sprache ändern?",
         changeLanguageConfirmMessage: "Die Dateierweiterung wird automatisch aktualisiert.",
@@ -163,7 +163,7 @@ const TRANSLATIONS = {
         tipDebug: "Beheben", tipOptimize: "Optimieren", tipExplain: "Erklären", tipReview: "Prüfen", tipSecurity: "Sicherheit", tipRefactor: "Refaktorieren", tipDocument: "Dokumentieren", tipConvert: "Konvertieren", tipFormat: "Formatieren", tipTest: "Argumentation",
         convertFrom: "Von:", convertTo: "Nach:",
         languageMismatchTitle: "Sprachkonflikt", languageMismatchMessage: "Der Code scheint eine andere Sprache zu sein. Programmiersprache ändern?", continueAnyway: "Trotzdem fortfahren",
-        tipFormatCode: "Code formatieren", tipUploadFile: "Datei hochladen", tipDownloadFile: "Datei speichern", tipVersionHistory: "Versionsverlauf", tipCopyCode: "Code kopieren", tipClearEditor: "Editor löschen",
+        tipFormatCode: "Code formatieren", tipUploadFile: "Datei hochladen", tipDownloadFile: "Datei speichern", tipVersionHistory: "Anfrageverlauf", tipCopyCode: "Code kopieren", tipClearEditor: "Editor löschen",
         welcomeDesc: "Ihr persönlicher KI-Code-Assistent. Beheben Sie Fehler, optimieren Sie, konvertieren Sie Sprachen und testen Sie Code mit künstlicher Intelligenz.", startBtn: "Start", startTutorialBtn: "Tutorial", skipBtn: "Überspringen", nextTour: "Weiter", finishTour: "Fertig", emptyStatePrompt: "Bereit zum Codieren.",
         featureDebug: "Debuggen", featureDebugDesc: "Fehler automatisch finden und beheben", featureOptimize: "Optimieren", featureOptimizeDesc: "Leistung und Codequalität verbessern", featureExplain: "Erklären", featureExplainDesc: "Code-Logik im Detail verstehen", featureConvert: "Konvertieren", featureConvertDesc: "Zwischen Programmiersprachen konvertieren", featureTest: "Argumentation", featureTestDesc: "Sehen Sie den Denkprozess der KI Schritt für Schritt", featureSecurity: "Sicherheit", featureSecurityDesc: "Schwachstellen und Sicherheitsprobleme finden", featureMultiLang: "6 Sprachen", featureMultiCodeLang: "30+ Programmiersprachen", featureFast: "Schnell & Kostenlos",
         tabHistory: "Verlauf", tabTips: "Tipps", historyEmptyDesc: "Kein Verlauf.", funFactHeader: "Fun Fact",
@@ -178,7 +178,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "¿Limpiar historial?",
         clearHistoryConfirmMessage: "Todos los chats serán eliminados. Esta acción no se puede deshacer.",
         newFileTitle: "Nuevo archivo", fileName: "Nombre", fileType: "Tipo", cancel: "Cancelar", create: "Crear",
-        versionHistory: "Historial de versiones", close: "Cerrar", restoreVersion: "Restaurar", noVersions: "Sin versiones",
+        versionHistory: "Historial de solicitudes", close: "Cerrar", restoreVersion: "Restaurar", noVersions: "Sin versiones", requestHistory: "Historial de solicitudes", noRequests: "Sin solicitudes",
         changeLanguageConfirm: "¿Cambiar idioma?",
         changeLanguageConfirmTitle: "¿Cambiar idioma?",
         changeLanguageConfirmMessage: "La extensión del archivo se actualizará automáticamente.",
@@ -189,7 +189,7 @@ const TRANSLATIONS = {
         tipDebug: "Corregir", tipOptimize: "Optimizar", tipExplain: "Explicar", tipReview: "Revisar", tipSecurity: "Seguridad", tipRefactor: "Refactorizar", tipDocument: "Documentar", tipConvert: "Convertir", tipFormat: "Formatear", tipTest: "Razonamiento",
         convertFrom: "De:", convertTo: "A:",
         languageMismatchTitle: "Conflicto de idioma", languageMismatchMessage: "El código parece ser otro lenguaje. ¿Cambiar el lenguaje de programación?", continueAnyway: "Continuar de todos modos",
-        tipFormatCode: "Formatear código", tipUploadFile: "Subir archivo", tipDownloadFile: "Guardar archivo", tipVersionHistory: "Historial de versiones", tipCopyCode: "Copiar código", tipClearEditor: "Limpiar editor",
+        tipFormatCode: "Formatear código", tipUploadFile: "Subir archivo", tipDownloadFile: "Guardar archivo", tipVersionHistory: "Historial de solicitudes", tipCopyCode: "Copiar código", tipClearEditor: "Limpiar editor",
         welcomeDesc: "Tu asistente personal de código con IA. Corrige errores, optimiza, convierte lenguajes y prueba código con inteligencia artificial.", startBtn: "Iniciar", startTutorialBtn: "Tutorial", skipBtn: "Omitir", nextTour: "Siguiente", finishTour: "Listo", emptyStatePrompt: "Listo para codificar.",
         featureDebug: "Depurar", featureDebugDesc: "Encuentra y corrige errores automáticamente", featureOptimize: "Optimizar", featureOptimizeDesc: "Mejora el rendimiento y calidad del código", featureExplain: "Explicar", featureExplainDesc: "Entiende la lógica del código en detalle", featureConvert: "Convertir", featureConvertDesc: "Convierte entre lenguajes de programación", featureTest: "Razonamiento", featureTestDesc: "Ve el proceso de pensamiento de la IA paso a paso", featureSecurity: "Seguridad", featureSecurityDesc: "Encuentra vulnerabilidades y problemas de seguridad", featureMultiLang: "6 Idiomas", featureMultiCodeLang: "30+ Lenguajes de Programación", featureFast: "Rápido y Gratis",
         tabHistory: "Historial", tabTips: "Consejos", historyEmptyDesc: "Sin historial.", funFactHeader: "Dato curioso",
@@ -204,7 +204,7 @@ const TRANSLATIONS = {
         clearHistoryConfirmTitle: "Очистить историю?",
         clearHistoryConfirmMessage: "Все чаты будут удалены. Это действие нельзя отменить.",
         newFileTitle: "Новый файл", fileName: "Имя", fileType: "Тип", cancel: "Отмена", create: "Создать",
-        versionHistory: "История версий", close: "Закрыть", restoreVersion: "Восстановить", noVersions: "Нет версий",
+        versionHistory: "История запросов", close: "Закрыть", restoreVersion: "Восстановить", noVersions: "Нет версий", requestHistory: "История запросов", noRequests: "Нет запросов",
         changeLanguageConfirm: "Изменить язык?",
         changeLanguageConfirmTitle: "Изменить язык?",
         changeLanguageConfirmMessage: "Расширение файла будет обновлено автоматически.",
@@ -215,7 +215,7 @@ const TRANSLATIONS = {
         tipDebug: "Исправить", tipOptimize: "Оптимизировать", tipExplain: "Объяснить", tipReview: "Обзор", tipSecurity: "Безопасность", tipRefactor: "Рефакторинг", tipDocument: "Документация", tipConvert: "Конвертировать", tipFormat: "Форматировать", tipTest: "Рассуждение",
         convertFrom: "Из:", convertTo: "В:",
         languageMismatchTitle: "Несоответствие языка", languageMismatchMessage: "Код выглядит как другой язык. Изменить язык программирования?", continueAnyway: "Продолжить всё равно",
-        tipFormatCode: "Форматировать код", tipUploadFile: "Загрузить файл", tipDownloadFile: "Сохранить файл", tipVersionHistory: "История версий", tipCopyCode: "Копировать код", tipClearEditor: "Очистить редактор",
+        tipFormatCode: "Форматировать код", tipUploadFile: "Загрузить файл", tipDownloadFile: "Сохранить файл", tipVersionHistory: "История запросов", tipCopyCode: "Копировать код", tipClearEditor: "Очистить редактор",
         welcomeDesc: "Ваш персональный AI-ассистент для работы с кодом. Исправляйте ошибки, оптимизируйте, конвертируйте языки и тестируйте код с помощью искусственного интеллекта.", startBtn: "Начать", startTutorialBtn: "Обучение", skipBtn: "Пропустить", nextTour: "Далее", finishTour: "Готово", emptyStatePrompt: "Выберите режим и нажмите Запуск",
         featureDebug: "Исправление", featureDebugDesc: "Найдите и исправьте ошибки автоматически", featureOptimize: "Оптимизация", featureOptimizeDesc: "Улучшите производительность и качество кода", featureExplain: "Объяснение", featureExplainDesc: "Детально поймите логику кода", featureConvert: "Конвертация", featureConvertDesc: "Конвертируйте между языками программирования", featureTest: "Рассуждение", featureTestDesc: "Посмотрите на процесс мышления AI пошагово", featureSecurity: "Безопасность", featureSecurityDesc: "Найдите уязвимости и проблемы безопасности", featureMultiLang: "6 Языков", featureMultiCodeLang: "30+ Языков Программирования", featureFast: "Быстро и Бесплатно",
         tabHistory: "История", tabTips: "Советы", historyEmptyDesc: "Здесь появятся ваши запросы.", funFactHeader: "Интересный факт",
@@ -3282,11 +3282,11 @@ function saveCurrentVersion() {
 function showVersionHistory(chatId = null) {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     
-    // If chatId provided, show versions for that chat
+    // If chatId provided, show messages for that chat
     if (chatId) {
         const chat = history.find(c => c.id === chatId);
-        if (chat && chat.versions && chat.versions.length > 0) {
-            renderChatVersionHistory(chat);
+        if (chat && chat.messages && chat.messages.length > 0) {
+            renderChatMessages(chat);
             els.versionHistoryDialog.classList.remove('hidden');
             els.versionHistoryDialog.classList.add('flex');
             setTimeout(() => {
@@ -3294,18 +3294,19 @@ function showVersionHistory(chatId = null) {
             }, 10);
             return;
         } else {
-            showToast(t.noVersions || 'No saved versions');
+            showToast(t.noRequests || 'No requests');
             return;
         }
     }
     
-    // Otherwise, show file versions (fallback)
-    if (!activeFile || !fileVersions[activeFile] || fileVersions[activeFile].length === 0) {
-        // Try to show current chat versions
-        if (currentChatId) {
-            const currentChat = history.find(c => c.id === currentChatId);
-            if (currentChat && currentChat.versions && currentChat.versions.length > 0) {
-                renderChatVersionHistory(currentChat);
+    // Show current chat messages
+    if (currentChatId) {
+        const currentChat = history.find(c => c.id === currentChatId);
+        if (currentChat) {
+            // Check if chat has messages or old format
+            const hasMessages = (currentChat.messages && currentChat.messages.length > 0) || (currentChat.input && currentChat.output);
+            if (hasMessages) {
+                renderChatMessages(currentChat);
                 els.versionHistoryDialog.classList.remove('hidden');
                 els.versionHistoryDialog.classList.add('flex');
                 setTimeout(() => {
@@ -3314,18 +3315,10 @@ function showVersionHistory(chatId = null) {
                 return;
             }
         }
-        showToast(t.noVersions || 'No saved versions');
-        return;
     }
     
-    els.versionHistoryDialog.classList.remove('hidden');
-    els.versionHistoryDialog.classList.add('flex');
-    
-    renderVersionHistory();
-    
-    setTimeout(() => {
-        els.versionHistoryDialogContent.classList.add('dialog-open');
-    }, 10);
+    // No active chat or no messages
+    showToast(t.noRequests || 'No requests');
 }
 
 function renderVersionHistory() {
@@ -3354,6 +3347,71 @@ function renderVersionHistory() {
                 </button>
             </div>
         `;
+        els.versionHistoryList.appendChild(item);
+    });
+}
+
+function renderChatMessages(chat) {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    els.versionHistoryList.innerHTML = '';
+    
+    // Check if chat has messages or old format (direct input/output)
+    let messages = [];
+    if (chat.messages && chat.messages.length > 0) {
+        messages = chat.messages;
+    } else if (chat.input && chat.output) {
+        // Old format - convert to messages array
+        messages = [{
+            input: chat.input,
+            output: chat.output,
+            mode: chat.mode || 'debug',
+            lang: chat.lang || 'JavaScript',
+            time: chat.time || new Date().toLocaleTimeString(),
+            timestamp: chat.createdAt || Date.now()
+        }];
+    }
+    
+    if (!chat || messages.length === 0) {
+        els.versionHistoryList.innerHTML = `<div class="text-center text-slate-400 py-4">${t.noRequests || 'No requests'}</div>`;
+        return;
+    }
+    
+    // Update dialog title
+    const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
+    if (titleEl) {
+        titleEl.textContent = t.requestHistory || t.versionHistory || 'Request History';
+    }
+    
+    // Show messages in reverse order (newest first)
+    const reversedMessages = messages.slice().reverse();
+    
+    reversedMessages.forEach((message, index) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 mb-2 cursor-pointer hover:border-brand-500 transition-colors';
+        const date = new Date(message.timestamp || Date.now());
+        
+        const escapeHtml = (text) => {
+            const tempDiv = document.createElement('div');
+            tempDiv.textContent = text;
+            return tempDiv.innerHTML;
+        };
+        
+        item.innerHTML = `
+            <div class="flex justify-between items-start mb-2">
+                <div class="flex-1">
+                    <div class="flex items-center space-x-2 mb-1">
+                        <span class="text-xs font-bold text-brand-600 dark:text-brand-400">${escapeHtml(message.mode || 'debug')}</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(message.lang || 'JavaScript')}</span>
+                    </div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">${date.toLocaleString()}</div>
+                </div>
+            </div>
+            <div class="text-sm text-slate-700 dark:text-slate-300 mb-2 line-clamp-2">${escapeHtml(message.input.substring(0, 100))}${message.input.length > 100 ? '...' : ''}</div>
+            <button class="px-3 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition w-full" onclick="loadChatMessage('${chat.id}', ${reversedMessages.length - 1 - index})">
+                ${t.restoreVersion || 'Load'}
+            </button>
+        `;
+        
         els.versionHistoryList.appendChild(item);
     });
 }
@@ -3414,6 +3472,21 @@ function restoreChatVersion(chatId, index) {
     closeVersionHistory();
 }
 
+function loadChatMessage(chatId, messageIndex) {
+    const chat = history.find(c => c.id === chatId);
+    if (!chat || !chat.messages || !chat.messages[messageIndex]) return;
+    
+    const message = chat.messages[messageIndex];
+    els.input.value = message.input;
+    els.langSelect.value = message.lang;
+    setMode(message.mode);
+    renderOutput(message.output, message.lang, 0);
+    updateLineNumbers();
+    currentChatId = chatId;
+    closeVersionHistory();
+    renderHistory(); // Re-render to show active state
+}
+
 // Show toast notification
 function showToast(message, duration = 3000) {
     if (!els.toast || !els.toastMessage) return;
@@ -3459,7 +3532,7 @@ function closeVersionHistory() {
         const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
         if (titleEl) {
             const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-            titleEl.textContent = t.versionHistory || 'Version History';
+            titleEl.textContent = t.requestHistory || t.versionHistory || 'Request History';
         }
     }, 300);
 }
