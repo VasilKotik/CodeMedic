@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="uk" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="FixlyCode - AI-powered code assistant. Fix bugs, optimize code, explain logic, convert languages, and generate tests. Free and fast AI coding tool.">
-    <meta name="keywords" content="AI code assistant, code fixer, code optimizer, code explainer, code converter, programming help, AI coding tool, free AI assistant">
+    <meta name="description" content="FixlyCode - безкоштовний AI-асистент для розробників. Виправляйте баги, оптимізуйте код, пояснюйте логіку, конвертуйте мови програмування та генеруйте тести. Швидкий та безкоштовний інструмент для роботи з кодом.">
+    <meta name="keywords" content="AI асистент для коду, виправлення багів, оптимізація коду, пояснення коду, конвертер мов програмування, допомога з програмуванням, безкоштовний AI інструмент, AI code assistant, code fixer, code optimizer">
     <meta name="author" content="FixlyCode">
     <meta name="theme-color" content="#10b981">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="canonical" href="https://fixlycode.vercel.app/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="FixlyCode — AI Dev Environment">
-    <meta property="og:description" content="AI-powered code assistant. Fix bugs, optimize code, explain logic, convert languages, and generate tests.">
+    <meta property="og:url" content="https://fixlycode.vercel.app/">
+    <meta property="og:title" content="FixlyCode — AI-асистент для розробників">
+    <meta property="og:description" content="Безкоштовний AI-асистент для виправлення багів, оптимізації коду, пояснення логіки, конвертації мов програмування та генерації тестів.">
     <meta property="og:site_name" content="FixlyCode">
+    <meta property="og:locale" content="uk_UA">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FixlyCode — AI Dev Environment">
-    <meta name="twitter:description" content="AI-powered code assistant. Fix bugs, optimize code, explain logic, convert languages, and generate tests.">
+    <meta name="twitter:title" content="FixlyCode — AI-асистент для розробників">
+    <meta name="twitter:description" content="Безкоштовний AI-асистент для виправлення багів, оптимізації коду, пояснення логіки, конвертації мов програмування та генерації тестів.">
     
-    <title>FixlyCode — AI Dev Environment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>FixlyCode — AI-асистент для виправлення та оптимізації коду</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -49,10 +55,44 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FixlyCode",
+      "description": "Безкоштовний AI-асистент для виправлення багів, оптимізації коду, пояснення логіки, конвертації мов програмування та генерації тестів.",
+      "url": "https://fixlycode.vercel.app/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Виправлення багів",
+        "Оптимізація коду",
+        "Пояснення логіки коду",
+        "Конвертація мов програмування",
+        "Генерація тестів",
+        "Аналіз безпеки коду"
+      ],
+      "provider": {
+        "@type": "Organization",
+        "name": "FixlyCode"
+      }
+    }
+    </script>
 </head>
 <body class="bg-gray-50 text-slate-800 dark:bg-darkbg dark:text-slate-300 h-screen flex overflow-hidden font-sans transition-colors duration-300 relative" style="touch-action: pan-y pinch-zoom;">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -78,11 +118,12 @@
                 <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
                     Fixly<span class="text-brand-500">Code</span> 
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mb-8 leading-relaxed font-medium" data-i18n="welcomeDesc">
+                <h2 class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mb-8 leading-relaxed font-medium" data-i18n="welcomeDesc">
                     Ваш персональний AI-асистент. Виправляйте баги, оптимізуйте код та тестуйте.
-                </p>
+                </h2>
                 
                 <!-- Features Grid -->
+                <h3 class="sr-only">Основні можливості FixlyCode</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 w-full max-w-4xl">
                     <div class="bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl p-4 border border-white/30 dark:border-slate-700/50 hover:border-brand-400/50 transition-all transform hover:scale-105">
                         <div class="flex items-start space-x-3">
@@ -90,7 +131,7 @@
                                 <i class="fa-solid fa-wrench text-brand-600 dark:text-brand-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureDebug">Debug & Fix</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureDebug">Debug & Fix</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureDebugDesc">Find and fix bugs automatically</p>
                             </div>
                         </div>
@@ -102,7 +143,7 @@
                                 <i class="fa-solid fa-gauge-high text-blue-600 dark:text-blue-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureOptimize">Optimize</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureOptimize">Optimize</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureOptimizeDesc">Improve performance and code quality</p>
                             </div>
                         </div>
@@ -114,7 +155,7 @@
                                 <i class="fa-solid fa-book-open text-purple-600 dark:text-purple-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureExplain">Explain</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureExplain">Explain</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureExplainDesc">Understand code logic in detail</p>
                             </div>
                         </div>
@@ -126,7 +167,7 @@
                                 <i class="fa-solid fa-right-left text-teal-600 dark:text-teal-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureConvert">Convert</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureConvert">Convert</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureConvertDesc">Convert between programming languages</p>
                             </div>
                         </div>
@@ -138,7 +179,7 @@
                                 <i class="fa-solid fa-vial-virus text-green-600 dark:text-green-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureTest">Generate Tests</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureTest">Generate Tests</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureTestDesc">Create unit and integration tests</p>
                             </div>
                         </div>
@@ -150,7 +191,7 @@
                                 <i class="fa-solid fa-shield-halved text-orange-600 dark:text-orange-400"></i>
                             </div>
                             <div>
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureSecurity">Security</h3>
+                                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1" data-i18n="featureSecurity">Security</h4>
                                 <p class="text-xs text-slate-600 dark:text-slate-400" data-i18n="featureSecurityDesc">Find vulnerabilities and security issues</p>
                             </div>
                         </div>
@@ -276,8 +317,20 @@
             </div>
         </header>
 
+        <!-- Mobile View Toggle -->
+        <div id="mobile-view-toggle" class="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-30 bg-white dark:bg-slate-800 rounded-full shadow-2xl border border-gray-200 dark:border-slate-700 p-1 flex items-center space-x-1">
+            <button id="mobile-tab-input" class="mobile-view-tab active px-4 py-2 rounded-full text-xs font-bold transition-all" data-view="input" data-i18n="mobileTabCode">
+                <i class="fa-solid fa-code mr-1.5"></i>
+                <span data-i18n="mobileTabCode">Code</span>
+            </button>
+            <button id="mobile-tab-output" class="mobile-view-tab px-4 py-2 rounded-full text-xs font-bold transition-all" data-view="output" data-i18n="mobileTabResult">
+                <i class="fa-solid fa-file-code mr-1.5"></i>
+                <span data-i18n="mobileTabResult">Result</span>
+            </button>
+        </div>
+
         <div class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-            <div id="input-section" class="group flex-1 flex flex-col border-r border-gray-200 dark:border-slate-800 min-h-[40%] md:min-h-0 bg-white dark:bg-darkbg transition-all duration-200 group-focus-within:border-r-brand-500 group-focus-within:border-r-2 md:group-focus-within:border-r-2" style="flex: 1 1 50%;">
+            <div id="input-section" class="group flex-1 flex flex-col border-r border-gray-200 dark:border-slate-800 min-h-[40%] md:min-h-0 bg-white dark:bg-darkbg transition-all duration-200 group-focus-within:border-r-brand-500 group-focus-within:border-r-2 md:group-focus-within:border-r-2 mobile-section" style="flex: 1 1 50%;">
                 <div id="file-tabs-container" class="px-2 py-1 bg-gray-50 dark:bg-darkpanel border-b border-gray-200 dark:border-slate-800 flex items-center space-x-1 overflow-x-auto custom-scrollbar">
                     <button id="new-file-btn" class="px-2 py-1 text-xs text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-gray-100 dark:hover:bg-slate-800 rounded transition flex items-center space-x-1 flex-shrink-0" title="New File">
                         <i class="fa-solid fa-plus text-[10px]"></i>
@@ -459,7 +512,7 @@
                 <div class="absolute inset-y-0 left-1/2 transform -translate-x-1/2 w-1 bg-transparent hover:bg-brand-500 transition-colors"></div>
             </div>
 
-            <div id="output-section" class="flex-1 flex flex-col bg-gray-50 dark:bg-[#1e1e1e] min-h-[60%] md:min-h-0 relative" style="flex: 1 1 50%;">
+            <div id="output-section" class="flex-1 flex flex-col bg-gray-50 dark:bg-[#1e1e1e] min-h-[60%] md:min-h-0 relative mobile-section hidden md:flex" style="flex: 1 1 50%;">
                 <div class="px-4 py-2 bg-white dark:bg-[#252526] border-b border-gray-200 dark:border-[#333] flex justify-between items-center h-[45px]">
                     <div class="flex space-x-1 bg-gray-100 dark:bg-black/20 p-0.5 rounded-lg">
                         <button id="tab-code" class="text-[10px] font-bold px-3 py-1 rounded-md bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm transition-all" onclick="switchTab('code')">
@@ -498,7 +551,7 @@
                             <ul id="output-smells" class="space-y-1 text-xs text-slate-600 dark:text-slate-300 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-lg p-3"></ul>
                         </div>
                         <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
-                            <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 border-b border-gray-100 dark:border-slate-700 pb-2" data-i18n="analysisHeader">Analysis</h3>
+                            <h2 class="text-xs font-bold text-slate-400 uppercase mb-2 border-b border-gray-100 dark:border-slate-700 pb-2" data-i18n="analysisHeader">Analysis</h2>
                             <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed typing-cursor" id="output-explanation"></div>
                         </div>
                         <div class="relative group rounded-xl overflow-hidden border border-gray-200 dark:border-slate-700 shadow-md">
@@ -737,9 +790,8 @@
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js" defer></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js" defer></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 </html>

@@ -88,7 +88,7 @@ const TRANSLATIONS = {
         deleteChat: "Видалити", 
         welcomeDesc: "Ваш персональний AI-асистент для роботи з кодом. Виправляйте помилки, оптимізуйте, конвертуйте мови та тестуйте код за допомогою штучного інтелекту.", startBtn: "Почати", startTutorialBtn: "Навчання", skipBtn: "Пропустити", nextTour: "Далі", finishTour: "Готово", emptyStatePrompt: "Оберіть режим та натисніть Запуск",
         featureDebug: "Виправлення", featureDebugDesc: "Знайдіть та виправте помилки автоматично", featureOptimize: "Оптимізація", featureOptimizeDesc: "Покращте продуктивність та якість коду", featureExplain: "Пояснення", featureExplainDesc: "Детально зрозумійте логіку коду", featureConvert: "Конвертація", featureConvertDesc: "Конвертуйте між мовами програмування", featureTest: "Міркування", featureTestDesc: "Подивіться на процес мислення AI крок за кроком", featureSecurity: "Безпека", featureSecurityDesc: "Знайдіть вразливості та проблеми безпеки", featureMultiLang: "6 Мов", featureMultiCodeLang: "30+ Мов Програмування", featureFast: "Швидко та Безкоштовно",
-        tabHistory: "Історія", tabTips: "Поради", historyEmptyDesc: "Тут з'являться ваші запити.", funFactHeader: "Цікавий факт",
+        tabHistory: "Історія", tabTips: "Поради", historyEmptyDesc: "Тут з'являться ваші запити.", funFactHeader: "Цікавий факт", mobileTabCode: "Код", mobileTabResult: "Результат",
         tourStep1Title: "1. Введіть код", tourStep1Desc: "Вставте код у текстове поле.", tourStep2Title: "2. Оберіть мову", tourStep2Desc: "Виберіть мову програмування.", tourStep3Title: "3. Оберіть режим", tourStep3Desc: "Що має зробити AI (виправити, оптимізувати, пояснити).", tourStep4Title: "4. Запустіть", tourStep4Desc: "Натисніть Запуск для аналізу!"
     },
     en: {
@@ -114,7 +114,7 @@ const TRANSLATIONS = {
         deleteChat: "Delete",
         welcomeDesc: "Your personal AI coding assistant. Fix bugs, optimize, convert languages, and test code with artificial intelligence.", startBtn: "Start", startTutorialBtn: "Tutorial", skipBtn: "Skip", nextTour: "Next", finishTour: "Done", emptyStatePrompt: "Ready to code.",
         featureDebug: "Debug & Fix", featureDebugDesc: "Find and fix bugs automatically", featureOptimize: "Optimize", featureOptimizeDesc: "Improve performance and code quality", featureExplain: "Explain", featureExplainDesc: "Understand code logic in detail", featureConvert: "Convert", featureConvertDesc: "Convert between programming languages", featureTest: "Reasoning", featureTestDesc: "See AI's step-by-step thinking process", featureSecurity: "Security", featureSecurityDesc: "Find vulnerabilities and security issues", featureMultiLang: "6 Languages", featureMultiCodeLang: "30+ Programming Languages", featureFast: "Fast & Free",
-        tabHistory: "History", tabTips: "Tips", historyEmptyDesc: "No history yet.", funFactHeader: "Fun Fact",
+        tabHistory: "History", tabTips: "Tips", historyEmptyDesc: "No history yet.", funFactHeader: "Fun Fact", mobileTabCode: "Code", mobileTabResult: "Result",
         tourStep1Title: "1. Enter code", tourStep1Desc: "Paste code in the text area.", tourStep2Title: "2. Select language", tourStep2Desc: "Choose programming language.", tourStep3Title: "3. Choose mode", tourStep3Desc: "What AI should do (fix, optimize, explain).", tourStep4Title: "4. Run", tourStep4Desc: "Click Run to start analysis!"
     },
     pl: {
@@ -140,7 +140,7 @@ const TRANSLATIONS = {
         tipFormatCode: "Formatuj kod", tipUploadFile: "Wgraj plik", tipDownloadFile: "Zapisz plik", tipVersionHistory: "Historia zapytań", tipCopyCode: "Kopiuj kod", tipClearEditor: "Wyczyść edytor",
         welcomeDesc: "Twój osobisty asystent AI do kodowania. Naprawiaj błędy, optymalizuj, konwertuj języki i testuj kod za pomocą sztucznej inteligencji.", startBtn: "Start", startTutorialBtn: "Samouczek", skipBtn: "Pomiń", nextTour: "Dalej", finishTour: "Gotowe", emptyStatePrompt: "Gotowy do kodowania.",
         featureDebug: "Debugowanie", featureDebugDesc: "Znajdź i napraw błędy automatycznie", featureOptimize: "Optymalizacja", featureOptimizeDesc: "Popraw wydajność i jakość kodu", featureExplain: "Wyjaśnienie", featureExplainDesc: "Zrozum logikę kodu szczegółowo", featureConvert: "Konwersja", featureConvertDesc: "Konwertuj między językami programowania", featureTest: "Rozumowanie", featureTestDesc: "Zobacz proces myślenia AI krok po kroku", featureSecurity: "Bezpieczeństwo", featureSecurityDesc: "Znajdź luki i problemy bezpieczeństwa", featureMultiLang: "6 Języków", featureMultiCodeLang: "30+ Języków Programowania", featureFast: "Szybko i Za Darmo",
-        tabHistory: "Historia", tabTips: "Wskazówki", historyEmptyDesc: "Brak historii.", funFactHeader: "Ciekawostka",
+        tabHistory: "Historia", tabTips: "Wskazówki", historyEmptyDesc: "Brak historii.", funFactHeader: "Ciekawostka", mobileTabCode: "Kod", mobileTabResult: "Wynik",
         tourStep1Title: "1. Wprowadź kod", tourStep1Desc: "Wklej kod w obszarze tekstowym.", tourStep2Title: "2. Wybierz język", tourStep2Desc: "Wybierz język programowania.", tourStep3Title: "3. Wybierz tryb", tourStep3Desc: "Co AI ma zrobić (naprawić, zoptymalizować, wyjaśnić).", tourStep4Title: "4. Uruchom", tourStep4Desc: "Kliknij Uruchom, aby rozpocząć analizę!"
     },
     de: {
@@ -166,7 +166,7 @@ const TRANSLATIONS = {
         tipFormatCode: "Code formatieren", tipUploadFile: "Datei hochladen", tipDownloadFile: "Datei speichern", tipVersionHistory: "Anfrageverlauf", tipCopyCode: "Code kopieren", tipClearEditor: "Editor löschen",
         welcomeDesc: "Ihr persönlicher KI-Code-Assistent. Beheben Sie Fehler, optimieren Sie, konvertieren Sie Sprachen und testen Sie Code mit künstlicher Intelligenz.", startBtn: "Start", startTutorialBtn: "Tutorial", skipBtn: "Überspringen", nextTour: "Weiter", finishTour: "Fertig", emptyStatePrompt: "Bereit zum Codieren.",
         featureDebug: "Debuggen", featureDebugDesc: "Fehler automatisch finden und beheben", featureOptimize: "Optimieren", featureOptimizeDesc: "Leistung und Codequalität verbessern", featureExplain: "Erklären", featureExplainDesc: "Code-Logik im Detail verstehen", featureConvert: "Konvertieren", featureConvertDesc: "Zwischen Programmiersprachen konvertieren", featureTest: "Argumentation", featureTestDesc: "Sehen Sie den Denkprozess der KI Schritt für Schritt", featureSecurity: "Sicherheit", featureSecurityDesc: "Schwachstellen und Sicherheitsprobleme finden", featureMultiLang: "6 Sprachen", featureMultiCodeLang: "30+ Programmiersprachen", featureFast: "Schnell & Kostenlos",
-        tabHistory: "Verlauf", tabTips: "Tipps", historyEmptyDesc: "Kein Verlauf.", funFactHeader: "Fun Fact",
+        tabHistory: "Verlauf", tabTips: "Tipps", historyEmptyDesc: "Kein Verlauf.", funFactHeader: "Fun Fact", mobileTabCode: "Code", mobileTabResult: "Ergebnis",
         tourStep1Title: "1. Code eingeben", tourStep1Desc: "Code in das Textfeld einfügen.", tourStep2Title: "2. Sprache wählen", tourStep2Desc: "Programmiersprache wählen.", tourStep3Title: "3. Modus wählen", tourStep3Desc: "Was die KI tun soll (beheben, optimieren, erklären).", tourStep4Title: "4. Ausführen", tourStep4Desc: "Auf Ausführen klicken, um die Analyse zu starten!"
     },
     es: {
@@ -192,7 +192,7 @@ const TRANSLATIONS = {
         tipFormatCode: "Formatear código", tipUploadFile: "Subir archivo", tipDownloadFile: "Guardar archivo", tipVersionHistory: "Historial de solicitudes", tipCopyCode: "Copiar código", tipClearEditor: "Limpiar editor",
         welcomeDesc: "Tu asistente personal de código con IA. Corrige errores, optimiza, convierte lenguajes y prueba código con inteligencia artificial.", startBtn: "Iniciar", startTutorialBtn: "Tutorial", skipBtn: "Omitir", nextTour: "Siguiente", finishTour: "Listo", emptyStatePrompt: "Listo para codificar.",
         featureDebug: "Depurar", featureDebugDesc: "Encuentra y corrige errores automáticamente", featureOptimize: "Optimizar", featureOptimizeDesc: "Mejora el rendimiento y calidad del código", featureExplain: "Explicar", featureExplainDesc: "Entiende la lógica del código en detalle", featureConvert: "Convertir", featureConvertDesc: "Convierte entre lenguajes de programación", featureTest: "Razonamiento", featureTestDesc: "Ve el proceso de pensamiento de la IA paso a paso", featureSecurity: "Seguridad", featureSecurityDesc: "Encuentra vulnerabilidades y problemas de seguridad", featureMultiLang: "6 Idiomas", featureMultiCodeLang: "30+ Lenguajes de Programación", featureFast: "Rápido y Gratis",
-        tabHistory: "Historial", tabTips: "Consejos", historyEmptyDesc: "Sin historial.", funFactHeader: "Dato curioso",
+        tabHistory: "Historial", tabTips: "Consejos", historyEmptyDesc: "Sin historial.", funFactHeader: "Dato curioso", mobileTabCode: "Código", mobileTabResult: "Resultado",
         tourStep1Title: "1. Ingresa código", tourStep1Desc: "Pega código en el área de texto.", tourStep2Title: "2. Selecciona idioma", tourStep2Desc: "Elige lenguaje de programación.", tourStep3Title: "3. Elige modo", tourStep3Desc: "Qué debe hacer la IA (corregir, optimizar, explicar).", tourStep4Title: "4. Ejecutar", tourStep4Desc: "¡Haz clic en Ejecutar para comenzar el análisis!"
     },
     ru: {
@@ -218,7 +218,7 @@ const TRANSLATIONS = {
         tipFormatCode: "Форматировать код", tipUploadFile: "Загрузить файл", tipDownloadFile: "Сохранить файл", tipVersionHistory: "История запросов", tipCopyCode: "Копировать код", tipClearEditor: "Очистить редактор",
         welcomeDesc: "Ваш персональный AI-ассистент для работы с кодом. Исправляйте ошибки, оптимизируйте, конвертируйте языки и тестируйте код с помощью искусственного интеллекта.", startBtn: "Начать", startTutorialBtn: "Обучение", skipBtn: "Пропустить", nextTour: "Далее", finishTour: "Готово", emptyStatePrompt: "Выберите режим и нажмите Запуск",
         featureDebug: "Исправление", featureDebugDesc: "Найдите и исправьте ошибки автоматически", featureOptimize: "Оптимизация", featureOptimizeDesc: "Улучшите производительность и качество кода", featureExplain: "Объяснение", featureExplainDesc: "Детально поймите логику кода", featureConvert: "Конвертация", featureConvertDesc: "Конвертируйте между языками программирования", featureTest: "Рассуждение", featureTestDesc: "Посмотрите на процесс мышления AI пошагово", featureSecurity: "Безопасность", featureSecurityDesc: "Найдите уязвимости и проблемы безопасности", featureMultiLang: "6 Языков", featureMultiCodeLang: "30+ Языков Программирования", featureFast: "Быстро и Бесплатно",
-        tabHistory: "История", tabTips: "Советы", historyEmptyDesc: "Здесь появятся ваши запросы.", funFactHeader: "Интересный факт",
+        tabHistory: "История", tabTips: "Советы", historyEmptyDesc: "Здесь появятся ваши запросы.", funFactHeader: "Интересный факт", mobileTabCode: "Код", mobileTabResult: "Результат",
         tourStep1Title: "1. Введите код", tourStep1Desc: "Вставьте код в текстовое поле.", tourStep2Title: "2. Выберите язык", tourStep2Desc: "Выберите язык программирования.", tourStep3Title: "3. Выберите режим", tourStep3Desc: "Что должен сделать AI (исправить, оптимизировать, объяснить).", tourStep4Title: "4. Запустите", tourStep4Desc: "Нажмите Запуск, чтобы начать анализ!"
     }
 };
@@ -439,7 +439,10 @@ const els = {
     toastClose: document.getElementById('toast-close'),
     inputSection: document.getElementById('input-section'),
     outputSection: document.getElementById('output-section'),
-    resizeHandle: document.getElementById('resize-handle')
+    resizeHandle: document.getElementById('resize-handle'),
+    mobileViewToggle: document.getElementById('mobile-view-toggle'),
+    mobileTabInput: document.getElementById('mobile-tab-input'),
+    mobileTabOutput: document.getElementById('mobile-tab-output')
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -723,6 +726,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize resize functionality
     initResize();
+    
+    // Initialize mobile view toggle
+    initMobileViewToggle();
     
     // Initialize files
     if (Object.keys(files).length === 0) {
@@ -1307,6 +1313,13 @@ function renderOutput(data, lang, analysisTime) {
     setTimeout(() => {
         els.outputContainer.classList.remove('animate-fade-in-up');
     }, 400);
+    
+    // Auto-switch to output view on mobile when result is ready
+    if (window.innerWidth < 768 && window.switchMobileView) {
+        setTimeout(() => {
+            window.switchMobileView('output');
+        }, 300);
+    }
     
     // Announce to screen readers
     if (els.outputContainer) {
@@ -3576,6 +3589,31 @@ function initResize() {
     els.resizeHandle.addEventListener('touchstart', startResize);
     document.addEventListener('touchmove', resize);
     document.addEventListener('touchend', stopResize);
+}
+
+// Initialize mobile view toggle
+function initMobileViewToggle() {
+    if (!els.mobileTabInput || !els.mobileTabOutput || !els.inputSection || !els.outputSection) return;
+    
+    const switchToView = (view) => {
+        if (view === 'input') {
+            els.inputSection.classList.remove('hidden');
+            els.outputSection.classList.add('hidden');
+            els.mobileTabInput.classList.add('active');
+            els.mobileTabOutput.classList.remove('active');
+        } else {
+            els.inputSection.classList.add('hidden');
+            els.outputSection.classList.remove('hidden');
+            els.mobileTabInput.classList.remove('active');
+            els.mobileTabOutput.classList.add('active');
+        }
+    };
+    
+    els.mobileTabInput.addEventListener('click', () => switchToView('input'));
+    els.mobileTabOutput.addEventListener('click', () => switchToView('output'));
+    
+    // Store function globally for use in renderOutput
+    window.switchMobileView = switchToView;
 }
 
 // Show toast notification
