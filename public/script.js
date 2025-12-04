@@ -2098,6 +2098,8 @@ function addToHistory(item) {
                 }
             }
             renderHistory();
+            updateHistoryCounter();
+
             return;
         }
     }
@@ -2286,7 +2288,9 @@ function closeClearHistoryConfirmDialog() {
 function clearHistory() { 
     history = []; 
     localStorage.removeItem('fixly_history'); 
-    renderHistory(); 
+    renderHistory();
+    updateHistoryCounter();
+ 
 }
 
 // Show delete chat confirmation dialog
@@ -2437,6 +2441,8 @@ function deleteHistoryItem(index) {
         history.splice(index, 1);
         localStorage.setItem('fixly_history', JSON.stringify(history));
         renderHistory();
+        updateHistoryCounter();
+
     }
 }
 
