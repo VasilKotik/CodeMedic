@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fixlycode.vercel.app/sitemap.xml
+Sitemap: https://fixlycode.com/sitemap.xml
+
 
