@@ -30,21 +30,21 @@ const validateRequest = (req, res, next) => {
 
     // Validate required fields
     if (!code || typeof code !== 'string') {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Missing or invalid code field',
             message: 'Code is required and must be a string'
         });
     }
 
     if (!code.trim()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Empty code',
             message: 'Code cannot be empty'
         });
     }
 
     if (!model || typeof model !== 'string' || !model.trim()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Missing or invalid model field',
             message: 'Model is required and must be a valid string'
         });
@@ -52,21 +52,21 @@ const validateRequest = (req, res, next) => {
 
     // Validate optional fields
     if (mode && typeof mode !== 'string') {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Invalid mode field',
             message: 'Mode must be a string'
         });
     }
 
     if (lang && typeof lang !== 'string') {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Invalid lang field',
             message: 'Language must be a string'
         });
     }
 
     if (wishes && typeof wishes !== 'string') {
-        return res.status(400).json({ 
+        return res.status(400).json({
             error: 'Invalid wishes field',
             message: 'Wishes must be a string'
         });
@@ -77,13 +77,13 @@ const validateRequest = (req, res, next) => {
     const convertTo = req.body.convertTo;
     if (mode === 'convert') {
         if (convertFrom && typeof convertFrom !== 'string') {
-            return res.status(400).json({ 
+            return res.status(400).json({
                 error: 'Invalid convertFrom field',
                 message: 'convertFrom must be a string'
             });
         }
         if (convertTo && typeof convertTo !== 'string') {
-            return res.status(400).json({ 
+            return res.status(400).json({
                 error: 'Invalid convertTo field',
                 message: 'convertTo must be a string'
             });
@@ -103,87 +103,86 @@ const validateRequest = (req, res, next) => {
 };
 
 // Task mapping with translations
-const TASK_MAP = {
-    'debug': {
-        'en': 'Fix bugs and errors in the code.',
-        'uk': 'Виправте помилки та баги в коді.',
-        'ru': 'Исправьте ошибки и баги в коде.',
-        'pl': 'Napraw błędy w kodzie.',
-        'de': 'Beheben Sie Fehler im Code.',
-        'es': 'Corrija errores y bugs en el código.'
-    },
-    'optimize': {
-        'en': 'Optimize code for performance, readability, and best practices.',
-        'uk': 'Оптимізуйте код для продуктивності, читабельності та найкращих практик.',
-        'ru': 'Оптимизируйте код для производительности, читаемости и лучших практик.',
-        'pl': 'Zoptymalizuj kod pod kątem wydajności, czytelności i najlepszych praktyk.',
-        'de': 'Optimieren Sie den Code für Leistung, Lesbarkeit und Best Practices.',
-        'es': 'Optimice el código para rendimiento, legibilidad y mejores prácticas.'
-    },
-    'explain': {
-        'en': 'Analyze the code thoroughly and explain: 1) What the code does and its purpose, 2) Identify ALL bugs, errors, and potential issues with clear explanations, 3) Explain WHERE each problem is located (specific lines/functions), 4) Explain WHY each problem occurs, 5) Provide step-by-step solutions on HOW to fix each issue. Make explanations clear and easy to understand for beginners.',
-        'uk': 'Проаналізуйте код детально та поясніть: 1) Що робить код та його призначення, 2) Виявіть ВСІ помилки, баги та потенційні проблеми з чіткими поясненнями, 3) Поясніть ДЕ знаходиться кожна проблема (конкретні рядки/функції), 4) Поясніть ЧОМУ виникає кожна проблема, 5) Надайте покрокові рішення ЯК виправити кожну проблему. Зробіть пояснення зрозумілими для початківців.',
-        'ru': 'Проанализируйте код детально и объясните: 1) Что делает код и его назначение, 2) Выявите ВСЕ ошибки, баги и потенциальные проблемы с четкими объяснениями, 3) Объясните ГДЕ находится каждая проблема (конкретные строки/функции), 4) Объясните ПОЧЕМУ возникает каждая проблема, 5) Предоставьте пошаговые решения КАК исправить каждую проблему. Сделайте объяснения понятными для начинающих.',
-        'pl': 'Przeanalizuj kod szczegółowo i wyjaśnij: 1) Co robi kod i jego cel, 2) Zidentyfikuj WSZYSTKIE błędy, bugi i potencjalne problemy z jasnymi wyjaśnieniami, 3) Wyjaśnij GDZIE znajduje się każdy problem (konkretne linie/funkcje), 4) Wyjaśnij DLACZEGO występuje każdy problem, 5) Podaj krok po kroku rozwiązania JAK naprawić każdy problem. Uczyń wyjaśnienia zrozumiałymi dla początkujących.',
-        'de': 'Analysieren Sie den Code gründlich und erklären Sie: 1) Was der Code tut und sein Zweck, 2) Identifizieren Sie ALLE Fehler, Bugs und potenzielle Probleme mit klaren Erklärungen, 3) Erklären Sie, WO sich jedes Problem befindet (spezifische Zeilen/Funktionen), 4) Erklären Sie, WARUM jedes Problem auftritt, 5) Geben Sie Schritt-für-Schritt-Lösungen an, WIE jedes Problem behoben werden kann. Machen Sie Erklärungen klar und verständlich für Anfänger.',
-        'es': 'Analice el código a fondo y explique: 1) Qué hace el código y su propósito, 2) Identifique TODOS los errores, bugs y problemas potenciales con explicaciones claras, 3) Explique DÓNDE se encuentra cada problema (líneas/funciones específicas), 4) Explique POR QUÉ ocurre cada problema, 5) Proporcione soluciones paso a paso sobre CÓMO corregir cada problema. Haga las explicaciones claras y fáciles de entender para principiantes.'
-    },
-    'review': {
-        'en': 'Perform comprehensive code review: check for bugs, security issues, best practices, and provide improvement suggestions.',
-        'uk': 'Проведіть комплексний огляд коду: перевірте на помилки, проблеми безпеки, найкращі практики та надайте пропозиції щодо покращення.',
-        'ru': 'Проведите комплексный обзор кода: проверьте на ошибки, проблемы безопасности, лучшие практики и предоставьте предложения по улучшению.',
-        'pl': 'Przeprowadź kompleksowy przegląd kodu: sprawdź błędy, problemy bezpieczeństwa, najlepsze praktyki i zaproponuj ulepszenia.',
-        'de': 'Führen Sie eine umfassende Code-Überprüfung durch: Prüfen Sie auf Fehler, Sicherheitsprobleme, Best Practices und geben Sie Verbesserungsvorschläge.',
-        'es': 'Realice una revisión exhaustiva del código: verifique errores, problemas de seguridad, mejores prácticas y proporcione sugerencias de mejora.'
-    },
-    'security': {
-        'en': 'Analyze code for security vulnerabilities, potential exploits, and security best practices.',
-        'uk': 'Проаналізуйте код на вразливості безпеки, потенційні експлойти та найкращі практики безпеки.',
-        'ru': 'Проанализируйте код на уязвимости безопасности, потенциальные эксплойты и лучшие практики безопасности.',
-        'pl': 'Przeanalizuj kod pod kątem luk bezpieczeństwa, potencjalnych exploitów i najlepszych praktyk bezpieczeństwa.',
-        'de': 'Analysieren Sie den Code auf Sicherheitslücken, potenzielle Exploits und Sicherheitsbest Practices.',
-        'es': 'Analice el código en busca de vulnerabilidades de seguridad, posibles exploits y mejores prácticas de seguridad.'
-    },
-    'refactor': {
-        'en': 'Refactor code to improve structure, maintainability, and design patterns while preserving functionality.',
-        'uk': 'Рефакторинг коду для покращення структури, підтримуваності та патернів проектування зі збереженням функціональності.',
-        'ru': 'Рефакторинг кода для улучшения структуры, поддерживаемости и паттернов проектирования с сохранением функциональности.',
-        'pl': 'Refaktoryzuj kod, aby poprawić strukturę, utrzymywalność i wzorce projektowe, zachowując funkcjonalność.',
-        'de': 'Refaktorisieren Sie den Code, um Struktur, Wartbarkeit und Entwurfsmuster zu verbessern, während die Funktionalität erhalten bleibt.',
-        'es': 'Refactorice el código para mejorar la estructura, mantenibilidad y patrones de diseño preservando la funcionalidad.'
-    },
-    'document': {
-        'en': 'Generate comprehensive documentation: comments, docstrings, and usage examples.',
-        'uk': 'Створіть комплексну документацію: коментарі, docstrings та приклади використання.',
-        'ru': 'Создайте комплексную документацию: комментарии, docstrings и примеры использования.',
-        'pl': 'Wygeneruj kompleksową dokumentację: komentarze, docstrings i przykłady użycia.',
-        'de': 'Erstellen Sie umfassende Dokumentation: Kommentare, Docstrings und Verwendungsbeispiele.',
-        'es': 'Genere documentación completa: comentarios, docstrings y ejemplos de uso.'
-    },
-    'convert': {
-        'en': 'Convert code to another programming language or framework.',
-        'uk': 'Конвертуйте код в іншу мову програмування або фреймворк.',
-        'ru': 'Конвертируйте код в другой язык программирования или фреймворк.',
-        'pl': 'Konwertuj kod na inny język programowania lub framework.',
-        'de': 'Konvertieren Sie den Code in eine andere Programmiersprache oder ein Framework.',
-        'es': 'Convierta el código a otro lenguaje de programación o framework.'
-    },
-    'format': {
-        'en': 'Format and style code according to language-specific conventions and best practices.',
-        'uk': 'Відформатуйте та стилізуйте код відповідно до специфічних для мови конвенцій та найкращих практик.',
-        'ru': 'Отформатируйте и стилизуйте код в соответствии с соглашениями и лучшими практиками для языка.',
-        'pl': 'Sformatuj i ostyluj kod zgodnie z konwencjami i najlepszymi praktykami dla danego języka.',
-        'de': 'Formatieren und stylen Sie den Code gemäß sprachspezifischen Konventionen und Best Practices.',
-        'es': 'Formatee y estilice el código según las convenciones y mejores prácticas específicas del lenguaje.'
-    },
-    'test': {
-        'en': 'Analyze the code using step-by-step reasoning. Show your thinking process: 1) What you observe in the code, 2) What problems or patterns you identify, 3) Why you think these are issues or opportunities, 4) How you would approach solving them, 5) What the final solution should look like. Present your reasoning clearly and logically, showing the thought process behind your analysis.',
-        'uk': 'Проаналізуйте код, використовуючи покрокове міркування. Покажіть свій процес мислення: 1) Що ви спостерігаєте в коді, 2) Які проблеми або патерни ви виявляєте, 3) Чому ви вважаєте це проблемами або можливостями, 4) Як би ви підійшли до їх вирішення, 5) Як має виглядати фінальне рішення. Представте свої міркування чітко та логічно, показуючи процес мислення за вашим аналізом.',
-        'ru': 'Проанализируйте код, используя пошаговые рассуждения. Покажите свой процесс мышления: 1) Что вы наблюдаете в коде, 2) Какие проблемы или паттерны вы выявляете, 3) Почему вы считаете это проблемами или возможностями, 4) Как бы вы подошли к их решению, 5) Как должно выглядеть финальное решение. Представьте свои рассуждения четко и логично, показывая процесс мышления за вашим анализом.',
-        'pl': 'Przeanalizuj kod, używając rozumowania krok po kroku. Pokaż swój proces myślenia: 1) Co obserwujesz w kodzie, 2) Jakie problemy lub wzorce identyfikujesz, 3) Dlaczego uważasz je za problemy lub możliwości, 4) Jak podejdziesz do ich rozwiązania, 5) Jak powinno wyglądać ostateczne rozwiązanie. Przedstaw swoje rozumowanie jasno i logicznie, pokazując proces myślenia za swoją analizą.',
-        'de': 'Analysieren Sie den Code mit schrittweisem Denken. Zeigen Sie Ihren Denkprozess: 1) Was Sie im Code beobachten, 2) Welche Probleme oder Muster Sie identifizieren, 3) Warum Sie diese als Probleme oder Möglichkeiten betrachten, 4) Wie Sie an ihre Lösung herangehen würden, 5) Wie die endgültige Lösung aussehen sollte. Präsentieren Sie Ihre Argumentation klar und logisch und zeigen Sie den Denkprozess hinter Ihrer Analyse.',
-        'es': 'Analice el código usando razonamiento paso a paso. Muestre su proceso de pensamiento: 1) Qué observa en el código, 2) Qué problemas o patrones identifica, 3) Por qué considera estos como problemas u oportunidades, 4) Cómo abordaría resolverlos, 5) Cómo debería verse la solución final. Presente su razonamiento de manera clara y lógica, mostrando el proceso de pensamiento detrás de su análisis.'
-    }
+'debug': {
+    'en': 'Analyze the code for bugs and errors. Fix them to ensure correct functionality and prevent runtime issues.',
+        'uk': 'Проаналізуйте код на наявність помилок та багів. Виправте їх для забезпечення правильної роботи програми.',
+            'ru': 'Проанализируйте код на наличие ошибок и багов. Исправьте их для обеспечения правильной работы программы.',
+                'pl': 'Przeanalizuj kod pod kątem błędów. Napraw je, aby zapewnić poprawne działanie programu.',
+                    'de': 'Analysieren Sie den Code auf Fehler. Beheben Sie diese, um die korrekte Funktionalität sicherzustellen.',
+                        'es': 'Analice el código en busca de errores. Corríjalos para asegurar el funcionamiento correcto del programa.'
+},
+'optimize': {
+    'en': 'Optimize the code for better performance, memory usage, readability, and adherence to best practices.',
+        'uk': 'Оптимізуйте код для кращої продуктивності, використання пам\'яті, читабельності та дотримання найкращих практик.',
+            'ru': 'Оптимизируйте код для лучшей производительности, использования памяти, читаемости и соблюдения лучших практик.',
+                'pl': 'Zoptymalizuj kod pod kątem lepszej wydajności, zużycia pamięci, czytelności i przestrzegania najlepszych praktyk.',
+                    'de': 'Optimieren Sie den Code für bessere Leistung, Speichernutzung, Lesbarkeit und Einhaltung von Best Practices.',
+                        'es': 'Optimice el código para un mejor rendimiento, uso de memoria, legibilidad y cumplimiento de las mejores prácticas.'
+},
+'explain': {
+    'en': 'Explain the code\'s logic, purpose, and functionality in detail. Break down complex parts for clarity.',
+        'uk': 'Детально поясніть логіку, призначення та функціональність коду. Розбийте складні частини для кращого розуміння.',
+            'ru': 'Подробно объясните логику, назначение и функциональность кода. Разбейте сложные части для лучшего понимания.',
+                'pl': 'Szczegółowo wyjaśnij logikę, cel i funkcjonalność kodu. Rozbij skomplikowane części dla jasności.',
+                    'de': 'Erklären Sie die Logik, den Zweck und die Funktionalität des Codes im Detail. Gliedern Sie komplexe Teile zur Klarheit.',
+                        'es': 'Explique la lógica, el propósito y la funcionalidad del código en detalle. Desgloselo para mayor claridad.'
+},
+'review': {
+    'en': 'Conduct a comprehensive code review. Identify bugs, security risks, and style issues. Suggest specific improvements.',
+        'uk': 'Проведіть комплексний огляд коду. Виявіть помилки, ризики безпеки та проблеми зі стилем. Запропонуйте конкретні покращення.',
+            'ru': 'Проведите комплексный обзор кода. Выявите ошибки, риски безопасности и проблемы со стилем. Предложите конкретные улучшения.',
+                'pl': 'Przeprowadź kompleksowy przegląd kodu. Zidentyfikuj błędy, ryzyka bezpieczeństwa i problemy ze stylem. Zaproponuj konkretne ulepszenia.',
+                    'de': 'Führen Sie eine umfassende Code-Überprüfung durch. Identifizieren Sie Fehler, Sicherheitsrisiken und Stilprobleme. Schlagen Sie konkrete Verbesserungen vor.',
+                        'es': 'Realice una revisión exhaustiva del código. Identifique errores, riesgos de seguridad y problemas de estilo. Sugiera mejoras específicas.'
+},
+'security': {
+    'en': 'Analyze the code for security vulnerabilities and potential exploits. Recommend security hardening measures.',
+        'uk': 'Проаналізуйте код на вразливості безпеки та потенційні експлойти. Рекомендуйте заходи щодо посилення безпеки.',
+            'ru': 'Проанализируйте код на уязвимости безопасности и потенциальные эксплойты. Рекомендуйте меры по усилению безопасности.',
+                'pl': 'Przeanalizuj kod pod kątem luk bezpieczeństwa i potencjalnych exploitów. Zalec środki wzmacniające bezpieczeństwo.',
+                    'de': 'Analysieren Sie den Code auf Sicherheitslücken und potenzielle Exploits. Empfehlen Sie Maßnahmen zur Sicherheitshärtung.',
+                        'es': 'Analice el código en busca de vulnerabilidades de seguridad y posibles exploits. Recomiende medidas de fortalecimiento de la seguridad.'
+},
+'refactor': {
+    'en': 'Refactor the code to improve its structure and maintainability without changing its external behavior.',
+        'uk': 'Рефакторинг коду для покращення його структури та підтримуваності без зміни зовнішньої поведінки.',
+            'ru': 'Рефакторинг кода для улучшения его структуры и поддерживаемости без изменения внешнего поведения.',
+                'pl': 'Zrefaktoryzuj kod, aby poprawić jego strukturę i łatwość utrzymania bez zmiany jego zachowania zewnętrznego.',
+                    'de': 'Refaktorisieren Sie den Code, um seine Struktur und Wartbarkeit zu verbessern, ohne sein externes Verhalten zu ändern.',
+                        'es': 'Refactorice el código para mejorar su estructura y mantenibilidad sin cambiar su comportamiento externo.'
+},
+'document': {
+    'en': 'Add comprehensive documentation, including comments and docstrings, to explain the code clearly.',
+        'uk': 'Додайте вичерпну документацію, включаючи коментарі та docstrings, для чіткого пояснення коду.',
+            'ru': 'Добавьте исчерпывающую документацию, включая комментарии и docstrings, для четкого объяснения кода.',
+                'pl': 'Dodaj kompleksową dokumentację, w tym komentarze i docstrings, aby jasno wyjaśnić kod.',
+                    'de': 'Fügen Sie umfassende Dokumentation hinzu, einschließlich Kommentare und Docstrings, um den Code klar zu erklären.',
+                        'es': 'Agregue documentación completa, incluidos comentarios y docstrings, para explicar el código claramente.'
+},
+'convert': {
+    'en': 'Convert the code to the specified target language or framework while preserving logic and functionality.',
+        'uk': 'Конвертуйте код у вказану цільову мову або фреймворк, зберігаючи логіку та функціональність.',
+            'ru': 'Конвертируйте код в указанный целевой язык или фреймворк, сохраняя логику и функциональность.',
+                'pl': 'Skonwertuj kod na wskazany język docelowy lub framework, zachowując logikę i funkcjonalność.',
+                    'de': 'Konvertieren Sie den Code in die angegebene Zielsprache oder das Framework unter Beibehaltung von Logik und Funktionalität.',
+                        'es': 'Convierta el código al idioma o framework de destino especificado conservando la lógica y la funcionalidad.'
+},
+'format': {
+    'en': 'Format the code according to standard style guidelines and conventions for the language.',
+        'uk': 'Відформатуйте код відповідно до стандартних рекомендацій та конвенцій стилю для цієї мови.',
+            'ru': 'Отформатируйте код в соответствии со стандартными рекомендациями и конвенциями стиля для этого языка.',
+                'pl': 'Sformatuj kod zgodnie ze standardowymi wytycznymi i konwencjami stylu dla tego języka.',
+                    'de': 'Formatieren Sie den Code gemäß den Standard-Stilrichtlinien und Konventionen für die Sprache.',
+                        'es': 'Formatee el código de acuerdo con las pautas y convenciones de estilo estándar para el idioma.'
+},
+'test': {
+    'en': 'Analyze the code using step-by-step reasoning. Identify issues, patterns, and propose solutions logically.',
+        'uk': 'Проаналізуйте код, використовуючи покрокове міркування. Виявіть проблеми, патерни та логічно запропонуйте рішення.',
+            'ru': 'Проанализируйте код, используя пошаговые рассуждения. Выявите проблемы, паттерны и логически предложите решения.',
+                'pl': 'Przeanalizuj kod, używając rozumowania krok po kroku. Zidentyfikuj problemy, wzorce i logicznie zaproponuj rozwiązania.',
+                    'de': 'Analysieren Sie den Code mit schrittweisem Denken. Identifizieren Sie Probleme, Muster und schlagen Sie logisch Lösungen vor.',
+                        'es': 'Analice el código utilizando razonamiento paso a paso. Identifique problemas, patrones y proponga soluciones lógicamente.'
+}
 };
 
 // Language mapping
@@ -205,11 +204,11 @@ app.post(['/', '/api/ai-request'], validateRequest, async (req, res) => {
         const { code, mode, lang, model, wishes, convertFrom, convertTo } = req.body;
 
         const isOpenRouter = model.includes('/');
-        
+
         // Build prompt with language-specific task description
         const taskMapEntry = TASK_MAP[mode] || TASK_MAP['debug'];
         let taskDescription;
-        
+
         if (typeof taskMapEntry === 'object') {
             // New format with translations
             taskDescription = taskMapEntry[lang] || taskMapEntry['en'] || 'Process code.';
@@ -217,10 +216,10 @@ app.post(['/', '/api/ai-request'], validateRequest, async (req, res) => {
             // Fallback for old format (shouldn't happen, but just in case)
             taskDescription = taskMapEntry || 'Process code.';
         }
-        
+
         const targetLangName = getTargetLangName(lang);
         const wishesText = wishes ? wishes.trim() : '';
-        
+
         // Create strong language instruction based on selected language
         const languageInstructions = {
             'uk': 'ВАЖЛИВО: Відповідай ВИКЛЮЧНО українською мовою. Усі тексти (explanation, tip, smells) мають бути українською. Код залишається без змін.',
@@ -230,9 +229,9 @@ app.post(['/', '/api/ai-request'], validateRequest, async (req, res) => {
             'es': 'IMPORTANTE: Responde EXCLUSIVAMENTE en español. Todos los textos (explanation, tip, smells) deben estar en español. El código permanece sin cambios.',
             'en': 'IMPORTANT: Respond EXCLUSIVELY in English. All texts (explanation, tip, smells) must be in English. Code remains unchanged.'
         };
-        
+
         const langInstruction = languageInstructions[lang] || languageInstructions['en'];
-        
+
         // Create language-specific examples for better enforcement
         const languageExamples = {
             'uk': {
@@ -308,19 +307,17 @@ app.post(['/', '/api/ai-request'], validateRequest, async (req, res) => {
 }`
             }
         };
-        
+
         const examples = languageExamples[lang] || languageExamples['en'];
-        
-        // Create system message with EXTREME language enforcement - language comes FIRST
-        const systemMessage = `🚨🚨🚨 RESPONSE LANGUAGE: ${targetLangName.toUpperCase()} (${lang}) - THIS IS THE MOST IMPORTANT RULE 🚨🚨🚨
 
-YOU MUST WRITE ALL TEXT FIELDS IN ${targetLangName.toUpperCase()} LANGUAGE.
-ENGLISH IS STRICTLY FORBIDDEN FOR: explanation, tip, smells fields.
+        // Create system message with professional language enforcement
+        const systemMessage = `You are a Senior Tech Lead and expert code assistant.
+Your goal is to provide high-quality, accurate, and helpful code analysis and solutions.
 
-EXAMPLE OF CORRECT ${targetLangName.toUpperCase()} RESPONSE:
-${examples.fullExample}
-
-You are a Senior Tech Lead code assistant.
+PRIMARY DIRECTIVE:
+You must respond in ${targetLangName.toUpperCase()} (${lang}).
+All text fields (explanation, tip, smells) MUST be written in ${targetLangName}.
+Do not use English for explanations unless the user specifically asks for it.
 
 Task: ${taskDescription}
 ${mode === 'convert' && convertFrom && convertTo ? `\nCONVERSION SPECIFICATIONS:\n- Convert FROM: ${convertFrom}\n- Convert TO: ${convertTo}\n- Preserve functionality and logic\n- Use idiomatic ${convertTo} code style\n- Add comments explaining conversion choices if needed\n` : ''}
@@ -348,65 +345,20 @@ OUTPUT FORMAT - Raw JSON only:
   "smells": ["TEXT_IN_${targetLangName.toUpperCase()}_ONLY"]
 }
 
-CRITICAL: If you write English in explanation, tip, or smells, your response is WRONG. Use ${targetLangName} ONLY.`;
+IMPORTANT: Please ensure your response is strictly in ${targetLangName}.`;
 
         // Language-specific reminders for user message
         const languageReminders = {
-            'uk': `🚨 МОВА ВІДПОВІДІ: УКРАЇНСЬКА (uk)
-⚠️ ВИ ОБОВ'ЯЗКОВО ПОВИННІ писати explanation, tip та smells ВИКЛЮЧНО українською мовою.
-❌ АНГЛІЙСЬКА МОВА ЗАБОРОНЕНА для цих полів.
-✅ ПРИКЛАД правильного формату:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]
-
-Якщо ви напишете хоча б одне слово англійською в explanation, tip або smells - ваша відповідь НЕПРАВИЛЬНА.`,
-            'ru': `🚨 ЯЗЫК ОТВЕТА: РУССКИЙ (ru)
-⚠️ ВЫ ОБЯЗАНЫ писать explanation, tip и smells ИСКЛЮЧИТЕЛЬНО на русском языке.
-❌ АНГЛИЙСКИЙ ЯЗЫК ЗАПРЕЩЕН для этих полей.
-✅ ПРИМЕР правильного формата:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]
-
-Если вы напишете хотя бы одно слово на английском в explanation, tip или smells - ваш ответ НЕПРАВИЛЬНЫЙ.`,
-            'pl': `🚨 JĘZYK ODPOWIEDZI: POLSKI (pl)
-⚠️ MUSISZ pisać explanation, tip i smells WYŁĄCZNIE po polsku.
-❌ JĘZYK ANGIELSKI JEST ZABRONIONY dla tych pól.
-✅ PRZYKŁAD poprawnego formatu:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]
-
-Jeśli napiszesz choć jedno słowo po angielsku w explanation, tip lub smells - twoja odpowiedź jest NIEPRAWIDŁOWA.`,
-            'de': `🚨 ANTWORTSPRACHE: DEUTSCH (de)
-⚠️ SIE MÜSSEN explanation, tip und smells AUSSCHLIESSLICH auf Deutsch schreiben.
-❌ ENGLISCH IST VERBOTEN für diese Felder.
-✅ BEISPIEL für das richtige Format:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]
-
-Wenn Sie auch nur ein Wort auf Englisch in explanation, tip oder smells schreiben - Ihre Antwort ist FALSCH.`,
-            'es': `🚨 IDIOMA DE RESPUESTA: ESPAÑOL (es)
-⚠️ DEBES escribir explanation, tip y smells EXCLUSIVAMENTE en español.
-❌ EL INGLÉS ESTÁ PROHIBIDO para estos campos.
-✅ EJEMPLO del formato correcto:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]
-
-Si escribes al menos una palabra en inglés en explanation, tip o smells - tu respuesta es INCORRECTA.`,
-            'en': `🚨 RESPONSE LANGUAGE: ENGLISH (en)
-⚠️ You MUST write explanation, tip, and smells EXCLUSIVELY in English.
-✅ EXAMPLE of correct format:
-- explanation: "${examples.explanation}"
-- tip: "${examples.tip}"
-- smells: ["${examples.smell}"]`
+            'uk': `Будь ласка, надайте відповідь українською мовою.`,
+            'ru': `Пожалуйста, предоставьте ответ на русском языке.`,
+            'pl': `Proszę o odpowiedź w języku polskim.`,
+            'de': `Bitte antworten Sie auf Deutsch.`,
+            'es': `Por favor, responda en español.`,
+            'en': `Please respond in English.`
         };
-        
+
         const languageReminder = languageReminders[lang] || languageReminders['en'];
-        
+
         // User message with code and strong language reminder
         const userMessage = `${wishesText ? `User additional requirements: ${wishesText}\n\n` : ''}Code to process:\n\`\`\`\n${code}\n\`\`\`
 
@@ -418,7 +370,7 @@ ${languageReminder}`;
             // OpenRouter API
             const apiKey = process.env.OPENROUTER_API_KEY;
             if (!apiKey) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Server configuration error',
                     message: 'OpenRouter API key not configured'
                 });
@@ -432,22 +384,22 @@ ${languageReminder}`;
                 "X-Title": "FixlyCode"
             };
 
-            const supportsJsonMode = model.includes('qwen') || 
-                                   model.includes('gpt-oss') ||
-                                   model.includes('grok') ||
-                                   model.includes('deepseek');
-            
+            const supportsJsonMode = model.includes('qwen') ||
+                model.includes('gpt-oss') ||
+                model.includes('grok') ||
+                model.includes('deepseek');
+
             // Create few-shot example messages for better language adherence
             const fewShotExample = {
                 role: "assistant",
                 content: examples.fullExample
             };
-            
+
             const exampleUserMessage = {
                 role: "user",
                 content: `Code to process:\n\`\`\`\nfunction test() { return x; }\n\`\`\`\n\n${languageReminder}`
             };
-            
+
             body = JSON.stringify({
                 model: model,
                 messages: [
@@ -464,7 +416,7 @@ ${languageReminder}`;
             // Google Gemini API
             const apiKey = process.env.GEMINI_API_KEY;
             if (!apiKey) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Server configuration error',
                     message: 'Gemini API key not configured'
                 });
@@ -476,7 +428,7 @@ ${languageReminder}`;
 EXAMPLE OF CORRECT RESPONSE IN ${targetLangName.toUpperCase()}:
 ${examples.fullExample}
 
-REMEMBER: ALL text fields (explanation, tip, smells) MUST be in ${targetLangName}. English is FORBIDDEN.`;
+Please ensure all explanations are in ${targetLangName}.`;
 
             const geminiUserContent = `${wishesText ? `User additional requirements: ${wishesText}\n\n` : ''}Code to process:\n\`\`\`\n${code}\n\`\`\`
 
@@ -485,7 +437,7 @@ ${languageReminder}
 IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example above as a reference.`;
 
             url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-            headers = { 
+            headers = {
                 'Content-Type': 'application/json'
             };
             body = JSON.stringify({
@@ -518,7 +470,7 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
         } catch (fetchError) {
             clearTimeout(timeoutId);
             if (fetchError.name === 'AbortError') {
-                return res.status(504).json({ 
+                return res.status(504).json({
                     error: 'Request timeout',
                     message: 'The AI API request took too long to complete'
                 });
@@ -535,13 +487,13 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
             } catch (e) {
                 errorData = {};
             }
-            
+
             let errMsg = response.statusText;
-            
+
             if (errorData.error) {
-                errMsg = errorData.error.message || 
-                        errorData.error.error?.message || 
-                        JSON.stringify(errorData.error);
+                errMsg = errorData.error.message ||
+                    errorData.error.error?.message ||
+                    JSON.stringify(errorData.error);
             }
 
             // Map common error codes
@@ -569,7 +521,7 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
         try {
             data = await response.json();
         } catch (e) {
-            return res.status(500).json({ 
+            return res.status(500).json({
                 error: 'Invalid JSON response from AI API',
                 message: 'The AI service returned invalid data'
             });
@@ -577,46 +529,46 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
 
         // Extract text based on API type
         let rawText = "";
-        
+
         if (isOpenRouter) {
             if (!data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Invalid response structure from OpenRouter API',
                     message: 'Response missing choices array'
                 });
             }
-            
+
             const message = data.choices[0]?.message;
             if (!message || !message.content) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Invalid response structure from OpenRouter API',
                     message: 'Response missing message content'
                 });
             }
-            
+
             rawText = message.content || "";
         } else {
             // Gemini API
             if (!data.candidates || !Array.isArray(data.candidates) || data.candidates.length === 0) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Invalid response structure from Gemini API',
                     message: 'Response missing candidates array'
                 });
             }
-            
+
             const candidate = data.candidates[0];
             if (!candidate || !candidate.content || !candidate.content.parts) {
-                return res.status(500).json({ 
+                return res.status(500).json({
                     error: 'Invalid response structure from Gemini API',
                     message: 'Response missing content parts'
                 });
             }
-            
+
             rawText = candidate.content.parts[0]?.text || "";
         }
 
         if (!rawText || rawText.trim().length === 0) {
-            return res.status(500).json({ 
+            return res.status(500).json({
                 error: 'Empty response from AI model',
                 message: 'The AI model returned no content'
             });
@@ -631,15 +583,15 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
 
     } catch (error) {
         console.error('API Error:', error);
-        
+
         if (error.name === 'AbortError') {
-            return res.status(504).json({ 
+            return res.status(504).json({
                 error: 'Request timeout',
                 message: 'The request took too long to complete'
             });
         }
 
-        res.status(500).json({ 
+        res.status(500).json({
             error: 'Internal server error',
             message: error.message || 'An unexpected error occurred'
         });
@@ -648,7 +600,7 @@ IMPORTANT: Respond in ${targetLangName} (${lang}) language. Use the example abov
 
 // Health check endpoint - handle both paths
 app.get(['/', '/api/ai-request'], (req, res) => {
-    res.json({ 
+    res.json({
         status: 'ok',
         timestamp: new Date().toISOString(),
         service: 'FixlyCode API'
