@@ -103,86 +103,87 @@ const validateRequest = (req, res, next) => {
 };
 
 // Task mapping with translations
-'debug': {
-    'en': 'Analyze the code for bugs and errors. Fix them to ensure correct functionality and prevent runtime issues.',
+const TASK_MAP = {
+    'debug': {
+        'en': 'Analyze the code for bugs and errors. Fix them to ensure correct functionality and prevent runtime issues.',
         'uk': 'Проаналізуйте код на наявність помилок та багів. Виправте їх для забезпечення правильної роботи програми.',
-            'ru': 'Проанализируйте код на наличие ошибок и багов. Исправьте их для обеспечения правильной работы программы.',
-                'pl': 'Przeanalizuj kod pod kątem błędów. Napraw je, aby zapewnić poprawne działanie programu.',
-                    'de': 'Analysieren Sie den Code auf Fehler. Beheben Sie diese, um die korrekte Funktionalität sicherzustellen.',
-                        'es': 'Analice el código en busca de errores. Corríjalos para asegurar el funcionamiento correcto del programa.'
-},
-'optimize': {
-    'en': 'Optimize the code for better performance, memory usage, readability, and adherence to best practices.',
+        'ru': 'Проанализируйте код на наличие ошибок и багов. Исправьте их для обеспечения правильной работы программы.',
+        'pl': 'Przeanalizuj kod pod kątem błędów. Napraw je, aby zapewnić poprawne działanie programu.',
+        'de': 'Analysieren Sie den Code auf Fehler. Beheben Sie diese, um die korrekte Funktionalität sicherzustellen.',
+        'es': 'Analice el código en busca de errores. Corríjalos para asegurar el funcionamiento correcto del programa.'
+    },
+    'optimize': {
+        'en': 'Optimize the code for better performance, memory usage, readability, and adherence to best practices.',
         'uk': 'Оптимізуйте код для кращої продуктивності, використання пам\'яті, читабельності та дотримання найкращих практик.',
-            'ru': 'Оптимизируйте код для лучшей производительности, использования памяти, читаемости и соблюдения лучших практик.',
-                'pl': 'Zoptymalizuj kod pod kątem lepszej wydajności, zużycia pamięci, czytelności i przestrzegania najlepszych praktyk.',
-                    'de': 'Optimieren Sie den Code für bessere Leistung, Speichernutzung, Lesbarkeit und Einhaltung von Best Practices.',
-                        'es': 'Optimice el código para un mejor rendimiento, uso de memoria, legibilidad y cumplimiento de las mejores prácticas.'
-},
-'explain': {
-    'en': 'Explain the code\'s logic, purpose, and functionality in detail. Break down complex parts for clarity.',
+        'ru': 'Оптимизируйте код для лучшей производительности, использования памяти, читаемости и соблюдения лучших практик.',
+        'pl': 'Zoptymalizuj kod pod kątem lepszej wydajności, zużycia pamięci, czytelności i przestrzegania najlepszych praktyk.',
+        'de': 'Optimieren Sie den Code für bessere Leistung, Speichernutzung, Lesbarkeit und Einhaltung von Best Practices.',
+        'es': 'Optimice el código para un mejor rendimiento, uso de memoria, legibilidad y cumplimiento de las mejores prácticas.'
+    },
+    'explain': {
+        'en': 'Explain the code\'s logic, purpose, and functionality in detail. Break down complex parts for clarity.',
         'uk': 'Детально поясніть логіку, призначення та функціональність коду. Розбийте складні частини для кращого розуміння.',
-            'ru': 'Подробно объясните логику, назначение и функциональность кода. Разбейте сложные части для лучшего понимания.',
-                'pl': 'Szczegółowo wyjaśnij logikę, cel i funkcjonalność kodu. Rozbij skomplikowane części dla jasności.',
-                    'de': 'Erklären Sie die Logik, den Zweck und die Funktionalität des Codes im Detail. Gliedern Sie komplexe Teile zur Klarheit.',
-                        'es': 'Explique la lógica, el propósito y la funcionalidad del código en detalle. Desgloselo para mayor claridad.'
-},
-'review': {
-    'en': 'Conduct a comprehensive code review. Identify bugs, security risks, and style issues. Suggest specific improvements.',
+        'ru': 'Подробно объясните логику, назначение и функциональность кода. Разбейте сложные части для лучшего понимания.',
+        'pl': 'Szczegółowo wyjaśnij logikę, cel i funkcjonalność kodu. Rozbij skomplikowane części dla jasności.',
+        'de': 'Erklären Sie die Logik, den Zweck und die Funktionalität des Codes im Detail. Gliedern Sie komplexe Teile zur Klarheit.',
+        'es': 'Explique la lógica, el propósito y la funcionalidad del código en detalle. Desgloselo para mayor claridad.'
+    },
+    'review': {
+        'en': 'Conduct a comprehensive code review. Identify bugs, security risks, and style issues. Suggest specific improvements.',
         'uk': 'Проведіть комплексний огляд коду. Виявіть помилки, ризики безпеки та проблеми зі стилем. Запропонуйте конкретні покращення.',
-            'ru': 'Проведите комплексный обзор кода. Выявите ошибки, риски безопасности и проблемы со стилем. Предложите конкретные улучшения.',
-                'pl': 'Przeprowadź kompleksowy przegląd kodu. Zidentyfikuj błędy, ryzyka bezpieczeństwa i problemy ze stylem. Zaproponuj konkretne ulepszenia.',
-                    'de': 'Führen Sie eine umfassende Code-Überprüfung durch. Identifizieren Sie Fehler, Sicherheitsrisiken und Stilprobleme. Schlagen Sie konkrete Verbesserungen vor.',
-                        'es': 'Realice una revisión exhaustiva del código. Identifique errores, riesgos de seguridad y problemas de estilo. Sugiera mejoras específicas.'
-},
-'security': {
-    'en': 'Analyze the code for security vulnerabilities and potential exploits. Recommend security hardening measures.',
+        'ru': 'Проведите комплексный обзор кода. Выявите ошибки, риски безопасности и проблемы со стилем. Предложите конкретные улучшения.',
+        'pl': 'Przeprowadź kompleksowy przegląd kodu. Zidentyfikuj błędy, ryzyka bezpieczeństwa i problemy ze stylem. Zaproponuj konkretne ulepszenia.',
+        'de': 'Führen Sie eine umfassende Code-Überprüfung durch. Identifizieren Sie Fehler, Sicherheitsrisiken und Stilprobleme. Schlagen Sie konkrete Verbesserungen vor.',
+        'es': 'Realice una revisión exhaustiva del código. Identifique errores, riesgos de seguridad y problemas de estilo. Sugiera mejoras específicas.'
+    },
+    'security': {
+        'en': 'Analyze the code for security vulnerabilities and potential exploits. Recommend security hardening measures.',
         'uk': 'Проаналізуйте код на вразливості безпеки та потенційні експлойти. Рекомендуйте заходи щодо посилення безпеки.',
-            'ru': 'Проанализируйте код на уязвимости безопасности и потенциальные эксплойты. Рекомендуйте меры по усилению безопасности.',
-                'pl': 'Przeanalizuj kod pod kątem luk bezpieczeństwa i potencjalnych exploitów. Zalec środki wzmacniające bezpieczeństwo.',
-                    'de': 'Analysieren Sie den Code auf Sicherheitslücken und potenzielle Exploits. Empfehlen Sie Maßnahmen zur Sicherheitshärtung.',
-                        'es': 'Analice el código en busca de vulnerabilidades de seguridad y posibles exploits. Recomiende medidas de fortalecimiento de la seguridad.'
-},
-'refactor': {
-    'en': 'Refactor the code to improve its structure and maintainability without changing its external behavior.',
+        'ru': 'Проанализируйте код на уязвимости безопасности и потенциальные эксплойты. Рекомендуйте меры по усилению безопасности.',
+        'pl': 'Przeanalizuj kod pod kątem luk bezpieczeństwa i potencjalnych exploitów. Zalec środki wzmacniające bezpieczeństwo.',
+        'de': 'Analysieren Sie den Code auf Sicherheitslücken und potenzielle Exploits. Empfehlen Sie Maßnahmen zur Sicherheitshärtung.',
+        'es': 'Analice el código en busca de vulnerabilidades de seguridad y posibles exploits. Recomiende medidas de fortalecimiento de la seguridad.'
+    },
+    'refactor': {
+        'en': 'Refactor the code to improve its structure and maintainability without changing its external behavior.',
         'uk': 'Рефакторинг коду для покращення його структури та підтримуваності без зміни зовнішньої поведінки.',
-            'ru': 'Рефакторинг кода для улучшения его структуры и поддерживаемости без изменения внешнего поведения.',
-                'pl': 'Zrefaktoryzuj kod, aby poprawić jego strukturę i łatwość utrzymania bez zmiany jego zachowania zewnętrznego.',
-                    'de': 'Refaktorisieren Sie den Code, um seine Struktur und Wartbarkeit zu verbessern, ohne sein externes Verhalten zu ändern.',
-                        'es': 'Refactorice el código para mejorar su estructura y mantenibilidad sin cambiar su comportamiento externo.'
-},
-'document': {
-    'en': 'Add comprehensive documentation, including comments and docstrings, to explain the code clearly.',
+        'ru': 'Рефакторинг кода для улучшения его структуры и поддерживаемости без изменения внешнего поведения.',
+        'pl': 'Zrefaktoryzuj kod, aby poprawić jego strukturę i łatwość utrzymania bez zmiany jego zachowania zewnętrznego.',
+        'de': 'Refaktorisieren Sie den Code, um seine Struktur und Wartbarkeit zu verbessern, ohne sein externes Verhalten zu ändern.',
+        'es': 'Refactorice el código para mejorar su estructura y mantenibilidad sin cambiar su comportamiento externo.'
+    },
+    'document': {
+        'en': 'Add comprehensive documentation, including comments and docstrings, to explain the code clearly.',
         'uk': 'Додайте вичерпну документацію, включаючи коментарі та docstrings, для чіткого пояснення коду.',
-            'ru': 'Добавьте исчерпывающую документацию, включая комментарии и docstrings, для четкого объяснения кода.',
-                'pl': 'Dodaj kompleksową dokumentację, w tym komentarze i docstrings, aby jasno wyjaśnić kod.',
-                    'de': 'Fügen Sie umfassende Dokumentation hinzu, einschließlich Kommentare und Docstrings, um den Code klar zu erklären.',
-                        'es': 'Agregue documentación completa, incluidos comentarios y docstrings, para explicar el código claramente.'
-},
-'convert': {
-    'en': 'Convert the code to the specified target language or framework while preserving logic and functionality.',
+        'ru': 'Добавьте исчерпывающую документацию, включая комментарии и docstrings, для четкого объяснения кода.',
+        'pl': 'Dodaj kompleksową dokumentację, w tym komentarze i docstrings, aby jasno wyjaśnić kod.',
+        'de': 'Fügen Sie umfassende Dokumentation hinzu, einschließlich Kommentare und Docstrings, um den Code klar zu erklären.',
+        'es': 'Agregue documentación completa, incluidos comentarios y docstrings, para explicar el código claramente.'
+    },
+    'convert': {
+        'en': 'Convert the code to the specified target language or framework while preserving logic and functionality.',
         'uk': 'Конвертуйте код у вказану цільову мову або фреймворк, зберігаючи логіку та функціональність.',
-            'ru': 'Конвертируйте код в указанный целевой язык или фреймворк, сохраняя логику и функциональность.',
-                'pl': 'Skonwertuj kod na wskazany język docelowy lub framework, zachowując logikę i funkcjonalność.',
-                    'de': 'Konvertieren Sie den Code in die angegebene Zielsprache oder das Framework unter Beibehaltung von Logik und Funktionalität.',
-                        'es': 'Convierta el código al idioma o framework de destino especificado conservando la lógica y la funcionalidad.'
-},
-'format': {
-    'en': 'Format the code according to standard style guidelines and conventions for the language.',
+        'ru': 'Конвертируйте код в указанный целевой язык или фреймворк, сохраняя логику и функциональность.',
+        'pl': 'Skonwertuj kod na wskazany język docelowy lub framework, zachowując logikę i funkcjonalność.',
+        'de': 'Konvertieren Sie den Code in die angegebene Zielsprache oder das Framework unter Beibehaltung von Logik und Funktionalität.',
+        'es': 'Convierta el código al idioma o framework de destino especificado conservando la lógica y la funcionalidad.'
+    },
+    'format': {
+        'en': 'Format the code according to standard style guidelines and conventions for the language.',
         'uk': 'Відформатуйте код відповідно до стандартних рекомендацій та конвенцій стилю для цієї мови.',
-            'ru': 'Отформатируйте код в соответствии со стандартными рекомендациями и конвенциями стиля для этого языка.',
-                'pl': 'Sformatuj kod zgodnie ze standardowymi wytycznymi i konwencjami stylu dla tego języka.',
-                    'de': 'Formatieren Sie den Code gemäß den Standard-Stilrichtlinien und Konventionen für die Sprache.',
-                        'es': 'Formatee el código de acuerdo con las pautas y convenciones de estilo estándar para el idioma.'
-},
-'test': {
-    'en': 'Analyze the code using step-by-step reasoning. Identify issues, patterns, and propose solutions logically.',
+        'ru': 'Отформатируйте код в соответствии со стандартными рекомендациями и конвенциями стиля для этого языка.',
+        'pl': 'Sformatuj kod zgodnie ze standardowymi wytycznymi i konwencjami stylu dla tego języka.',
+        'de': 'Formatieren Sie den Code gemäß den Standard-Stilrichtlinien und Konventionen für die Sprache.',
+        'es': 'Formatee el código de acuerdo con las pautas y convenciones de estilo estándar para el idioma.'
+    },
+    'test': {
+        'en': 'Analyze the code using step-by-step reasoning. Identify issues, patterns, and propose solutions logically.',
         'uk': 'Проаналізуйте код, використовуючи покрокове міркування. Виявіть проблеми, патерни та логічно запропонуйте рішення.',
-            'ru': 'Проанализируйте код, используя пошаговые рассуждения. Выявите проблемы, паттерны и логически предложите решения.',
-                'pl': 'Przeanalizuj kod, używając rozumowania krok po kroku. Zidentyfikuj problemy, wzorce i logicznie zaproponuj rozwiązania.',
-                    'de': 'Analysieren Sie den Code mit schrittweisem Denken. Identifizieren Sie Probleme, Muster und schlagen Sie logisch Lösungen vor.',
-                        'es': 'Analice el código utilizando razonamiento paso a paso. Identifique problemas, patrones y proponga soluciones lógicamente.'
-}
+        'ru': 'Проанализируйте код, используя пошаговые рассуждения. Выявите проблемы, паттерны и логически предложите решения.',
+        'pl': 'Przeanalizuj kod, używając rozumowania krok po kroku. Zidentyfikuj problemy, wzorce i logicznie zaproponuj rozwiązania.',
+        'de': 'Analysieren Sie den Code mit schrittweisem Denken. Identifizieren Sie Probleme, Muster und schlagen Sie logisch Lösungen vor.',
+        'es': 'Analice el código utilizando razonamiento paso a paso. Identifique problemas, patrones y proponga soluciones lógicamente.'
+    }
 };
 
 // Language mapping
@@ -386,7 +387,6 @@ ${languageReminder}`;
 
             const supportsJsonMode = model.includes('qwen') ||
                 model.includes('gpt-oss') ||
-                model.includes('llama') ||
                 model.includes('deepseek');
 
             // Create few-shot example messages for better language adherence
