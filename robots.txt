@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fixlycode.com/sitemap.xml
+
