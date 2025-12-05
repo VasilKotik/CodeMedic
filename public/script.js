@@ -173,7 +173,7 @@ const TRANSLATIONS = {
         changeLanguage: "Змінити",
         deleteChatConfirmTitle: "Видалити чат?",
         deleteChatConfirmMessage: "Цю дію неможливо скасувати.",
-        deleteChat: "Видалити", 
+        deleteChat: "Видалити",
         welcomeDesc: "Ваш персональний AI-асистент для роботи з кодом. Виправляйте помилки, оптимізуйте, конвертуйте мови та тестуйте код за допомогою штучного інтелекту.", startBtn: "Почати", startTutorialBtn: "Навчання", skipBtn: "Пропустити", nextTour: "Далі", finishTour: "Готово", emptyStatePrompt: "Оберіть режим та натисніть Запуск",
         featureDebug: "Виправлення", featureDebugDesc: "Знайдіть та виправте помилки автоматично", featureOptimize: "Оптимізація", featureOptimizeDesc: "Покращте продуктивність та якість коду", featureExplain: "Пояснення", featureExplainDesc: "Детально зрозумійте логіку коду", featureConvert: "Конвертація", featureConvertDesc: "Конвертуйте між мовами програмування", featureTest: "Міркування", featureTestDesc: "Подивіться на процес мислення AI крок за кроком", featureSecurity: "Безпека", featureSecurityDesc: "Знайдіть вразливості та проблеми безпеки", featureMultiLang: "6 Мов", featureMultiCodeLang: "30+ Мов Програмування", featureFast: "Швидко та Безкоштовно",
         tabHistory: "Історія", tabTips: "Поради", historyEmptyDesc: "Тут з'являться ваші запити.", funFactHeader: "Цікавий факт", mobileTabCode: "Код", mobileTabResult: "Результат",
@@ -326,7 +326,7 @@ function getInitialTheme() {
 let isDark = getInitialTheme();
 
 // Apply theme immediately to prevent FOUC (Flash of Unstyled Content)
-(function() {
+(function () {
     const theme = getInitialTheme();
     const html = document.documentElement;
     if (theme) {
@@ -339,9 +339,9 @@ let isDark = getInitialTheme();
 })();
 let history = [];
 let currentChatId = null; // Track current active chat
-let currentTourStep = 0; 
-let tooltipHideTimeout; 
-let typingInterval; 
+let currentTourStep = 0;
+let tooltipHideTimeout;
+let typingInterval;
 let saveTimeout; // For debounce
 
 // File management
@@ -377,8 +377,8 @@ const CACHE_CONFIG = {
 let responseCache = new Map();
 
 
-try { 
-    history = JSON.parse(localStorage.getItem('fixly_history')) || []; 
+try {
+    history = JSON.parse(localStorage.getItem('fixly_history')) || [];
     // Migrate old format to new format
     history = history.map(item => {
         // If it's old format (has input/output directly), convert to new format
@@ -425,7 +425,7 @@ try {
     } catch (e) {
     }
 } catch (e) { history = []; }
-try { 
+try {
     const cached = localStorage.getItem('fixly_cache');
     if (cached) {
         const parsed = JSON.parse(cached);
@@ -482,11 +482,11 @@ const els = {
     tooltip: document.getElementById('tooltip'),
     welcomeScreen: document.getElementById('welcome-screen'),
     startBtn: document.getElementById('start-btn'),
-    tourOverlay: document.getElementById('tour-overlay'), 
-    tourTooltip: document.getElementById('tour-tooltip'), 
-    tourTitle: document.getElementById('tour-title'), 
-    tourDesc: document.getElementById('tour-desc'), 
-    tourNextBtn: document.getElementById('tour-next-btn'), 
+    tourOverlay: document.getElementById('tour-overlay'),
+    tourTooltip: document.getElementById('tour-tooltip'),
+    tourTitle: document.getElementById('tour-title'),
+    tourDesc: document.getElementById('tour-desc'),
+    tourNextBtn: document.getElementById('tour-next-btn'),
     tabHistoryBtn: document.getElementById('tab-history-btn'),
     historyContent: document.getElementById('history-content'),
     clearHistoryBtn: document.getElementById('clear-history-btn'),
@@ -565,19 +565,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (els.welcomeScreen) els.welcomeScreen.classList.remove('hidden');
         els.html.classList.add('overflow-hidden');
     }
-    
+
     applyTheme();
-    
+
     if (!TRANSLATIONS[currentLang]) currentLang = 'en';
     if (els.uiLang) els.uiLang.value = currentLang;
     updateTexts(currentLang);
-    renderHistory(); 
-    
-    if(localStorage.getItem('fixly_draft')) {
+    renderHistory();
+
+    if (localStorage.getItem('fixly_draft')) {
         els.input.value = localStorage.getItem('fixly_draft');
         updateLineNumbers();
     }
-    
+
     if (els.startBtn) els.startBtn.addEventListener('click', () => { closeWelcomeScreen(); if (!localStorage.getItem('fixly_tour_seen')) setTimeout(startTour, 600); });
     if (els.startTutorialBtn) els.startTutorialBtn.addEventListener('click', () => { closeWelcomeScreen(); setTimeout(startTour, 600); });
     if (els.skipBtn) els.skipBtn.addEventListener('click', () => { closeWelcomeScreen(); });
@@ -625,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Change language dialog handlers
     if (els.changeLanguageCancel) {
         els.changeLanguageCancel.addEventListener('click', closeChangeLanguageDialog);
@@ -646,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Delete chat dialog handlers
     if (els.deleteChatCancel) {
         els.deleteChatCancel.addEventListener('click', closeDeleteChatDialog);
@@ -667,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Language mismatch dialog handlers
     if (els.languageMismatchCancel) {
         els.languageMismatchCancel.addEventListener('click', closeLanguageMismatchDialog);
@@ -705,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (els.clearConfirmDialog && !els.clearConfirmDialog.classList.contains('hidden')) {
@@ -727,9 +727,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (els.tourNextBtn) els.tourNextBtn.addEventListener('click', nextTourStep);
     if (els.toggleSidebarBtn) els.toggleSidebarBtn.addEventListener('click', toggleSidebar);
-    if(els.closeSidebarBtn) els.closeSidebarBtn.addEventListener('click', toggleSidebar);
-    
-    
+    if (els.closeSidebarBtn) els.closeSidebarBtn.addEventListener('click', toggleSidebar);
+
+    initResize(); // Initialize resize handle functionality
+
     if (els.input && els.lineNumbers) {
         els.input.addEventListener('scroll', () => { els.lineNumbers.scrollTop = els.input.scrollTop; });
     }
@@ -755,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        
+
         let resizeObserver;
         if (window.ResizeObserver) {
             resizeObserver = new ResizeObserver(() => {
@@ -766,7 +767,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (els.modeBtns && els.modeBtns.length > 0) {
         els.modeBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => { const t = e.target.closest('.mode-btn'); if(t) setMode(t.dataset.mode); });
+            btn.addEventListener('click', (e) => { const t = e.target.closest('.mode-btn'); if (t) setMode(t.dataset.mode); });
             btn.addEventListener('mouseenter', showTooltip);
             btn.addEventListener('mouseleave', hideTooltip);
             btn.addEventListener('keydown', (e) => {
@@ -780,12 +781,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (els.refreshPreviewBtn) {
         els.refreshPreviewBtn.addEventListener('click', () => { runPreview(); els.refreshPreviewBtn.classList.add('animate-spin'); setTimeout(() => els.refreshPreviewBtn.classList.remove('animate-spin'), 500); });
     }
-    
+
     // New file management
     if (els.newFileBtn) els.newFileBtn.addEventListener('click', showNewFileDialog);
     if (els.newFileCreate) els.newFileCreate.addEventListener('click', createNewFile);
     if (els.newFileCancel) els.newFileCancel.addEventListener('click', closeNewFileDialog);
-    
+
     // Toolbar buttons with error handling
     if (els.formatCodeBtn) {
         els.formatCodeBtn.addEventListener('click', (e) => {
@@ -838,11 +839,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Передаємо анонімну функцію, щоб chatId був undefined (і спрацювала логіка currentChatId), 
     // а не об'єкт події (PointerEvent)
     if (els.versionHistoryBtn) els.versionHistoryBtn.addEventListener('click', () => showVersionHistory());
-    
+
     // Tab buttons event listeners
     if (els.tabCode) els.tabCode.addEventListener('click', () => switchTab('code'));
     if (els.tabPreview) els.tabPreview.addEventListener('click', () => switchTab('preview'));
-    
+
     // Event delegation for dynamically created buttons
     if (els.versionHistoryList) {
         els.versionHistoryList.addEventListener('click', (e) => {
@@ -852,7 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 restoreFileVersion(index);
                 return;
             }
-            
+
             const restoreChatBtn = e.target.closest('.restore-chat-version-btn');
             if (restoreChatBtn) {
                 const chatId = restoreChatBtn.dataset.chatId;
@@ -860,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 restoreChatVersion(chatId, index);
                 return;
             }
-            
+
             const loadMessageBtn = e.target.closest('.load-chat-message-btn');
             if (loadMessageBtn) {
                 const chatId = loadMessageBtn.dataset.chatId;
@@ -870,13 +871,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Initialize resize functionality
     initResize();
-    
+
     // Initialize mobile view toggle
     initMobileViewToggle();
-    
+
     // Initialize files
     if (Object.keys(files).length === 0) {
         createFile('New File', '', 'JavaScript');
@@ -885,11 +886,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstFile = Object.keys(files)[0];
         openFile(firstFile);
     }
-    
+
     if (els.langSelect) {
         els.langSelect.addEventListener('change', handleLanguageChange);
     }
-    
+
     setInterval(saveCurrentVersion, 30000); // Every 30 seconds
 });
 
@@ -899,23 +900,23 @@ function updateLineNumbers() {
     els.lineNumbers.innerHTML = Array(lines).fill(0).map((_, i) => i + 1).join('<br>');
 }
 
-function typeWriter(el, txt, spd = 10) { 
+function typeWriter(el, txt, spd = 10) {
     if (!el) return;
-    if (typingInterval) clearInterval(typingInterval); 
-    el.innerHTML = ''; 
-    el.classList.add('typing-cursor'); 
-    let i = 0; 
-    const chars = txt.replace(/\n/g, '<br>').split(/(<[^>]*>|.)/g).filter(Boolean); 
-    typingInterval = setInterval(() => { 
-        if (i < chars.length) { 
-            el.innerHTML += chars[i]; 
-            i++; 
-        } else { 
-            clearInterval(typingInterval); 
-            el.classList.remove('typing-cursor'); 
+    if (typingInterval) clearInterval(typingInterval);
+    el.innerHTML = '';
+    el.classList.add('typing-cursor');
+    let i = 0;
+    const chars = txt.replace(/\n/g, '<br>').split(/(<[^>]*>|.)/g).filter(Boolean);
+    typingInterval = setInterval(() => {
+        if (i < chars.length) {
+            el.innerHTML += chars[i];
+            i++;
+        } else {
+            clearInterval(typingInterval);
+            el.classList.remove('typing-cursor');
             typingInterval = null;
-        } 
-    }, spd); 
+        }
+    }, spd);
 }
 
 function closeWelcomeScreen() { localStorage.setItem('fixly_welcome_seen', 'true'); els.welcomeScreen.classList.add('opacity-0', 'pointer-events-none'); setTimeout(() => { els.welcomeScreen.classList.add('hidden'); els.html.classList.remove('overflow-hidden'); }, 500); }
@@ -923,11 +924,11 @@ function closeWelcomeScreen() { localStorage.setItem('fixly_welcome_seen', 'true
 function checkRateLimit() {
     const now = Date.now();
     RATE_LIMIT.requests = RATE_LIMIT.requests.filter(timestamp => now - timestamp < RATE_LIMIT.windowMs);
-    
+
     if (RATE_LIMIT.requests.length >= RATE_LIMIT.maxRequests) {
         return false;
     }
-    
+
     RATE_LIMIT.requests.push(now);
     return true;
 }
@@ -947,13 +948,13 @@ function generateCacheKey(code, mode, lang, model, wishes) {
 function getCachedResponse(key) {
     const cached = responseCache.get(key);
     if (!cached) return null;
-    
+
     const now = Date.now();
     if (now - cached.timestamp > CACHE_CONFIG.ttl) {
         responseCache.delete(key);
         return null;
     }
-    
+
     return cached.data;
 }
 
@@ -964,12 +965,12 @@ function setCachedResponse(key, data) {
         const firstKey = responseCache.keys().next().value;
         responseCache.delete(firstKey);
     }
-    
+
     responseCache.set(key, {
         data: data,
         timestamp: Date.now()
     });
-    
+
     // Persist to localStorage (async, don't block)
     setTimeout(() => {
         try {
@@ -986,12 +987,12 @@ function setCachedResponse(key, data) {
 // Detect programming language from code content
 function detectCodeLanguage(code) {
     if (!code || code.trim().length < 10) return null;
-    
+
     const codeLower = code.toLowerCase();
     const codeLines = code.split('\n').slice(0, 20).join('\n').toLowerCase();
-    
+
     // C++ / C
-    if (code.includes('#include') || code.includes('using namespace') || 
+    if (code.includes('#include') || code.includes('using namespace') ||
         code.includes('std::') || code.includes('cout') || code.includes('cin') ||
         (code.includes('int main') && (code.includes('{') || code.includes(';')))) {
         if (code.includes('class') && (code.includes('public:') || code.includes('private:'))) {
@@ -999,31 +1000,31 @@ function detectCodeLanguage(code) {
         }
         return 'C';
     }
-    
+
     // Java
     if (code.includes('public class') || code.includes('public static void main') ||
         code.includes('System.out.println') || code.includes('import java.')) {
         return 'Java';
     }
-    
+
     // C#
     if (code.includes('using System') || code.includes('namespace ') ||
         code.includes('Console.WriteLine') || code.includes('public class') && code.includes('static void Main')) {
         return 'C#';
     }
-    
+
     // Python
     if (code.includes('def ') || code.includes('import ') && (code.includes('print(') || code.includes('if __name__')) ||
         code.includes('elif ') || code.includes('except ') || code.includes('lambda ') ||
         (codeLines.match(/^\s*(def|class|import|from|if|for|while|try|except)\s/))) {
         return 'Python';
     }
-    
+
     // JavaScript / TypeScript
     if (code.includes('function ') || code.includes('const ') || code.includes('let ') ||
         code.includes('var ') || code.includes('=>') || code.includes('console.log') ||
         code.includes('document.') || code.includes('require(') || code.includes('module.exports')) {
-        if (code.includes(':') && (code.includes('interface ') || code.includes('type ') || 
+        if (code.includes(':') && (code.includes('interface ') || code.includes('type ') ||
             code.includes('enum ') || code.match(/:\s*(string|number|boolean|any|void)/))) {
             return 'TypeScript';
         }
@@ -1032,45 +1033,45 @@ function detectCodeLanguage(code) {
         }
         return 'JavaScript';
     }
-    
+
     // Go
     if (code.includes('package ') || code.includes('func main()') ||
         code.includes('import (') || code.includes('fmt.Println')) {
         return 'Go';
     }
-    
+
     // Rust
     if (code.includes('fn main()') || code.includes('use ') ||
         code.includes('println!') || code.includes('let mut ') || code.includes('&str')) {
         return 'Rust';
     }
-    
+
     // PHP
     if (code.includes('<?php') || code.includes('<?=') ||
         code.includes('$_') || code.includes('->') && code.includes('$')) {
         return 'PHP';
     }
-    
+
     // Ruby
     if (code.includes('def ') && code.includes('end') ||
         code.includes('puts ') || code.includes('require ') ||
         code.match(/^\s*(class|module|def)\s+\w+/)) {
         return 'Ruby';
     }
-    
+
     // Swift
     if (code.includes('func ') && code.includes('->') ||
         code.includes('import Swift') || code.includes('var ') && code.includes(':') ||
         code.includes('let ') && code.includes(':')) {
         return 'Swift';
     }
-    
+
     // Kotlin
     if (code.includes('fun ') || code.includes('val ') || code.includes('var ') && code.includes(':') ||
         code.includes('println(') && code.includes('fun main')) {
         return 'Kotlin';
     }
-    
+
     // HTML/CSS
     if (code.includes('<!DOCTYPE') || code.includes('<html') || code.includes('<div') ||
         code.includes('</') || (code.includes('<') && code.includes('>'))) {
@@ -1079,18 +1080,18 @@ function detectCodeLanguage(code) {
         }
         return 'HTML/CSS';
     }
-    
+
     // SQL
     if (code.match(/\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|FROM|WHERE|JOIN)\b/i)) {
         return 'SQL';
     }
-    
+
     // Shell/Bash
     if (code.startsWith('#!/bin/') || code.includes('#!/usr/bin/') ||
         code.match(/^\s*(if|for|while|case)\s+\[/) || code.includes('$(') || code.includes('`')) {
         return 'Shell/Bash';
     }
-    
+
     return null;
 }
 
@@ -1098,33 +1099,33 @@ async function runAI() {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     const code = els.input.value.trim();
     const wishes = els.wishes.value.trim();
-    
-    if (!code) { 
-        els.errorMsg.textContent = t.errorEmpty; 
-        els.errorMsg.classList.remove('hidden'); 
-        els.errorMsg.classList.add('animate-shake'); 
-        setTimeout(() => els.errorMsg.classList.remove('animate-shake'), 300); 
-        return; 
+
+    if (!code) {
+        els.errorMsg.textContent = t.errorEmpty;
+        els.errorMsg.classList.remove('hidden');
+        els.errorMsg.classList.add('animate-shake');
+        setTimeout(() => els.errorMsg.classList.remove('animate-shake'), 300);
+        return;
     }
-    
+
     // Detect code language and check if it matches selected language
     // Skip detection in convert mode (user explicitly chooses languages)
     // Skip if user chose to continue anyway
     const shouldSkipCheck = skipLanguageCheck;
     // Reset flag before check (so it only applies to this run)
     skipLanguageCheck = false;
-    
+
     if (currentMode !== 'convert' && !shouldSkipCheck) {
         const detectedLang = detectCodeLanguage(code);
         const selectedLang = els.langSelect.value;
-        
+
         if (detectedLang && detectedLang !== selectedLang) {
             // Show dialog to suggest language change
             showLanguageMismatchDialog(detectedLang, selectedLang);
             return;
         }
     }
-    
+
     if (!checkRateLimit()) {
         const remaining = Math.ceil((RATE_LIMIT.windowMs - (Date.now() - RATE_LIMIT.requests[0])) / 1000);
         els.errorMsg.textContent = `Rate limit exceeded. Please wait ${remaining} seconds.`;
@@ -1133,34 +1134,34 @@ async function runAI() {
         setTimeout(() => els.errorMsg.classList.remove('animate-shake'), 300);
         return;
     }
-    
+
     const selectedModel = els.modelSelect.value;
     const lang = els.langSelect.value; // Programming language (JavaScript, Python, etc.)
     const responseLang = currentLang; // Interface language for AI response (uk, en, ru, etc.)
     const cacheKey = generateCacheKey(code, currentMode, responseLang, selectedModel, wishes);
     const cached = getCachedResponse(cacheKey);
-    
+
     // Start analysis timer
     const analysisStartTime = Date.now();
     let timerInterval;
-    
+
     if (cached) {
         renderOutput(cached, lang, 0); // 0 for cached (instant)
         addToHistory({ mode: currentMode, lang: responseLang, input: code, output: cached, time: new Date().toLocaleTimeString() });
         return;
     }
-    
+
     els.errorMsg.classList.add('hidden');
     els.loadingText.textContent = t.loading;
     els.loadingOverlay.classList.remove('hidden');
     els.runBtn.classList.add('run-btn-glowing');
     els.runBtn.setAttribute('aria-busy', 'true');
     els.runBtn.disabled = true;
-    
+
     // Hide timer and disclaimer initially
     if (els.analysisTimer) els.analysisTimer.classList.add('hidden');
     if (els.aiDisclaimer) els.aiDisclaimer.classList.add('hidden');
-    
+
     // Start analysis timer
     if (els.analysisTimer && els.timerText) {
         timerInterval = setInterval(() => {
@@ -1177,10 +1178,10 @@ async function runAI() {
         window._analysisTimerInterval = timerInterval;
         window._analysisStartTime = analysisStartTime;
     }
-    
+
     if (els.outputContainer) {
         els.outputContainer.setAttribute('aria-busy', 'true');
-    } 
+    }
 
     const controller = new AbortController();
     // Longer timeout for slower models
@@ -1189,7 +1190,7 @@ async function runAI() {
     const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
 
     const targetLangName = t.langName || "English";
-    
+
     if (!selectedModel) {
         els.errorMsg.textContent = "Please select a model.";
         els.errorMsg.classList.remove('hidden');
@@ -1199,191 +1200,191 @@ async function runAI() {
     }
 
     try {
-    const taskMap = { 
-        'debug': 'Fix bugs and errors in the code.', 
-        'optimize': 'Optimize code for performance, readability, and best practices.', 
-        'explain': 'Explain code logic, purpose, and how it works in detail.', 
-        'review': 'Perform comprehensive code review: check for bugs, security issues, best practices, and provide improvement suggestions.',
-        'security': 'Analyze code for security vulnerabilities, potential exploits, and security best practices.',
-        'refactor': 'Refactor code to improve structure, maintainability, and design patterns while preserving functionality.',
-        'document': 'Generate comprehensive documentation: comments, docstrings, and usage examples.',
-        'convert': 'Convert code to another programming language or framework.',
-        'format': 'Format and style code according to language-specific conventions and best practices.',
-        'test': 'Analyze code using step-by-step reasoning and show the thinking process.'
-    };
+        const taskMap = {
+            'debug': 'Fix bugs and errors in the code.',
+            'optimize': 'Optimize code for performance, readability, and best practices.',
+            'explain': 'Explain code logic, purpose, and how it works in detail.',
+            'review': 'Perform comprehensive code review: check for bugs, security issues, best practices, and provide improvement suggestions.',
+            'security': 'Analyze code for security vulnerabilities, potential exploits, and security best practices.',
+            'refactor': 'Refactor code to improve structure, maintainability, and design patterns while preserving functionality.',
+            'document': 'Generate comprehensive documentation: comments, docstrings, and usage examples.',
+            'convert': 'Convert code to another programming language or framework.',
+            'format': 'Format and style code according to language-specific conventions and best practices.',
+            'test': 'Analyze code using step-by-step reasoning and show the thinking process.'
+        };
 
-    let rawText = "";
+        let rawText = "";
 
-    if (API_CONFIG.useServer) {
-        try {
-            // Validate request data before sending
-            if (!code || !code.trim()) {
-                throw new Error("Code cannot be empty");
-            }
-            if (!selectedModel || !selectedModel.trim()) {
-                throw new Error("Model must be selected");
-            }
+        if (API_CONFIG.useServer) {
+            try {
+                // Validate request data before sending
+                if (!code || !code.trim()) {
+                    throw new Error("Code cannot be empty");
+                }
+                if (!selectedModel || !selectedModel.trim()) {
+                    throw new Error("Model must be selected");
+                }
 
-            const requestBody = {
-                code: code.trim(),
-                mode: currentMode || 'debug',
-                lang: responseLang || 'en', // Interface language for AI response
-                model: selectedModel,
-                wishes: wishes ? wishes.trim() : '',
-                // Add convert language info if in convert mode
-                ...(currentMode === 'convert' && els.convertFromLang && els.convertToLang ? {
-                    convertFrom: els.convertFromLang.value,
-                    convertTo: els.convertToLang.value
-                } : {})
-            };
+                const requestBody = {
+                    code: code.trim(),
+                    mode: currentMode || 'debug',
+                    lang: responseLang || 'en', // Interface language for AI response
+                    model: selectedModel,
+                    wishes: wishes ? wishes.trim() : '',
+                    // Add convert language info if in convert mode
+                    ...(currentMode === 'convert' && els.convertFromLang && els.convertToLang ? {
+                        convertFrom: els.convertFromLang.value,
+                        convertTo: els.convertToLang.value
+                    } : {})
+                };
 
-            const serverResponse = await fetch('/api/ai-request', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody),
-                signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId);
-            
-            if (!serverResponse.ok) {
-                let errorData;
+                const serverResponse = await fetch('/api/ai-request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!serverResponse.ok) {
+                    let errorData;
+                    try {
+                        errorData = await serverResponse.json();
+                    } catch (e) {
+                        errorData = { error: serverResponse.statusText, message: serverResponse.statusText };
+                    }
+
+                    let errMsg = errorData.error || errorData.message || serverResponse.statusText;
+
+                    if (serverResponse.status === 400) {
+                        errMsg = errorData.message || "Invalid request. Please check your input.";
+                    } else if (serverResponse.status === 401) {
+                        errMsg = "Authentication failed. Please check server configuration.";
+                    } else if (serverResponse.status === 429) {
+                        errMsg = "Rate limit exceeded. Please try again later.";
+                    } else if (serverResponse.status === 500) {
+                        errMsg = errorData.message || "Server error. Please try again later.";
+                    } else if (serverResponse.status === 404) {
+                        errMsg = "API endpoint not found. Please check deployment.";
+                    } else if (serverResponse.status === 504) {
+                        errMsg = "Request timeout. The server took too long to respond.";
+                    }
+
+                    const error = new Error(errMsg);
+                    error.status = serverResponse.status;
+                    error.isModelError = serverResponse.status === 404 || errMsg.includes('model') || errMsg.includes('not found');
+                    throw error;
+                }
+
+                let serverData;
                 try {
-                    errorData = await serverResponse.json();
+                    serverData = await serverResponse.json();
                 } catch (e) {
-                    errorData = { error: serverResponse.statusText, message: serverResponse.statusText };
+                    throw new Error("Invalid JSON response from server");
                 }
-                
-                let errMsg = errorData.error || errorData.message || serverResponse.statusText;
-                
-                if (serverResponse.status === 400) {
-                    errMsg = errorData.message || "Invalid request. Please check your input.";
-                } else if (serverResponse.status === 401) {
-                    errMsg = "Authentication failed. Please check server configuration.";
-                } else if (serverResponse.status === 429) {
-                    errMsg = "Rate limit exceeded. Please try again later.";
-                } else if (serverResponse.status === 500) {
-                    errMsg = errorData.message || "Server error. Please try again later.";
-                } else if (serverResponse.status === 404) {
-                    errMsg = "API endpoint not found. Please check deployment.";
-                } else if (serverResponse.status === 504) {
-                    errMsg = "Request timeout. The server took too long to respond.";
+
+                if (!serverData || typeof serverData !== 'object') {
+                    throw new Error("Invalid response format from server");
                 }
-                
-                const error = new Error(errMsg);
-                error.status = serverResponse.status;
-                error.isModelError = serverResponse.status === 404 || errMsg.includes('model') || errMsg.includes('not found');
-                throw error;
-            }
-            
-            let serverData;
-            try {
-                serverData = await serverResponse.json();
-            } catch (e) {
-                throw new Error("Invalid JSON response from server");
-            }
-            
-            if (!serverData || typeof serverData !== 'object') {
-                throw new Error("Invalid response format from server");
-            }
-            
-            rawText = serverData.rawText || "";
-            
-            if (!rawText || rawText.trim().length === 0) {
-                throw new Error("Empty response from server.");
-            }
-        } catch (fetchError) {
-            clearTimeout(timeoutId);
-            if (fetchError.name === 'AbortError') {
-                throw new Error("Request timeout");
-            }
-            // Handle network errors
-            if (fetchError.name === 'TypeError') {
-                if (fetchError.message.includes('Failed to fetch') || fetchError.message.includes('NetworkError')) {
-                    throw new Error("Network error: Cannot reach server. Please check your connection.");
+
+                rawText = serverData.rawText || "";
+
+                if (!rawText || rawText.trim().length === 0) {
+                    throw new Error("Empty response from server.");
                 }
-                throw new Error(`Connection error: ${fetchError.message}`);
+            } catch (fetchError) {
+                clearTimeout(timeoutId);
+                if (fetchError.name === 'AbortError') {
+                    throw new Error("Request timeout");
+                }
+                // Handle network errors
+                if (fetchError.name === 'TypeError') {
+                    if (fetchError.message.includes('Failed to fetch') || fetchError.message.includes('NetworkError')) {
+                        throw new Error("Network error: Cannot reach server. Please check your connection.");
+                    }
+                    throw new Error(`Connection error: ${fetchError.message}`);
+                }
+                // Re-throw if it's already a proper Error object
+                throw fetchError;
             }
-            // Re-throw if it's already a proper Error object
-            throw fetchError;
         }
-    }
 
-    if (!rawText) {
-        throw new Error("Empty response from server.");
-    }
-
-    let result;
-    try {
-        result = JSON.parse(rawText);
-    } catch (e) {
-        let cleanedText = rawText.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-        const start = cleanedText.indexOf('{');
-        const end = cleanedText.lastIndexOf('}');
-        if (start !== -1 && end !== -1 && end > start) {
-            const jsonStr = cleanedText.substring(start, end + 1);
-            try {
-               result = JSON.parse(jsonStr); 
-            } catch (e2) {
-               const fixedCodeMatch = cleanedText.match(/"fixedCode"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/) || 
-                                     cleanedText.match(/"fixedCode"\s*:\s*`([^`]+)`/);
-               const explanationMatch = cleanedText.match(/"explanation"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/) || 
-                                       cleanedText.match(/"explanation"\s*:\s*`([^`]+)`/);
-               const tipMatch = cleanedText.match(/"tip"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/);
-               const scoreMatch = cleanedText.match(/"score"\s*:\s*(\d+)/);
-               
-               result = {
-                   fixedCode: fixedCodeMatch ? fixedCodeMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') : cleanedText,
-                   explanation: explanationMatch ? explanationMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') : "Analysis completed.",
-                   tip: tipMatch ? tipMatch[1] : "Code processed successfully.",
-                   score: scoreMatch ? parseInt(scoreMatch[1]) : 75,
-                   smells: []
-               };
-            }
-        } else {
-            result = {
-                fixedCode: cleanedText,
-                explanation: "AI response received. Please review the code below.",
-                tip: "Review the generated code carefully.",
-                score: 70,
-                smells: []
-            };
+        if (!rawText) {
+            throw new Error("Empty response from server.");
         }
-    }
-    
-    if (!result || typeof result !== 'object') {
-        throw new Error("Invalid response structure from AI.");
-    }
-    
-    result.fixedCode = result.fixedCode || "// No code generated";
-    result.explanation = result.explanation || "Analysis completed.";
-    result.tip = result.tip || "Code processed.";
-    result.score = typeof result.score === 'number' ? Math.max(0, Math.min(100, result.score)) : 75;
-    result.smells = Array.isArray(result.smells) ? result.smells : [];
 
-    setCachedResponse(cacheKey, result);
-    
-    // Calculate analysis time
-    const analysisTime = window._analysisStartTime ? Date.now() - window._analysisStartTime : 0;
-    
-    renderOutput(result, lang, analysisTime);
-    addToHistory({ mode: currentMode, lang: responseLang, input: code, output: result, time: new Date().toLocaleTimeString() });
+        let result;
+        try {
+            result = JSON.parse(rawText);
+        } catch (e) {
+            let cleanedText = rawText.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+            const start = cleanedText.indexOf('{');
+            const end = cleanedText.lastIndexOf('}');
+            if (start !== -1 && end !== -1 && end > start) {
+                const jsonStr = cleanedText.substring(start, end + 1);
+                try {
+                    result = JSON.parse(jsonStr);
+                } catch (e2) {
+                    const fixedCodeMatch = cleanedText.match(/"fixedCode"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/) ||
+                        cleanedText.match(/"fixedCode"\s*:\s*`([^`]+)`/);
+                    const explanationMatch = cleanedText.match(/"explanation"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/) ||
+                        cleanedText.match(/"explanation"\s*:\s*`([^`]+)`/);
+                    const tipMatch = cleanedText.match(/"tip"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/);
+                    const scoreMatch = cleanedText.match(/"score"\s*:\s*(\d+)/);
+
+                    result = {
+                        fixedCode: fixedCodeMatch ? fixedCodeMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') : cleanedText,
+                        explanation: explanationMatch ? explanationMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') : "Analysis completed.",
+                        tip: tipMatch ? tipMatch[1] : "Code processed successfully.",
+                        score: scoreMatch ? parseInt(scoreMatch[1]) : 75,
+                        smells: []
+                    };
+                }
+            } else {
+                result = {
+                    fixedCode: cleanedText,
+                    explanation: "AI response received. Please review the code below.",
+                    tip: "Review the generated code carefully.",
+                    score: 70,
+                    smells: []
+                };
+            }
+        }
+
+        if (!result || typeof result !== 'object') {
+            throw new Error("Invalid response structure from AI.");
+        }
+
+        result.fixedCode = result.fixedCode || "// No code generated";
+        result.explanation = result.explanation || "Analysis completed.";
+        result.tip = result.tip || "Code processed.";
+        result.score = typeof result.score === 'number' ? Math.max(0, Math.min(100, result.score)) : 75;
+        result.smells = Array.isArray(result.smells) ? result.smells : [];
+
+        setCachedResponse(cacheKey, result);
+
+        // Calculate analysis time
+        const analysisTime = window._analysisStartTime ? Date.now() - window._analysisStartTime : 0;
+
+        renderOutput(result, lang, analysisTime);
+        addToHistory({ mode: currentMode, lang: responseLang, input: code, output: result, time: new Date().toLocaleTimeString() });
 
     } catch (error) {
         const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
         let errorMessage = t.errorEmpty || "Error occurred";
-        
+
         const modelConfig = MODEL_CONFIG[selectedModel];
         const isModelError = error.isModelError || (error.message && (
-            error.message.includes('model') || 
+            error.message.includes('model') ||
             error.message.includes('not found') ||
             error.message.includes('invalid') ||
             error.message.includes('404') ||
             error.status === 404
         ));
-        
+
         if (isModelError && modelConfig?.fallback && !window._triedFallback) {
             window._triedFallback = true;
             els.modelSelect.value = modelConfig.fallback;
@@ -1394,9 +1395,9 @@ async function runAI() {
             }, 500);
             return;
         }
-        
+
         window._triedFallback = false;
-        
+
         if (error.name === 'AbortError') {
             errorMessage = "Timeout. Try again.";
         } else if (error.message) {
@@ -1412,7 +1413,7 @@ async function runAI() {
         } else if (error.response) {
             errorMessage = `API Error: ${error.response.status} - ${error.response.statusText}`;
         }
-        
+
         els.errorMsg.textContent = errorMessage;
         els.errorMsg.classList.remove('hidden');
         els.errorMsg.classList.add('animate-shake');
@@ -1423,12 +1424,12 @@ async function runAI() {
             clearInterval(window._analysisTimerInterval);
             window._analysisTimerInterval = null;
         }
-        
+
         els.loadingOverlay.classList.add('hidden');
         els.runBtn.classList.remove('run-btn-glowing');
         els.runBtn.setAttribute('aria-busy', 'false');
         els.runBtn.disabled = false;
-        
+
         if (els.outputContainer) {
             els.outputContainer.setAttribute('aria-busy', 'false');
         }
@@ -1437,15 +1438,15 @@ async function runAI() {
 
 // ... RENDER & UTILS ...
 function renderOutput(data, lang, analysisTime) {
-    els.emptyState.classList.add('hidden'); 
+    els.emptyState.classList.add('hidden');
     els.outputContainer.classList.remove('hidden');
-    
+
     // Stop and display timer
     if (window._analysisTimerInterval) {
         clearInterval(window._analysisTimerInterval);
         window._analysisTimerInterval = null;
     }
-    
+
     if (els.analysisTimer && els.timerText && analysisTime !== undefined) {
         const seconds = Math.floor(analysisTime / 1000);
         const minutes = Math.floor(seconds / 60);
@@ -1456,64 +1457,64 @@ function renderOutput(data, lang, analysisTime) {
         els.timerText.textContent = `${timerLabel} ${timeString}`;
         els.analysisTimer.classList.remove('hidden');
     }
-    
+
     // Show AI disclaimer
     if (els.aiDisclaimer) {
         setTimeout(() => {
             els.aiDisclaimer.classList.remove('hidden');
         }, 500);
     }
-    
+
     els.outputContainer.classList.add('animate-fade-in-up');
     setTimeout(() => {
         els.outputContainer.classList.remove('animate-fade-in-up');
     }, 400);
-    
+
     // Auto-switch to output view on mobile when result is ready
     if (window.innerWidth < 768 && window.switchMobileView) {
         setTimeout(() => {
             window.switchMobileView('output');
         }, 300);
     }
-    
+
     // Announce to screen readers
     if (els.outputContainer) {
         els.outputContainer.setAttribute('aria-live', 'polite');
         els.outputContainer.setAttribute('aria-busy', 'false');
     }
-    
-    if (typingInterval) clearInterval(typingInterval); 
-    
+
+    if (typingInterval) clearInterval(typingInterval);
+
     const explanation = data.explanation || "Analysis completed.";
     typeWriter(els.outputExpl, explanation, 5);
-    
+
     els.outputTip.textContent = data.tip || "Code processed successfully.";
-    
+
     const score = typeof data.score === 'number' ? Math.max(0, Math.min(100, data.score)) : 75;
     animateScoreCount(els.scoreCircle, score);
-    
+
     if (data.smells && Array.isArray(data.smells) && data.smells.length > 0 && data.smells[0] !== 'None' && data.smells[0] !== '') {
         els.smellsSection.classList.remove('hidden');
         els.smellsList.innerHTML = data.smells.map(s => `<li>• ${s}</li>`).join('');
     } else {
         els.smellsSection.classList.add('hidden');
     }
-    
+
     const codeBlock = els.outputCode;
     codeBlock.className = 'code-font text-sm';
     const fixedCode = data.fixedCode || "// No code generated";
     codeBlock.textContent = fixedCode;
-    
-    const langMap = { 
-        'JavaScript': 'javascript', 
+
+    const langMap = {
+        'JavaScript': 'javascript',
         'TypeScript': 'typescript',
-        'Python': 'python', 
-        'HTML/CSS': 'html', 
-        'Java': 'java', 
+        'Python': 'python',
+        'HTML/CSS': 'html',
+        'Java': 'java',
         'C++': 'cpp',
         'C': 'c',
         'C#': 'csharp',
-        'PHP': 'php', 
+        'PHP': 'php',
         'SQL': 'sql',
         'Go': 'go',
         'Rust': 'rust',
@@ -1545,18 +1546,18 @@ function renderOutput(data, lang, analysisTime) {
         'Assembly': 'asm'
     };
     const prismLang = langMap[lang] || 'plaintext';
-    
+
     codeBlock.classList.remove(...Object.values(langMap).map(l => `language-${l}`), 'language-plaintext');
     codeBlock.classList.add(`language-${prismLang}`);
-    
+
     // Highlight with Prism
     if (window.Prism) {
         try {
             Prism.highlightElement(codeBlock);
-        } catch(e) {
+        } catch (e) {
         }
     }
-    
+
     if (['HTML/CSS', 'JavaScript', 'TypeScript'].includes(lang)) {
         els.tabPreview.classList.remove('hidden');
         if (currentMode !== 'explain' && currentMode !== 'review' && currentMode !== 'document') {
@@ -1577,26 +1578,36 @@ function showTourStep(index) {
     const step = tourSteps[index];
     const targetEl = els[step.target];
     if (!targetEl) return nextTourStep();
-    
+
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
     targetEl.classList.add('tour-highlight');
-    
+
     // Scroll to element
     targetEl.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-    
+
+    // Handle Header Z-Index for Mode Buttons
+    const header = document.querySelector('header');
+    if (header) {
+        if (targetEl.closest('header')) {
+            header.style.zIndex = '1001'; // Bring header above overlay
+        } else {
+            header.style.zIndex = ''; // Reset
+        }
+    }
+
     // Update tooltip content
     els.tourTitle.textContent = t[step.titleKey] || step.titleKey;
     els.tourDesc.textContent = t[step.descKey] || step.descKey;
     els.tourNextBtn.textContent = index === tourSteps.length - 1 ? (t.finishTour || "Finish") : (t.nextTour || "Next");
-    
+
     // Show tooltip
     els.tourTooltip.classList.remove('hidden');
     requestAnimationFrame(() => {
         els.tourTooltip.classList.remove('opacity-0', 'scale-95');
         const rect = targetEl.getBoundingClientRect();
         const tooltipRect = els.tourTooltip.getBoundingClientRect();
-        
+
         // Position tooltip based on step position preference
         let top, left;
         if (step.pos === 'top') {
@@ -1612,18 +1623,26 @@ function showTourStep(index) {
             top = `${rect.top + (rect.height / 2) - (tooltipRect.height / 2)}px`;
             left = `${rect.left - tooltipRect.width - 15}px`;
         }
-        
+
         // Ensure tooltip stays within viewport
         const maxLeft = window.innerWidth - tooltipRect.width - 20;
         const maxTop = window.innerHeight - tooltipRect.height - 20;
         left = Math.max(20, Math.min(parseInt(left), maxLeft)) + 'px';
         top = Math.max(20, Math.min(parseInt(top), maxTop)) + 'px';
-        
+
         els.tourTooltip.style.top = top;
         els.tourTooltip.style.left = left;
     });
 }
-function endTour() { document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight')); els.tourOverlay.classList.add('opacity-0'); els.tourTooltip.classList.add('opacity-0'); setTimeout(() => { els.tourOverlay.classList.add('hidden'); els.tourTooltip.classList.add('hidden'); }, 300); localStorage.setItem('fixly_tour_seen', 'true'); }
+function endTour() {
+    document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    const header = document.querySelector('header');
+    if (header) header.style.zIndex = '';
+    els.tourOverlay.classList.add('opacity-0');
+    els.tourTooltip.classList.add('opacity-0');
+    setTimeout(() => { els.tourOverlay.classList.add('hidden'); els.tourTooltip.classList.add('hidden'); }, 300);
+    localStorage.setItem('fixly_tour_seen', 'true');
+}
 const tourSteps = [
     { target: 'targetInput', titleKey: 'tourStep1Title', descKey: 'tourStep1Desc', pos: 'bottom' },
     { target: 'targetLang', titleKey: 'tourStep2Title', descKey: 'tourStep2Desc', pos: 'bottom' },
@@ -1631,28 +1650,28 @@ const tourSteps = [
     { target: 'targetRun', titleKey: 'tourStep4Title', descKey: 'tourStep4Desc', pos: 'top' }
 ];
 
-function toggleSidebar() { 
-    els.sidebar.classList.toggle('hidden'); 
-    els.sidebar.classList.toggle('flex'); 
-    if (!els.sidebar.classList.contains('hidden')) els.sidebar.classList.add('sidebar-animate-open'); 
+function toggleSidebar() {
+    els.sidebar.classList.toggle('hidden');
+    els.sidebar.classList.toggle('flex');
+    if (!els.sidebar.classList.contains('hidden')) els.sidebar.classList.add('sidebar-animate-open');
 }
 
-function showTooltip(e) { clearTimeout(tooltipHideTimeout); const key = e.currentTarget.dataset.tooltipKey; if(!key) return; const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en; els.tooltip.textContent = t[key]; els.tooltip.classList.remove('hidden', 'opacity-0'); const rect = e.currentTarget.getBoundingClientRect(); els.tooltip.style.top = `${rect.bottom + 5}px`; els.tooltip.style.left = `${rect.left + rect.width/2}px`; }
+function showTooltip(e) { clearTimeout(tooltipHideTimeout); const key = e.currentTarget.dataset.tooltipKey; if (!key) return; const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en; els.tooltip.textContent = t[key]; els.tooltip.classList.remove('hidden', 'opacity-0'); const rect = e.currentTarget.getBoundingClientRect(); els.tooltip.style.top = `${rect.bottom + 5}px`; els.tooltip.style.left = `${rect.left + rect.width / 2}px`; }
 function hideTooltip() { tooltipHideTimeout = setTimeout(() => { els.tooltip.classList.add('opacity-0'); setTimeout(() => els.tooltip.classList.add('hidden'), 200); }, 150); }
 
 function animateScoreCount(targetEl, finalScore) {
     if (!targetEl) return;
-    
+
     let start = 0;
     const duration = 800;
     const clampedScore = Math.max(0, Math.min(100, finalScore));
-    
+
     const step = (timestamp) => {
         if (!start) start = timestamp;
         const progress = Math.min((timestamp - start) / duration, 1);
         const current = Math.floor(progress * clampedScore);
         targetEl.textContent = current;
-        
+
         // Color based on score
         if (current > 80) {
             targetEl.style.color = '#10b981';
@@ -1664,7 +1683,7 @@ function animateScoreCount(targetEl, finalScore) {
             targetEl.style.color = '#dc2626';
             targetEl.style.borderColor = '#dc2626';
         }
-        
+
         if (progress < 1) {
             window.requestAnimationFrame(step);
         } else {
@@ -1679,7 +1698,7 @@ function animateScoreCount(targetEl, finalScore) {
             }
         }
     };
-    
+
     window.requestAnimationFrame(step);
 }
 
@@ -1697,7 +1716,7 @@ function toggleTheme() {
 function applyTheme() {
     const html = document.documentElement;
     if (!html) return;
-    
+
     if (isDark) {
         html.classList.add('dark');
     } else {
@@ -1723,14 +1742,14 @@ function updateTexts(lang) {
     // Update HTML lang attribute
     if (els.html) els.html.setAttribute('lang', lang);
     const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
-    
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key]) {
             if (el.classList.contains('toolbar-btn-icon')) {
                 // Don't set title - tooltip is handled by showTooltip via data-tooltip-key
                 el.setAttribute('aria-label', t[key]);
-            } 
+            }
             else if (el.classList.contains('toolbar-btn-text')) {
                 el.textContent = t[key];
             } else {
@@ -1738,7 +1757,7 @@ function updateTexts(lang) {
             }
         }
     });
-    
+
     if (els.clearConfirmDialogContent) {
         const titleEl = els.clearConfirmDialogContent.querySelector('h3[data-i18n="clearConfirmTitle"]');
         const messageEl = els.clearConfirmDialogContent.querySelector('p[data-i18n="clearConfirmMessage"]');
@@ -1765,12 +1784,12 @@ function updateTexts(lang) {
         if (els.deleteChatCancel && t.cancel) els.deleteChatCancel.textContent = t.cancel;
         if (els.deleteChatOk && t.deleteChat) els.deleteChatOk.textContent = t.deleteChat;
     }
-    
+
     // Tooltips are handled by showTooltip function via data-tooltip-key, no need to set title
-    
+
     if (els.input) els.input.placeholder = t.placeholder || "// Paste code here...";
     if (els.wishes) els.wishes.placeholder = t.wishesPlaceholder || "Additional wishes...";
-    
+
     // Update convert panel labels
     if (els.convertPanel) {
         const fromLabel = els.convertPanel.querySelector('[data-i18n="convertFrom"]');
@@ -1778,7 +1797,7 @@ function updateTexts(lang) {
         if (fromLabel && t.convertFrom) fromLabel.textContent = t.convertFrom;
         if (toLabel && t.convertTo) toLabel.textContent = t.convertTo;
     }
-    
+
     // Update welcome screen translations
     if (els.welcomeScreen) {
         const welcomeDesc = els.welcomeScreen.querySelector('[data-i18n="welcomeDesc"]');
@@ -1799,7 +1818,7 @@ function updateTexts(lang) {
         const featureMultiLang = els.welcomeScreen.querySelector('[data-i18n="featureMultiLang"]');
         const featureMultiCodeLang = els.welcomeScreen.querySelector('[data-i18n="featureMultiCodeLang"]');
         const featureFast = els.welcomeScreen.querySelector('[data-i18n="featureFast"]');
-        
+
         if (welcomeDesc && t.welcomeDesc) welcomeDesc.textContent = t.welcomeDesc;
         if (startTutorialBtn && t.startTutorialBtn) startTutorialBtn.textContent = t.startTutorialBtn;
         if (skipBtn && t.skipBtn) skipBtn.textContent = t.skipBtn;
@@ -1813,7 +1832,7 @@ function updateTexts(lang) {
         if (featureConvertDesc && t.featureConvertDesc) featureConvertDesc.textContent = t.featureConvertDesc;
         if (featureTest && t.featureTest) featureTest.textContent = t.featureTest;
         if (featureTestDesc && t.featureTestDesc) featureTestDesc.textContent = t.featureTestDesc;
-        
+
         // Update timer and disclaimer texts
         if (els.timerText && t.analysisTimeLabel) {
             const currentText = els.timerText.textContent;
@@ -1836,27 +1855,27 @@ function updateTexts(lang) {
         if (featureMultiCodeLang && t.featureMultiCodeLang) featureMultiCodeLang.textContent = t.featureMultiCodeLang;
         if (featureFast && t.featureFast) featureFast.textContent = t.featureFast;
     }
-    
+
     setMode(currentMode);
 }
 function setMode(mode) {
     currentMode = mode;
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-    const icons = { 
-        debug: 'fa-wrench', 
-        optimize: 'fa-gauge-high', 
-        explain: 'fa-book-open', 
+    const icons = {
+        debug: 'fa-wrench',
+        optimize: 'fa-gauge-high',
+        explain: 'fa-book-open',
         review: 'fa-code-review',
         security: 'fa-shield-halved',
         refactor: 'fa-code-branch',
         document: 'fa-file-lines',
         convert: 'fa-right-left',
         format: 'fa-indent',
-        test: 'fa-vial-virus' 
+        test: 'fa-vial-virus'
     };
-    const names = { 
-        debug: t.tipDebug, 
-        optimize: t.tipOptimize, 
+    const names = {
+        debug: t.tipDebug,
+        optimize: t.tipOptimize,
         explain: t.tipExplain,
         review: t.tipReview,
         security: t.tipSecurity,
@@ -1864,21 +1883,21 @@ function setMode(mode) {
         document: t.tipDocument,
         convert: t.tipConvert,
         format: t.tipFormat,
-        test: t.tipTest 
+        test: t.tipTest
     };
-    
+
     els.modeIcon.className = `fa-solid ${icons[mode] || 'fa-code'} text-base`;
     els.modeName.textContent = names[mode] || mode;
-    
+
     els.modeBtns.forEach(btn => {
         const isActive = btn.dataset.mode === mode;
         btn.classList.toggle('active-mode', isActive);
         btn.setAttribute('aria-pressed', isActive);
         if (!isActive) btn.className = 'mode-btn';
     });
-    
+
     els.runBtnText.textContent = t.runBtn;
-    
+
     // Show/hide convert panel based on mode
     if (els.convertPanel) {
         if (mode === 'convert') {
@@ -1904,7 +1923,7 @@ function setMode(mode) {
             }, 300);
         }
     }
-    
+
     // Announce mode change for screen readers
     if (els.activeModeDisplay) {
         els.activeModeDisplay.setAttribute('aria-live', 'polite');
@@ -1940,20 +1959,20 @@ function runPreview() {
         const code = els.outputCode.textContent;
         const lang = els.langSelect.value;
         const frame = els.previewFrame.contentWindow.document;
-        
+
         if (!frame) {
             return;
         }
-        
+
         frame.open();
-        
+
         const baseStyles = `<style>
             body { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #333; margin: 0; }
             .console-log { font-family: monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; border-left: 3px solid #cbd5e1; font-size: 12px; }
             .console-error { background: #fef2f2; color: #dc2626; border-left-color: #dc2626; }
             .console-warn { background: #fffbeb; color: #d97706; border-left-color: #d97706; }
         </style>`;
-        
+
         const consoleInterceptor = `<script>
             (function() {
                 const logContainer = document.createElement('div');
@@ -1993,7 +2012,7 @@ function runPreview() {
                 };
             })();
         <\/script>`;
-        
+
         if (lang === 'HTML/CSS') {
             frame.write(baseStyles + code);
         } else if (lang === 'JavaScript' || lang === 'TypeScript') {
@@ -2023,7 +2042,7 @@ function runPreview() {
         } else {
             frame.write(`<html><body style="font-family:sans-serif;color:#666;padding:20px;"><h3>No Preview for ${lang}</h3></body></html>`);
         }
-        
+
         frame.close();
     } catch (error) {
         const frame = els.previewFrame.contentWindow.document;
@@ -2034,33 +2053,33 @@ function runPreview() {
         }
     }
 }
-function newChat() { 
-    els.input.value = ''; 
-    els.wishes.value = ''; 
-    els.outputContainer.classList.add('hidden'); 
-    els.emptyState.classList.remove('hidden'); 
-    els.tabPreview.classList.add('hidden'); 
-    localStorage.removeItem('fixly_draft'); 
+function newChat() {
+    els.input.value = '';
+    els.wishes.value = '';
+    els.outputContainer.classList.add('hidden');
+    els.emptyState.classList.remove('hidden');
+    els.tabPreview.classList.add('hidden');
+    localStorage.removeItem('fixly_draft');
     currentChatId = null; // Reset current chat - next addToHistory will create new chat
     renderHistory(); // Re-render to remove active state
-    switchTab('code'); 
-    updateLineNumbers(); 
+    switchTab('code');
+    updateLineNumbers();
 }
 async function copyCode() {
     try {
         const text = els.outputCode.textContent;
         await navigator.clipboard.writeText(text);
-        
+
         // Visual feedback
         const originalHTML = els.copyBtn.innerHTML;
         els.copyBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500" aria-hidden="true"></i>';
         els.copyBtn.setAttribute('aria-label', 'Copied!');
-        
+
         setTimeout(() => {
             els.copyBtn.innerHTML = originalHTML;
             els.copyBtn.setAttribute('aria-label', 'Copy code');
         }, 2000);
-        
+
         // Announce to screen readers
         const announcement = document.createElement('div');
         announcement.className = 'sr-only';
@@ -2113,7 +2132,7 @@ function addToHistory(item) {
             return;
         }
     }
-    
+
     // Create new chat if no active chat
     const newChat = {
         id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
@@ -2133,13 +2152,13 @@ function addToHistory(item) {
         firstMode: item.mode,
         firstLang: item.lang
     };
-    
+
     // Set as current active chat
     currentChatId = newChat.id;
-    
+
     history.unshift(newChat);
     if (history.length > 20) history.pop();
-    
+
     // Save to localStorage with error handling
     try {
         localStorage.setItem('fixly_history', JSON.stringify(history));
@@ -2152,39 +2171,39 @@ function addToHistory(item) {
             }
         }
     }
-    
+
     renderHistory();
 }
 function renderHistory() {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     els.historyList.innerHTML = '';
-    
+
     if (!history.length) {
         els.historyList.innerHTML = `<div class="text-center p-4 opacity-70 text-slate-400 text-xs" role="status" aria-live="polite">${t.historyEmptyDesc}</div>`;
         return;
     }
-    
+
     // Use DocumentFragment for better performance
     const fragment = document.createDocumentFragment();
-    
+
     history.forEach((chat, index) => {
         const div = document.createElement('div');
         const isActive = currentChatId === chat.id;
         div.className = `p-3 rounded-lg ${isActive ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-500' : 'bg-gray-50 dark:bg-slate-900 border-gray-200 dark:border-slate-800'} border hover:border-brand-500 mb-2 transition-colors relative group`;
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
-        
-        const lastMessage = chat.messages && chat.messages.length > 0 
-            ? chat.messages[chat.messages.length - 1] 
+
+        const lastMessage = chat.messages && chat.messages.length > 0
+            ? chat.messages[chat.messages.length - 1]
             : null;
-        
+
         const messageCount = chat.messages ? chat.messages.length : 1;
         const displayTime = lastMessage ? lastMessage.time : (chat.lastActivity ? new Date(chat.lastActivity).toLocaleTimeString() : '');
         const displayText = chat.lastMessage || (lastMessage ? lastMessage.input.substring(0, 30) : '') || 'Empty chat';
         const displayMode = lastMessage ? lastMessage.mode : (chat.firstMode || 'debug');
-        
+
         div.setAttribute('aria-label', `Chat ${index + 1}: ${messageCount} messages, ${displayMode} mode`);
-        
+
         const contentDiv = document.createElement('div');
         contentDiv.className = "cursor-pointer";
         contentDiv.onclick = () => {
@@ -2209,23 +2228,23 @@ function renderHistory() {
             currentChatId = chat.id;
             renderHistory(); // Re-render to show active state
         };
-        
+
         contentDiv.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 contentDiv.click();
             }
         });
-        
+
         const escapeHtml = (text) => {
             const tempDiv = document.createElement('div');
             tempDiv.textContent = text;
             return tempDiv.innerHTML;
         };
-        
+
         const actionsDiv = document.createElement('div');
         actionsDiv.className = "absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center space-x-1";
-        
+
         // Version history button
         const versionBtn = document.createElement('button');
         versionBtn.className = "p-1.5 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 text-blue-500 hover:text-blue-600 dark:hover:text-blue-400";
@@ -2240,7 +2259,7 @@ function renderHistory() {
                 showToast(t.noVersions || 'No saved versions');
             }
         };
-        
+
         // Delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.className = "p-1.5 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 hover:text-red-600 dark:hover:text-red-400";
@@ -2250,13 +2269,13 @@ function renderHistory() {
             e.stopPropagation();
             showDeleteChatDialog(index);
         };
-        
+
         actionsDiv.appendChild(versionBtn);
         actionsDiv.appendChild(deleteBtn);
-        
+
         // Show version count badge if versions exist
         // Бейджики видалено за запитом
-        
+
         contentDiv.innerHTML = `
             <div class="flex justify-between mb-1">
                 <span class="font-mono text-[10px] text-slate-400">${escapeHtml(displayTime)}</span>
@@ -2264,19 +2283,19 @@ function renderHistory() {
             </div>
             <div class="text-xs truncate text-slate-500 dark:text-slate-400 relative">${escapeHtml(displayText)}...</div>
         `;
-        
+
         div.appendChild(contentDiv);
         div.appendChild(actionsDiv);
         fragment.appendChild(div);
     });
-    
+
     els.historyList.appendChild(fragment);
 }
 function showClearHistoryConfirmDialog() {
     if (!els.clearHistoryConfirmDialog || !els.clearHistoryConfirmDialogContent) return;
     els.clearHistoryConfirmDialog.classList.remove('hidden');
     els.clearHistoryConfirmDialog.classList.add('flex');
-    
+
     setTimeout(() => {
         els.clearHistoryConfirmDialogContent.classList.add('dialog-open');
     }, 10);
@@ -2291,28 +2310,28 @@ function closeClearHistoryConfirmDialog() {
     }, 200);
 }
 
-function clearHistory() { 
-    history = []; 
-    localStorage.removeItem('fixly_history'); 
+function clearHistory() {
+    history = [];
+    localStorage.removeItem('fixly_history');
     renderHistory();
     updateHistoryCounter();
- 
+
 }
 
 // Show delete chat confirmation dialog
 function showDeleteChatDialog(index) {
     if (!els.deleteChatDialog || !els.deleteChatDialogContent) return;
-    
+
     // Store the index for later deletion
     pendingDeleteChatIndex = index;
-    
+
     // Update translations
     updateDeleteChatDialogTranslations();
-    
+
     // Show dialog
     els.deleteChatDialog.classList.remove('hidden');
     els.deleteChatDialog.classList.add('flex');
-    
+
     requestAnimationFrame(() => {
         els.deleteChatDialogContent.classList.remove('opacity-0', 'scale-95');
         els.deleteChatDialogContent.classList.add('dialog-open');
@@ -2322,9 +2341,9 @@ function showDeleteChatDialog(index) {
 // Close delete chat dialog
 function closeDeleteChatDialog() {
     if (!els.deleteChatDialog || !els.deleteChatDialogContent) return;
-    
+
     els.deleteChatDialogContent.classList.remove('dialog-open');
-    
+
     setTimeout(() => {
         els.deleteChatDialog.classList.add('hidden');
         els.deleteChatDialog.classList.remove('flex');
@@ -2340,7 +2359,7 @@ function updateDeleteChatDialogTranslations() {
     const messageEl = els.deleteChatDialogContent?.querySelector('p[data-i18n="deleteChatConfirmMessage"]');
     const cancelBtn = els.deleteChatCancel;
     const okBtn = els.deleteChatOk;
-    
+
     if (titleEl && t.deleteChatConfirmTitle) {
         titleEl.textContent = t.deleteChatConfirmTitle;
     }
@@ -2358,10 +2377,10 @@ function updateDeleteChatDialogTranslations() {
 // Show language mismatch dialog
 function showLanguageMismatchDialog(detectedLang, selectedLang) {
     if (!els.languageMismatchDialog || !els.languageMismatchDialogContent) return;
-    
+
     // Store detected language
     pendingDetectedLanguage = detectedLang;
-    
+
     // Update translations
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     const langNames = {
@@ -2383,10 +2402,10 @@ function showLanguageMismatchDialog(detectedLang, selectedLang) {
         'SQL': 'SQL',
         'Shell/Bash': 'Shell/Bash'
     };
-    
+
     const detectedLangName = langNames[detectedLang] || detectedLang;
     const selectedLangName = langNames[selectedLang] || selectedLang;
-    
+
     // Build message based on UI language
     let message;
     if (currentLang === 'uk') {
@@ -2402,11 +2421,11 @@ function showLanguageMismatchDialog(detectedLang, selectedLang) {
     } else {
         message = `Code appears to be ${detectedLangName}, but ${selectedLangName} is selected. Change programming language to ${detectedLangName}?`;
     }
-    
+
     if (els.languageMismatchMessage) {
         els.languageMismatchMessage.textContent = message;
     }
-    
+
     // Update button texts
     if (els.languageMismatchCancel && t.cancel) {
         els.languageMismatchCancel.textContent = t.cancel;
@@ -2417,11 +2436,11 @@ function showLanguageMismatchDialog(detectedLang, selectedLang) {
     if (els.languageMismatchChange && t.changeLanguage) {
         els.languageMismatchChange.textContent = t.changeLanguage;
     }
-    
+
     // Show dialog
     els.languageMismatchDialog.classList.remove('hidden');
     els.languageMismatchDialog.classList.add('flex');
-    
+
     requestAnimationFrame(() => {
         els.languageMismatchDialogContent.classList.remove('opacity-0', 'scale-95');
         els.languageMismatchDialogContent.classList.add('dialog-open');
@@ -2431,9 +2450,9 @@ function showLanguageMismatchDialog(detectedLang, selectedLang) {
 // Close language mismatch dialog
 function closeLanguageMismatchDialog() {
     if (!els.languageMismatchDialog || !els.languageMismatchDialogContent) return;
-    
+
     els.languageMismatchDialogContent.classList.remove('dialog-open');
-    
+
     setTimeout(() => {
         els.languageMismatchDialog.classList.add('hidden');
         els.languageMismatchDialog.classList.remove('flex');
@@ -2459,7 +2478,7 @@ function createFile(filename, content = '', language = 'JavaScript') {
     if (filename === 'New File' || filename.toLowerCase() === 'new file') {
         const ext = LANGUAGE_EXTENSION_MAP[language] || '.js';
         finalFilename = 'New File' + ext;
-        
+
         // If file already exists, add number
         let counter = 1;
         while (files[finalFilename]) {
@@ -2467,7 +2486,7 @@ function createFile(filename, content = '', language = 'JavaScript') {
             counter++;
         }
     }
-    
+
     files[finalFilename] = {
         content: content,
         language: language,
@@ -2478,7 +2497,7 @@ function createFile(filename, content = '', language = 'JavaScript') {
     }
     saveFiles();
     renderFileTabs();
-    
+
     // Animate file creation
     const newTab = document.querySelector(`[data-filename="${finalFilename}"]`);
     if (newTab) {
@@ -2487,9 +2506,9 @@ function createFile(filename, content = '', language = 'JavaScript') {
             newTab.classList.remove('file-tab-new');
         }, 300);
     }
-    
+
     openFile(finalFilename);
-    
+
     // Animate editor opening
     els.input.style.transform = 'scale(0.98)';
     els.input.style.opacity = '0.8';
@@ -2501,18 +2520,18 @@ function createFile(filename, content = '', language = 'JavaScript') {
 
 function openFile(filename) {
     if (!files[filename]) return;
-    
+
     // Save current file before switching
     if (activeFile && files[activeFile]) {
         files[activeFile].content = els.input.value;
         files[activeFile].modified = Date.now();
     }
-    
+
     // Animate file switch with slide animation
     els.input.style.opacity = '0.5';
     els.input.style.transform = 'translateX(-10px)';
     els.input.classList.add('animate-slide-in-left');
-    
+
     setTimeout(() => {
         activeFile = filename;
         els.input.value = files[filename].content;
@@ -2520,7 +2539,7 @@ function openFile(filename) {
         updateLineNumbers();
         renderFileTabs();
         saveFiles();
-        
+
         // Animate back with slide
         els.input.style.opacity = '1';
         els.input.style.transform = 'translateX(0)';
@@ -2536,7 +2555,7 @@ function closeFile(filename) {
     if (Object.keys(files).length <= 1) {
         return;
     }
-    
+
     const tabElement = document.querySelector(`[data-filename="${filename}"]`);
     if (tabElement) {
         tabElement.classList.add('file-tab-closing');
@@ -2547,7 +2566,7 @@ function closeFile(filename) {
                 const nextFile = fileList[currentIndex + 1] || fileList[currentIndex - 1];
                 openFile(nextFile);
             }
-            
+
             delete files[filename];
             saveFiles();
             renderFileTabs();
@@ -2559,7 +2578,7 @@ function closeFile(filename) {
             const nextFile = fileList[currentIndex + 1] || fileList[currentIndex - 1];
             openFile(nextFile);
         }
-        
+
         delete files[filename];
         saveFiles();
         renderFileTabs();
@@ -2568,23 +2587,23 @@ function closeFile(filename) {
 
 function renderFileTabs() {
     els.fileTabs.innerHTML = '';
-    
+
     Object.keys(files).forEach(filename => {
         const tab = document.createElement('div');
         tab.className = `file-tab ${activeFile === filename ? 'active' : ''} ${activeFile === filename ? '' : 'file-tab-new'}`;
         tab.setAttribute('data-filename', filename);
-        
+
         const nameSpan = document.createElement('span');
         nameSpan.className = 'truncate flex-1';
         nameSpan.textContent = filename;
         nameSpan.setAttribute('title', filename);
-        
+
         // Make filename editable on double click
         nameSpan.addEventListener('dblclick', (e) => {
             e.stopPropagation();
             editFileName(filename, nameSpan);
         });
-        
+
         const closeBtn = document.createElement('button');
         closeBtn.className = 'close-tab';
         closeBtn.innerHTML = '<i class="fa-solid fa-xmark text-[10px]"></i>';
@@ -2592,7 +2611,7 @@ function renderFileTabs() {
             e.stopPropagation();
             closeFile(filename);
         };
-        
+
         tab.appendChild(nameSpan);
         tab.appendChild(closeBtn);
         tab.addEventListener('click', () => {
@@ -2600,7 +2619,7 @@ function renderFileTabs() {
                 openFile(filename);
             }
         });
-        
+
         els.fileTabs.appendChild(tab);
     });
 }
@@ -2611,22 +2630,22 @@ function editFileName(filename, nameElement) {
     const lastDotIndex = oldName.lastIndexOf('.');
     const baseName = lastDotIndex > 0 ? oldName.substring(0, lastDotIndex) : oldName;
     const ext = lastDotIndex > 0 ? oldName.substring(lastDotIndex) : '';
-    
+
     const input = document.createElement('input');
     input.type = 'text';
     input.value = baseName;
     input.className = 'bg-transparent border border-brand-500 rounded px-1 text-xs w-full';
     input.style.minWidth = '80px';
-    
+
     // Replace span with input
     nameElement.replaceWith(input);
     input.focus();
     input.select();
-    
+
     const finishEdit = () => {
         const newBaseName = input.value.trim() || 'New File';
         const newFilename = newBaseName + ext;
-        
+
         if (newFilename !== oldName) {
             if (files[newFilename] && newFilename !== oldName) {
                 alert('File with this name already exists!');
@@ -2639,7 +2658,7 @@ function editFileName(filename, nameElement) {
             input.replaceWith(nameElement);
         }
     };
-    
+
     input.addEventListener('blur', finishEdit);
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -2674,25 +2693,25 @@ function handleLanguageChange() {
         // No active file, just update
         return;
     }
-    
+
     const newLang = els.langSelect.value;
     const currentLang = files[activeFile].language;
-    
+
     // If language didn't change, do nothing
     if (newLang === currentLang) {
         return;
     }
-    
+
     // Check if there's code in the editor
     const hasCode = els.input.value.trim().length > 0;
-    
+
     if (hasCode) {
         // Store the new language for later use
         pendingLanguageChange = newLang;
-        
+
         // Show confirmation dialog
         showChangeLanguageDialog(currentLang, newLang);
-        
+
         // Revert language select temporarily
         els.langSelect.value = currentLang;
     } else {
@@ -2704,7 +2723,7 @@ function handleLanguageChange() {
 // Show change language confirmation dialog
 function showChangeLanguageDialog(programmingLang, newLang) {
     if (!els.changeLanguageDialog || !els.changeLanguageDialogContent) return;
-    
+
     // Use UI language, not programming language
     const uiLang = currentLang || localStorage.getItem('fixly_lang') || 'en';
     const t = TRANSLATIONS[uiLang] || TRANSLATIONS.en;
@@ -2748,10 +2767,10 @@ function showChangeLanguageDialog(programmingLang, newLang) {
         'Objective-C': 'Objective-C',
         'Assembly': 'Assembly'
     };
-    
+
     const currentLangName = langNames[programmingLang] || programmingLang;
     const newLangName = langNames[newLang] || newLang;
-    
+
     // Update message with language names
     if (els.changeLanguageMessage) {
         // Build message based on UI language
@@ -2770,17 +2789,17 @@ function showChangeLanguageDialog(programmingLang, newLang) {
             // English default
             message = `Are you sure you want to change the programming language from "${currentLangName}" to "${newLangName}"? The file extension will be updated automatically.`;
         }
-        
+
         els.changeLanguageMessage.textContent = message;
     }
-    
+
     // Update translations
     updateChangeLanguageDialogTranslations();
-    
+
     // Show dialog
     els.changeLanguageDialog.classList.remove('hidden');
     els.changeLanguageDialog.classList.add('flex');
-    
+
     requestAnimationFrame(() => {
         els.changeLanguageDialogContent.classList.remove('opacity-0', 'scale-95');
         els.changeLanguageDialogContent.classList.add('dialog-open');
@@ -2790,9 +2809,9 @@ function showChangeLanguageDialog(programmingLang, newLang) {
 // Close change language dialog
 function closeChangeLanguageDialog() {
     if (!els.changeLanguageDialog || !els.changeLanguageDialogContent) return;
-    
+
     els.changeLanguageDialogContent.classList.remove('dialog-open');
-    
+
     setTimeout(() => {
         els.changeLanguageDialog.classList.add('hidden');
         els.changeLanguageDialog.classList.remove('flex');
@@ -2807,7 +2826,7 @@ function updateChangeLanguageDialogTranslations() {
     const titleEl = els.changeLanguageDialogContent?.querySelector('h3[data-i18n="changeLanguageConfirmTitle"]');
     const cancelBtn = els.changeLanguageCancel;
     const okBtn = els.changeLanguageOk;
-    
+
     if (titleEl && t.changeLanguageConfirmTitle) {
         titleEl.textContent = t.changeLanguageConfirmTitle;
     }
@@ -2822,19 +2841,19 @@ function updateChangeLanguageDialogTranslations() {
 // Rename file with correct extension based on language
 function renameFileWithExtension(oldFilename, newLanguage) {
     if (!files[oldFilename]) return;
-    
+
     // Get base name without extension
     const lastDotIndex = oldFilename.lastIndexOf('.');
     let baseName = lastDotIndex > 0 ? oldFilename.substring(0, lastDotIndex) : oldFilename;
-    
+
     // If it's "New File" or "untitled", keep it as is
     if (baseName === 'New File' || baseName === 'untitled' || baseName.toLowerCase() === 'new file') {
         baseName = 'New File';
     }
-    
+
     const newExt = LANGUAGE_EXTENSION_MAP[newLanguage] || '';
     const newFilename = baseName + newExt;
-    
+
     // If filename already exists and it's different, add number
     let finalFilename = newFilename;
     let counter = 1;
@@ -2843,35 +2862,35 @@ function renameFileWithExtension(oldFilename, newLanguage) {
         finalFilename = `${nameWithoutExt} (${counter})${newExt}`;
         counter++;
     }
-    
+
     // Save current content
     const content = els.input.value;
     const language = newLanguage;
     const modified = files[oldFilename].modified;
-    
+
     // Remove old file
     delete files[oldFilename];
-    
+
     // Create new file with new name
     files[finalFilename] = {
         content: content,
         language: language,
         modified: modified
     };
-    
+
     // Update versions
     if (fileVersions[oldFilename]) {
         fileVersions[finalFilename] = fileVersions[oldFilename];
         delete fileVersions[oldFilename];
     }
-    
+
     // Update active file
     activeFile = finalFilename;
-    
+
     // Save and re-render
     saveFiles();
     renderFileTabs();
-    
+
     // Update language select to match
     els.langSelect.value = newLanguage;
 }
@@ -2879,43 +2898,43 @@ function renameFileWithExtension(oldFilename, newLanguage) {
 // Rename file function (can be called from UI)
 function renameFile(oldFilename, newFilename) {
     if (!files[oldFilename]) return false;
-    
+
     // Check if new filename already exists
     if (files[newFilename] && newFilename !== oldFilename) {
         alert('File with this name already exists!');
         return false;
     }
-    
+
     // Save current content
     const content = files[oldFilename].content;
     const language = files[oldFilename].language;
     const modified = files[oldFilename].modified;
-    
+
     // Remove old file
     delete files[oldFilename];
-    
+
     // Create new file with new name
     files[newFilename] = {
         content: content,
         language: language,
         modified: modified
     };
-    
+
     // Update versions
     if (fileVersions[oldFilename]) {
         fileVersions[newFilename] = fileVersions[oldFilename];
         delete fileVersions[oldFilename];
     }
-    
+
     // Update active file if it was the renamed one
     if (activeFile === oldFilename) {
         activeFile = newFilename;
     }
-    
+
     // Save and re-render
     saveFiles();
     renderFileTabs();
-    
+
     return true;
 }
 
@@ -2942,21 +2961,21 @@ function closeNewFileDialog() {
 function createNewFile() {
     const name = els.newFileName.value.trim();
     const type = els.newFileType.value;
-    
+
     if (!name) {
         els.newFileName.focus();
         return;
     }
-    
+
     const filename = name.endsWith(type) ? name : name + type;
-    
+
     if (files[filename]) {
         if (!confirm(`File "${filename}" already exists. Overwrite?`)) {
             return;
         }
     }
-    
-        createFile(filename, '', EXTENSION_LANGUAGE_MAP[type] || 'JavaScript');
+
+    createFile(filename, '', EXTENSION_LANGUAGE_MAP[type] || 'JavaScript');
     closeNewFileDialog();
 }
 
@@ -2968,37 +2987,37 @@ async function formatCode() {
         setTimeout(() => els.formatCodeBtn.classList.remove('animate-shake'), 300);
         return;
     }
-    
+
     const code = els.input.value;
     const lang = els.langSelect.value;
-    
+
     // Enhanced formatting with better indentation
     let formatted = code;
     let indentLevel = 0;
     const indentSize = 4;
-    
+
     if (lang === 'JavaScript' || lang === 'TypeScript') {
         // Enhanced JS/TS formatting
         const lines = code.split('\n');
         formatted = lines.map(line => {
             const trimmed = line.trim();
             if (!trimmed) return '';
-            
+
             // Decrease indent for closing braces
             if (trimmed.startsWith('}') || trimmed.startsWith(']') || trimmed.startsWith(')')) {
                 indentLevel = Math.max(0, indentLevel - 1);
             }
-            
+
             const indented = ' '.repeat(indentLevel * indentSize) + trimmed;
-            
+
             // Increase indent for opening braces
             if (trimmed.endsWith('{') || trimmed.endsWith('[') || trimmed.endsWith('(')) {
                 indentLevel++;
             }
-            
+
             return indented;
         }).join('\n');
-        
+
         // Clean up extra spaces
         formatted = formatted
             .replace(/\s*{\s*/g, ' {')
@@ -3006,7 +3025,7 @@ async function formatCode() {
             .replace(/;\s*/g, ';\n')
             .replace(/\n{3,}/g, '\n\n')
             .trim();
-            
+
     } else if (lang === 'HTML/CSS') {
         // Enhanced HTML formatting
         formatted = code
@@ -3043,7 +3062,7 @@ async function formatCode() {
             .replace(/\n{3,}/g, '\n\n')
             .trim();
     }
-    
+
     // Animate the change
     els.input.style.opacity = '0.5';
     setTimeout(() => {
@@ -3051,7 +3070,7 @@ async function formatCode() {
         updateLineNumbers();
         els.input.style.opacity = '1';
     }, 150);
-    
+
     // Visual feedback with animation
     const originalHTML = els.formatCodeBtn.innerHTML;
     els.formatCodeBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark"></i>';
@@ -3060,7 +3079,7 @@ async function formatCode() {
         els.formatCodeBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>';
         els.formatCodeBtn.classList.remove('animate-pulse-glow');
     }, 1500);
-    
+
     // Save version after formatting
     if (activeFile) {
         saveCurrentVersion();
@@ -3070,21 +3089,21 @@ async function formatCode() {
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
-    
+
     // Add animation to upload button
     els.uploadFileBtn.classList.add('animate-bounce');
     setTimeout(() => {
         els.uploadFileBtn.classList.remove('animate-bounce');
     }, 500);
-    
+
     const reader = new FileReader();
     reader.onload = (e) => {
         const content = e.target.result;
         const filename = file.name;
         const ext = filename.substring(filename.lastIndexOf('.'));
-        
+
         createFile(filename, content, EXTENSION_LANGUAGE_MAP[ext] || 'JavaScript');
-        
+
         // Add success animation
         els.uploadFileBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark" aria-hidden="true"></i>';
         els.uploadFileBtn.classList.add('animate-pulse-glow');
@@ -3094,7 +3113,7 @@ function handleFileUpload(event) {
         }, 1000);
     };
     reader.readAsText(file);
-    
+
     // Reset input
     event.target.value = '';
 }
@@ -3105,19 +3124,19 @@ function downloadCurrentFile() {
     setTimeout(() => {
         els.downloadFileBtn.classList.remove('animate-bounce');
     }, 500);
-    
+
     if (!activeFile || !files[activeFile]) {
         // Download current editor content
         const content = els.input.value;
         const lang = els.langSelect.value;
-        
+
         const ext = LANGUAGE_EXTENSION_MAP[lang] || '.txt';
         const filename = `code${ext}`;
-        
+
         downloadFile(filename, content);
         return;
     }
-    
+
     const content = files[activeFile].content;
     downloadFile(activeFile, content);
 }
@@ -3132,7 +3151,7 @@ function downloadFile(filename, content) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
+
     // Visual feedback with animation
     els.downloadFileBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark" aria-hidden="true"></i>';
     els.downloadFileBtn.classList.add('animate-pulse-glow');
@@ -3149,10 +3168,10 @@ async function copyInputCode() {
         setTimeout(() => els.copyInputBtn.classList.remove('animate-shake'), 300);
         return;
     }
-    
+
     try {
         await navigator.clipboard.writeText(code);
-        
+
         // Visual feedback with animation
         const originalHTML = els.copyInputBtn.innerHTML;
         els.copyInputBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark"></i>';
@@ -3171,7 +3190,7 @@ function showClearConfirmDialog() {
     if (!els.clearConfirmDialog || !els.clearConfirmDialogContent) return;
     els.clearConfirmDialog.classList.remove('hidden');
     els.clearConfirmDialog.classList.add('flex');
-    
+
     setTimeout(() => {
         els.clearConfirmDialogContent.classList.add('dialog-open');
     }, 10);
@@ -3192,7 +3211,7 @@ function clearInput() {
     els.input.focus();
     localStorage.removeItem('fixly_draft');
     updateLineNumbers();
-    
+
     const clearBtn = document.getElementById('clear-input-btn');
     if (clearBtn) {
         clearBtn.innerHTML = '<i class="fa-solid fa-check text-brand-500 animate-checkmark" aria-hidden="true"></i>';
@@ -3202,7 +3221,7 @@ function clearInput() {
             clearBtn.classList.remove('animate-pulse-glow');
         }, 1000);
     }
-    
+
     if (activeFile && files[activeFile]) {
         files[activeFile].content = '';
         files[activeFile].modified = Date.now();
@@ -3214,7 +3233,7 @@ function clearInput() {
 function saveCurrentVersion() {
     const content = els.input.value.trim();
     if (!content) return;
-    
+
     // Save to current active chat if exists
     if (currentChatId) {
         const currentChat = history.find(chat => chat.id === currentChatId);
@@ -3222,23 +3241,23 @@ function saveCurrentVersion() {
             if (!currentChat.versions) {
                 currentChat.versions = [];
             }
-            
+
             // Don't save if same as last version
             const lastVersion = currentChat.versions[currentChat.versions.length - 1];
             if (lastVersion && lastVersion.content === content) {
                 return;
             }
-            
+
             currentChat.versions.push({
                 content: content,
                 timestamp: Date.now()
             });
-            
+
             // Keep only last 50 versions per chat
             if (currentChat.versions.length > 50) {
                 currentChat.versions = currentChat.versions.slice(-50);
             }
-            
+
             // Save to localStorage
             try {
                 localStorage.setItem('fixly_history', JSON.stringify(history));
@@ -3247,36 +3266,36 @@ function saveCurrentVersion() {
             return;
         }
     }
-    
+
     // Fallback to file-based versioning if no active chat
     if (!activeFile) return;
-    
+
     if (!fileVersions[activeFile]) {
         fileVersions[activeFile] = [];
     }
-    
+
     // Don't save if same as last version
     const lastVersion = fileVersions[activeFile][fileVersions[activeFile].length - 1];
     if (lastVersion && lastVersion.content === content) {
         return;
     }
-    
+
     fileVersions[activeFile].push({
         content: content,
         timestamp: Date.now()
     });
-    
+
     // Keep only last 50 versions per file
     if (fileVersions[activeFile].length > 50) {
         fileVersions[activeFile] = fileVersions[activeFile].slice(-50);
     }
-    
+
     saveFiles();
 }
 
 function showVersionHistory(chatId = null) {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-    
+
     // If chatId provided, show messages for that chat
     if (chatId) {
         const chat = history.find(c => c.id === chatId);
@@ -3293,7 +3312,7 @@ function showVersionHistory(chatId = null) {
             return;
         }
     }
-    
+
     // Show current chat messages
     if (currentChatId) {
         const currentChat = history.find(c => c.id === currentChatId);
@@ -3311,7 +3330,7 @@ function showVersionHistory(chatId = null) {
             }
         }
     }
-    
+
     // No active chat or no messages
     showToast(t.noRequests || 'No requests');
 }
@@ -3319,14 +3338,14 @@ function showVersionHistory(chatId = null) {
 function renderVersionHistory() {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     els.versionHistoryList.innerHTML = '';
-    
+
     if (!activeFile || !fileVersions[activeFile]) {
         els.versionHistoryList.innerHTML = `<div class="text-center text-slate-400 py-4">${t.noVersions || 'No versions'}</div>`;
         return;
     }
-    
+
     const versions = fileVersions[activeFile].slice().reverse(); // Show newest first
-    
+
     versions.forEach((version, index) => {
         const item = document.createElement('div');
         item.className = 'version-item p-3 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 mb-2';
@@ -3349,7 +3368,7 @@ function renderVersionHistory() {
 function renderChatMessages(chat) {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     els.versionHistoryList.innerHTML = '';
-    
+
     // Check if chat has messages or old format (direct input/output)
     let messages = [];
     if (chat.messages && chat.messages.length > 0) {
@@ -3365,32 +3384,32 @@ function renderChatMessages(chat) {
             timestamp: chat.createdAt || Date.now()
         }];
     }
-    
+
     if (!chat || messages.length === 0) {
         els.versionHistoryList.innerHTML = `<div class="text-center text-slate-400 py-4">${t.noRequests || 'No requests'}</div>`;
         return;
     }
-    
+
     // Update dialog title
     const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
     if (titleEl) {
         titleEl.textContent = t.requestHistory || t.versionHistory || 'Request History';
     }
-    
+
     // Show messages in reverse order (newest first)
     const reversedMessages = messages.slice().reverse();
-    
+
     reversedMessages.forEach((message, index) => {
         const item = document.createElement('div');
         item.className = 'p-3 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 mb-2 cursor-pointer hover:border-brand-500 transition-colors';
         const date = new Date(message.timestamp || Date.now());
-        
+
         const escapeHtml = (text) => {
             const tempDiv = document.createElement('div');
             tempDiv.textContent = text;
             return tempDiv.innerHTML;
         };
-        
+
         item.innerHTML = `
             <div class="flex justify-between items-start mb-2">
                 <div class="flex-1">
@@ -3406,7 +3425,7 @@ function renderChatMessages(chat) {
                 ${t.restoreVersion || 'Load'}
             </button>
         `;
-        
+
         els.versionHistoryList.appendChild(item);
     });
 }
@@ -3414,21 +3433,21 @@ function renderChatMessages(chat) {
 function renderChatVersionHistory(chat) {
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     els.versionHistoryList.innerHTML = '';
-    
+
     if (!chat || !chat.versions || chat.versions.length === 0) {
         els.versionHistoryList.innerHTML = `<div class="text-center text-slate-400 py-4">${t.noVersions || 'No versions'}</div>`;
         return;
     }
-    
+
     // Update dialog title to show chat info
     const titleEl = els.versionHistoryDialogContent?.querySelector('h3');
     if (titleEl) {
         const chatPreview = chat.lastMessage || (chat.messages && chat.messages.length > 0 ? chat.messages[chat.messages.length - 1].input.substring(0, 30) : '') || 'Chat';
         titleEl.textContent = `${t.versionHistory} - ${chatPreview}${chatPreview.length > 30 ? '...' : ''}`;
     }
-    
+
     const versions = chat.versions.slice().reverse(); // Show newest first
-    
+
     versions.forEach((version, index) => {
         const item = document.createElement('div');
         item.className = 'version-item p-3 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 mb-2';
@@ -3450,7 +3469,7 @@ function renderChatVersionHistory(chat) {
 
 function restoreFileVersion(index) {
     if (!activeFile || !fileVersions[activeFile] || !fileVersions[activeFile][index]) return;
-    
+
     const version = fileVersions[activeFile][index];
     els.input.value = version.content;
     updateLineNumbers();
@@ -3461,7 +3480,7 @@ window.restoreFileVersion = restoreFileVersion;
 function restoreChatVersion(chatId, index) {
     const chat = history.find(c => c.id === chatId);
     if (!chat || !chat.versions || !chat.versions[index]) return;
-    
+
     const version = chat.versions[index];
     els.input.value = version.content;
     updateLineNumbers();
@@ -3472,7 +3491,7 @@ window.restoreChatVersion = restoreChatVersion;
 function loadChatMessage(chatId, messageIndex) {
     const chat = history.find(c => c.id === chatId);
     if (!chat || !chat.messages || !chat.messages[messageIndex]) return;
-    
+
     const message = chat.messages[messageIndex];
     els.input.value = message.input;
     els.langSelect.value = message.lang;
@@ -3488,7 +3507,7 @@ window.loadChatMessage = loadChatMessage;
 // Initialize resize handle functionality
 function initResize() {
     if (!els.resizeHandle || !els.inputSection || !els.outputSection) return;
-    
+
     // Load saved width from localStorage
     const savedWidth = localStorage.getItem('fixly_input_width');
     if (savedWidth) {
@@ -3498,51 +3517,51 @@ function initResize() {
             els.outputSection.style.flex = `0 0 ${100 - width}%`;
         }
     }
-    
+
     let isResizing = false;
     let startX = 0;
     let startInputWidth = 0;
     let startOutputWidth = 0;
-    
+
     const startResize = (e) => {
         isResizing = true;
         startX = e.clientX || e.touches[0].clientX;
-        
+
         const inputRect = els.inputSection.getBoundingClientRect();
         const containerRect = els.inputSection.parentElement.getBoundingClientRect();
-        
+
         startInputWidth = (inputRect.width / containerRect.width) * 100;
-        
+
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';
         els.resizeHandle.classList.add('bg-brand-500');
-        
+
         e.preventDefault();
     };
-    
+
     const resize = (e) => {
         if (!isResizing) return;
-        
+
         const currentX = e.clientX || e.touches[0].clientX;
         const containerRect = els.inputSection.parentElement.getBoundingClientRect();
         const deltaX = currentX - startX;
         const deltaPercent = (deltaX / containerRect.width) * 100;
-        
+
         let newInputWidth = startInputWidth + deltaPercent;
-        
-        // Constrain between 20% and 80%
-        newInputWidth = Math.max(20, Math.min(80, newInputWidth));
+
+        // Constrain between 30% and 70%
+        newInputWidth = Math.max(30, Math.min(70, newInputWidth));
         const newOutputWidth = 100 - newInputWidth;
-        
+
         els.inputSection.style.flex = `0 0 ${newInputWidth}%`;
         els.outputSection.style.flex = `0 0 ${newOutputWidth}%`;
-        
+
         // Save to localStorage
         localStorage.setItem('fixly_input_width', newInputWidth.toString());
-        
+
         e.preventDefault();
     };
-    
+
     const stopResize = () => {
         if (!isResizing) return;
         isResizing = false;
@@ -3550,12 +3569,12 @@ function initResize() {
         document.body.style.userSelect = '';
         els.resizeHandle.classList.remove('bg-brand-500');
     };
-    
+
     // Mouse events
     els.resizeHandle.addEventListener('mousedown', startResize);
     document.addEventListener('mousemove', resize);
     document.addEventListener('mouseup', stopResize);
-    
+
     // Touch events for mobile
     els.resizeHandle.addEventListener('touchstart', startResize);
     document.addEventListener('touchmove', resize);
@@ -3565,7 +3584,7 @@ function initResize() {
 // Initialize mobile view toggle
 function initMobileViewToggle() {
     if (!els.mobileTabInput || !els.mobileTabOutput || !els.inputSection || !els.outputSection) return;
-    
+
     const switchToView = (view) => {
         if (view === 'input') {
             els.inputSection.classList.remove('hidden');
@@ -3579,10 +3598,10 @@ function initMobileViewToggle() {
             els.mobileTabOutput.classList.add('active');
         }
     };
-    
+
     els.mobileTabInput.addEventListener('click', () => switchToView('input'));
     els.mobileTabOutput.addEventListener('click', () => switchToView('output'));
-    
+
     // Store function globally for use in renderOutput
     window.switchMobileView = switchToView;
 }
@@ -3590,28 +3609,28 @@ function initMobileViewToggle() {
 // Show toast notification
 function showToast(message, duration = 3000) {
     if (!els.toast || !els.toastMessage) return;
-    
+
     els.toastMessage.textContent = message;
-    
+
     // Show toast
     els.toast.classList.remove('translate-x-full', 'opacity-0');
     els.toast.classList.add('-translate-x-0', 'opacity-100');
     els.toast.classList.remove('pointer-events-none');
-    
+
     // Auto hide after duration
     const hideToast = () => {
         els.toast.classList.add('translate-x-full', 'opacity-0');
         els.toast.classList.remove('-translate-x-0', 'opacity-100');
         els.toast.classList.add('pointer-events-none');
     };
-    
+
     // Clear existing timeout if any
     if (els.toast._hideTimeout) {
         clearTimeout(els.toast._hideTimeout);
     }
-    
+
     els.toast._hideTimeout = setTimeout(hideToast, duration);
-    
+
     // Close button handler
     if (els.toastClose) {
         els.toastClose.onclick = () => {
@@ -3660,13 +3679,13 @@ async function testAIModel(modelId) {
     if (!modelConfig) {
         return { success: false, error: 'Model not configured' };
     }
-    
+
     const testCode = "console.log('test');";
-    
+
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout for test
-        
+
         const response = await fetch('/api/ai-request', {
             method: 'POST',
             headers: {
@@ -3681,28 +3700,28 @@ async function testAIModel(modelId) {
             }),
             signal: controller.signal
         });
-        
+
         clearTimeout(timeoutId);
-        
+
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             const errorMsg = errorData.error || errorData.message || `HTTP ${response.status}`;
             MODEL_CONFIG[modelId].verified = false;
             return { success: false, error: errorMsg };
         }
-        
+
         const data = await response.json();
         const hasContent = !!(data.rawText && data.rawText.trim().length > 0);
-        
+
         if (!hasContent) {
             MODEL_CONFIG[modelId].verified = false;
             return { success: false, error: 'Empty response' };
         }
-        
+
         // Update verified status
         MODEL_CONFIG[modelId].verified = true;
         return { success: true };
-        
+
     } catch (error) {
         const errorMsg = error.name === 'AbortError' ? 'Timeout' : error.message || 'Unknown error';
         MODEL_CONFIG[modelId].verified = false;
@@ -3714,11 +3733,11 @@ async function verifyAllModels() {
     const results = {};
     const modelSelect = els.modelSelect;
     const originalOptions = Array.from(modelSelect.options);
-    
+
     for (const modelId of Object.keys(MODEL_CONFIG)) {
         const result = await testAIModel(modelId);
         results[modelId] = result.success;
-        
+
         const option = Array.from(modelSelect.options).find(opt => opt.value === modelId);
         if (option) {
             if (result.success) {
@@ -3730,10 +3749,10 @@ async function verifyAllModels() {
                 option.title = `Error: ${result.error || 'Failed'}`;
             }
         }
-        
+
         await new Promise(resolve => setTimeout(resolve, 500));
     }
-    
+
     try {
         localStorage.setItem('fixly_model_verification', JSON.stringify({
             results,
@@ -3741,7 +3760,7 @@ async function verifyAllModels() {
         }));
     } catch (e) {
     }
-    
+
     return results;
 }
 

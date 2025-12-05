@@ -408,11 +408,14 @@ pre[class*="language-"] {
     z-index: 999 !important;
     box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.5), 0 10px 25px -5px rgba(0, 0, 0, 0.4) !important;
     border-radius: 12px;
-    background-color: white;
     pointer-events: auto !important;
 }
 
-.dark .tour-highlight {
+.tour-highlight.code-font {
+    background-color: white;
+}
+
+.dark .tour-highlight.code-font {
     background-color: #0f172a;
 }
 
